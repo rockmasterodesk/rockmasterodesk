@@ -1,0 +1,541 @@
+.no-padding {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.no-margin {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.flex-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-div .flex-grow-1 {
+  flex-grow: 1;
+}
+
+p {
+  margin-bottom: 0 !important;
+}
+
+.flex-custom {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-custom .sidebar {
+  height: inherit;
+}
+
+.flex-custom .content {
+  flex-grow: 1;
+  height: inherit;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.temp-colors {
+  background: blue;
+  color: white;
+}
+
+.icon-btn {
+  padding: 5px 14px;
+  border: 1px solid #e6e6e6;
+}
+
+.icon-btn:hover {
+  color: black;
+  background: #e6e6e6;
+}
+
+.custom-scroll {
+  position: relative;
+}
+
+.btn-icon {
+  visibility: hidden;
+  color: #019be1;
+  padding: 0px;
+}
+
+.btn-icon > .fa {
+  font-size: 10px;
+}
+
+.btn-icon:hover {
+  color: #019be1;
+}
+
+.only-icon {
+  color: black;
+  padding: 0px;
+}
+
+.only-icon > .fa {
+  font-size: 10px;
+}
+
+.only-icon:hover {
+  color: #019be1;
+}
+
+.btn-icon-shower:hover .btn-icon {
+  visibility: visible;
+}
+
+.btn:focus,
+.btn:active,
+.form-control:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.dropdown-menu {
+  box-shadow: 2px 2px 5px #ccc;
+}
+
+.dropdown-menu a {
+  font-size: 12px;
+}
+
+.dropdown-menu a i {
+  margin-right: 5px;
+}
+
+.dropdown-menu a:hover {
+  background: #EFF7FE;
+}
+
+body {
+  background: #efefef;
+}
+
+section.site-header {
+  height: 50px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 0 5px #ddd;
+  font-size: 14px;
+  color: #212529;
+  background: white;
+}
+
+section.site-header .logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+section.site-header .search-form {
+  max-width: 300px;
+  display: none;
+}
+
+section.site-header > div {
+  height: inherit;
+}
+
+section.site-header > div > div {
+  height: inherit;
+}
+
+section.site-header .icon-btn {
+  margin-left: 5px;
+  color: #212529;
+}
+
+#profile-tooltip {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  font-size: 12px;
+}
+
+#profile-tooltip .header {
+  display: flex;
+  align-items: center;
+}
+
+#profile-tooltip .header img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#profile-tooltip .content {
+  padding: 5px 0;
+}
+
+#profile-tooltip .actions {
+  padding-top: 5px;
+}
+
+#profile-tooltip .actions .btn {
+  font-size: 12px;
+  border-radius: 0;
+  padding: 5px 10px;
+}
+
+section.main {
+  height: calc(100vh - 50px);
+}
+
+section.main .container,
+section.main .container-fluid {
+  height: inherit;
+  background: white;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+section.main .container .flex-div,
+section.main .container-fluid .flex-div {
+  height: inherit;
+}
+
+section.main .left-sidebar {
+  width: 300px;
+  height: inherit;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ccc;
+  padding: 0 10px;
+}
+
+section.main .left-sidebar .chatroom .title {
+  padding-top: 10px;
+}
+
+section.main .left-sidebar .chatroom .create-new {
+  text-decoration: none;
+}
+
+section.main .left-sidebar .chatroom .create-new > div {
+  padding: 5px 10px;
+}
+
+section.main .left-sidebar .chatroom .create-new > div:hover {
+  background: #EFF7FE;
+}
+
+section.main .left-sidebar .chatroom .create-new:hover {
+  text-decoration: none;
+}
+
+section.main .left-sidebar .search-container {
+  position: relative;
+}
+
+section.main .left-sidebar .search-container #searchInput {
+  font-size: 14px;
+}
+
+section.main .left-sidebar .search-container > .search-results {
+  display: none;
+  position: absolute;
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  width: 100%;
+  top: 35px;
+  background: white;
+  box-shadow: 2px 2px 5px #ccc;
+  z-index: 10;
+}
+
+section.main .left-sidebar .search-container > .search-results .single .propic,
+section.main .left-sidebar .search-container > .search-results .single .nopic {
+  width: 50px;
+  height: auto;
+}
+
+section.main .left-sidebar .search-container > .search-results .single .propic img,
+section.main .left-sidebar .search-container > .search-results .single .propic p,
+section.main .left-sidebar .search-container > .search-results .single .nopic img,
+section.main .left-sidebar .search-container > .search-results .single .nopic p {
+  height: 30px;
+  width: 30px;
+}
+
+section.main .left-sidebar .search-container > .search-results .single .content .name {
+  font-size: 14px;
+}
+
+section.main .left-sidebar .search-container > .search-results .single .content .designation {
+  font-size: 11px;
+}
+
+section.main .left-sidebar .single-conversation,
+section.main .left-sidebar .single {
+  background: #fff;
+  color: black;
+  border-left: 2px solid white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+section.main .left-sidebar .single-conversation.active,
+section.main .left-sidebar .single-conversation:hover,
+section.main .left-sidebar .single.active,
+section.main .left-sidebar .single:hover {
+  background: #EFF7FE;
+  border-left-color: #019be1;
+}
+
+section.main .left-sidebar .single-conversation.active-bordered,
+section.main .left-sidebar .single.active-bordered {
+  border: 2px solid transparent;
+  padding: 5px 0;
+}
+
+section.main .left-sidebar .single-conversation .content .name,
+section.main .left-sidebar .single .content .name {
+  font-size: 16px;
+  color: #212529;
+  font-weight: 500;
+}
+
+section.main .left-sidebar .single-conversation .content .designation,
+section.main .left-sidebar .single .content .designation {
+  font-size: 12px;
+  color: #969696;
+}
+
+section.main .left-sidebar .single-conversation .propic,
+section.main .left-sidebar .single .propic {
+  width: 70px;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.main .left-sidebar .single-conversation .propic img,
+section.main .left-sidebar .single .propic img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+section.main .left-sidebar .single-conversation .nopic,
+section.main .left-sidebar .single .nopic {
+  width: 70px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.main .left-sidebar .single-conversation .nopic p,
+section.main .left-sidebar .single .nopic p {
+  width: 50px;
+  height: 50px;
+  background: blue;
+  color: white;
+  font-size: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.main .left-sidebar .single-conversation .content,
+section.main .left-sidebar .single .content {
+  padding: 10px;
+}
+
+section.main .left-sidebar .single-conversation .options,
+section.main .left-sidebar .single .options {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+section.main .left-sidebar .conversations {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+section.main .left-sidebar .conversations a {
+  text-decoration: none;
+}
+
+section.main .main-contents {
+  flex-grow: 1;
+  height: inherit;
+  font-size: 13px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+section.main .main-contents button {
+  color: #363D45;
+}
+
+section.main .main-contents .person-header {
+  border-bottom: 1px solid #aaa;
+  padding: 3px 10;
+  align-items: center;
+  max-height: 60px;
+}
+
+section.main .main-contents .person-header .name {
+  font-size: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 10px;
+}
+
+section.main .main-contents .person-header .product-image {
+  margin: auto 10px;
+}
+
+section.main .main-contents .person-header .product-image img {
+  height: 30px;
+  width: 30px;
+  margin: 10px;
+  border-radius: 50%;
+}
+
+section.main .main-contents .messages-container {
+  overflow-y: auto;
+  background: white;
+  flex-grow: 1;
+}
+
+section.main .main-contents .messages-container .sidebar {
+  padding: 5px;
+}
+
+section.main .main-contents .messages-container .sidebar img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+section.main .main-contents .messages-container .single-message {
+  padding: 10px;
+  align-items: flex-start;
+}
+
+section.main .main-contents .messages-container .single-message .name-and-message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+section.main .main-contents .messages-container .single-message .name-and-message .name {
+  margin-bottom: 10px;
+  margin-top: 7px;
+}
+
+section.main .main-contents .messages-container .single-message .name-and-message .name span {
+  color: #969696;
+}
+
+section.main .main-contents .messages-container .single-message .main-message {
+  padding: 10px;
+  max-width: 400px;
+  width: auto;
+  border-radius: 5px;
+}
+
+section.main .main-contents .messages-container .to_me .main-message {
+  background: #ebebeb;
+  color: black;
+}
+
+section.main .main-contents .messages-container .from_me {
+  justify-content: flex-end;
+}
+
+section.main .main-contents .messages-container .from_me .name-and-message {
+  align-items: flex-end;
+}
+
+section.main .main-contents .messages-container .from_me .main-message {
+  background: #019be1;
+  color: white;
+}
+
+section.main .main-contents .send-message {
+  max-height: 50px;
+  height: 50px;
+  align-items: center;
+}
+
+section.main .main-contents .send-message .file-attach {
+  padding: 20px;
+}
+
+section.main .main-contents .send-message .type-message {
+  height: inherit;
+  display: flex;
+  align-items: center;
+}
+
+section.main .main-contents .send-message .type-message input,
+section.main .main-contents .send-message .type-message button {
+  font-size: 12px;
+}
+
+section.main .main-contents .send-message .type-message button {
+  padding: 6px;
+}
+
+section.main .main-contents .send-message .send-button button {
+  background: #007ACC;
+  color: white;
+  font-size: 12px;
+}
+
+.propic,
+.nopic {
+  position: relative;
+}
+
+.propic .status,
+.nopic .status {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #ccc;
+  border: 2px solid white;
+  right: 10px;
+  top: 5px;
+  border-radius: 50%;
+}
+
+.propic .status.online,
+.nopic .status.online {
+  background: #0ABB87;
+}
+
+.propic .status.away,
+.nopic .status.away {
+  background: #FFb822;
+}
+
+.propic .status.offline,
+.nopic .status.offline {
+  background: #ccc;
+}
+
