@@ -23,7 +23,7 @@
           <div class="right-contents flex-div">
             <div class="flex-div search-form" id="searchForm">
               <form>
-                <input class="form-control" placeholder="Search" />
+                <input class="form-control search-input" placeholder="Search" />
               </form>
             </div>
             <button class="btn icon-btn" id="searchIcon">
@@ -91,10 +91,11 @@
                 </div>
                 <div class="flex-div">
                   <div class="flex-grow-1">
-                    <a href="#" class="create-new">
+                    <a href="#" class="create-new circle-btn">
                       <div class="flex-custom">
                         <div class="content">
-                          <i class="fa fa-plus"></i>  Create New
+                          <i class="fa fa-plus"></i>
+                          Create New
                         </div>
                       </div>
                     </a>
@@ -112,7 +113,7 @@
                   <button class="btn btn-outline-secondary" type="button" id="searchButton">Search</button>
                 </div> -->
                 <div class="search-results">
-                  <div class="btn-icon-shower">
+                  <div class="btn-icon-shower" click-profileInfo="">
                     <div class="single flex-custom">
                       <div class="sidebar nopic">
                         <div class="status online"></div>
@@ -136,31 +137,31 @@
                     </div>
                     </div>
                   </div>
-                  <div class="btn-icon-shower">
+                  <div class="btn-icon-shower" click-profileInfo="">
                     <div class="single flex-custom">
                       <div class="sidebar nopic">
                         <div class="status away"></div>
                         <p style="background-color:#0ABB87">A</p>
                       </div>
-                    <div class="content">
-                      <p class="name">Andrew Gustavo</p>
-                      <p class="designation">Web Designer</p>
-                    </div>
-                    <div class="sidebar options">
-                      <div class="dropdown">
-                        <button class="btn btn-icon" type="button" id="chatroomOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fa fa-sm fa-ellipsis-h"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="chatroomOptions">
-                          <a class="dropdown-item" href="#"><i class="fa fa-envelope"></i> Send Message</a>
-                          <a class="dropdown-item" href="#"><i class="fa fa-user-plus"></i> Add to Contacts</a>
-                          <a class="dropdown-item" href="#"><i class="fa fa-ban"></i> Block</a>
+                      <div class="content">
+                        <p class="name">Andrew Gustavo</p>
+                        <p class="designation">Web Designer</p>
+                      </div>
+                      <div class="sidebar options">
+                        <div class="dropdown">
+                          <button class="btn btn-icon" type="button" id="chatroomOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-sm fa-ellipsis-h"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="chatroomOptions">
+                            <a class="dropdown-item" href="#"><i class="fa fa-envelope"></i> Send Message</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-user-plus"></i> Add to Contacts</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-ban"></i> Block</a>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    </div>
                   </div>
-                  <div class="btn-icon-shower">
+                  <div class="btn-icon-shower" click-profileInfo="">
                     <div class="single flex-custom">
                       <div class="sidebar nopic">
                         <div class="status offline"></div>
@@ -212,7 +213,7 @@
                       </div>`;
 
                   document.write(`
-                    <div href="#" class="btn-icon-shower">
+                    <div href="#" class="btn-icon-shower" click-profileInfo="">
                       <div class="single-conversation flex-custom">
                         ${$imageShow}
                         <div class="content">
@@ -342,6 +343,21 @@ Hi, I am online on Skype if you are available.
     </section>
 
     <div id="profile-tooltip" style="display:none;">
+      <div class="header">
+        <img src="images/man_avatar1.jpg" alt="Profile Picture">
+        <div class="name">Sushant Tripathi</div>
+      </div>
+      <div class="content">
+        Hi, My name is Sushant Tripathy and I am building this amazing Chatroom.
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary">Send Message</button>
+        <button class="btn btn-success">Add Contact</button>
+        <button class="btn btn-danger">Block</button>
+      </div>
+    </div>
+    <!-- Basically "profile-tooltip" and "click-tooltip" are similar, but activated on different places with different actions -->
+    <div id="click-tooltip" style="display:none;">
       <div class="header">
         <img src="images/man_avatar1.jpg" alt="Profile Picture">
         <div class="name">Sushant Tripathi</div>

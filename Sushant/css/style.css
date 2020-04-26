@@ -51,12 +51,17 @@ p {
 
 .icon-btn {
   padding: 5px 14px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid transparent;
+  color: #FBFAF9;
+}
+
+.icon-btn i {
+  font-size: 12px;
 }
 
 .icon-btn:hover {
-  color: black;
-  background: #e6e6e6;
+  color: #FBFAF9;
+  background: #1D1A5F;
 }
 
 .custom-scroll {
@@ -101,6 +106,21 @@ p {
   box-shadow: none;
 }
 
+.circle-btn {
+  color: #212529;
+}
+
+.circle-btn i {
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 50%;
+}
+
+.circle-btn:hover i {
+  background: #15A4FF;
+  color: white;
+}
+
 .dropdown-menu {
   box-shadow: 2px 2px 5px #ccc;
 }
@@ -117,6 +137,14 @@ p {
   background: #EFF7FE;
 }
 
+.dropdown-menu a:hover i {
+  color: #15A4FF;
+}
+
+html {
+  overflow: hidden;
+}
+
 body {
   background: #efefef;
 }
@@ -126,8 +154,8 @@ section.site-header {
   border-bottom: 1px solid #ddd;
   box-shadow: 0 0 5px #ddd;
   font-size: 14px;
-  color: #212529;
-  background: white;
+  color: white;
+  background: #343179;
 }
 
 section.site-header .logo {
@@ -140,6 +168,13 @@ section.site-header .search-form {
   display: none;
 }
 
+section.site-header .search-form .search-input {
+  background: #1D1A5F;
+  color: white;
+  border: 1px solid #1D1A5F;
+  font-size: 13px;
+}
+
 section.site-header > div {
   height: inherit;
 }
@@ -150,10 +185,11 @@ section.site-header > div > div {
 
 section.site-header .icon-btn {
   margin-left: 5px;
-  color: #212529;
+  color: white;
 }
 
-#profile-tooltip {
+#profile-tooltip,
+#click-tooltip {
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -161,32 +197,66 @@ section.site-header .icon-btn {
   border: 1px solid #e6e6e6;
   padding: 10px;
   font-size: 12px;
+  box-shadow: 0 0 5px #ccc;
+  z-index: 11;
 }
 
-#profile-tooltip .header {
+#profile-tooltip .header,
+#click-tooltip .header {
   display: flex;
   align-items: center;
 }
 
-#profile-tooltip .header img {
+#profile-tooltip .header img,
+#click-tooltip .header img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   margin-right: 10px;
 }
 
-#profile-tooltip .content {
+#profile-tooltip .content,
+#click-tooltip .content {
   padding: 5px 0;
 }
 
-#profile-tooltip .actions {
+#profile-tooltip .actions,
+#click-tooltip .actions {
   padding-top: 5px;
 }
 
-#profile-tooltip .actions .btn {
-  font-size: 12px;
+#profile-tooltip .actions .btn,
+#click-tooltip .actions .btn {
+  font-size: 10px;
   border-radius: 0;
   padding: 5px 10px;
+}
+
+#profile-tooltip .actions .btn.btn-success,
+#profile-tooltip .actions .btn.btn-primary,
+#click-tooltip .actions .btn.btn-success,
+#click-tooltip .actions .btn.btn-primary {
+  background: #343179;
+  border-color: #1D1A5F;
+}
+
+#profile-tooltip .actions .btn.btn-success:hover,
+#profile-tooltip .actions .btn.btn-primary:hover,
+#click-tooltip .actions .btn.btn-success:hover,
+#click-tooltip .actions .btn.btn-primary:hover {
+  background: #1D1A5F;
+}
+
+#click-tooltip:before {
+  content: " ";
+  height: 10px;
+  width: 10px;
+  background: white;
+  position: relative;
+  left: -15px;
+  top: 50px;
+  transform: rotate(135deg);
+  box-shadow: 2px 2px 5px #ccc;
 }
 
 section.main {
