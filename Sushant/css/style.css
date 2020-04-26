@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .no-padding {
   padding-right: 0;
   padding-left: 0;
@@ -607,5 +609,217 @@ section.main .main-contents .send-message .send-button button {
 .propic .status.offline,
 .nopic .status.offline {
   background: #ccc;
+}
+
+section.login-page .container,
+section.login-page .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+}
+
+section.login-page .container a,
+section.login-page .container-fluid a {
+  color: #15A4FF;
+}
+
+section.login-page .container .left-sidebar,
+section.login-page .container-fluid .left-sidebar {
+  width: 40vw;
+  min-width: 400px;
+  background: white;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+section.login-page .container .left-sidebar .form-container,
+section.login-page .container-fluid .left-sidebar .form-container {
+  width: 60%;
+}
+
+section.login-page .container .left-sidebar .form-container .logo,
+section.login-page .container-fluid .left-sidebar .form-container .logo {
+  text-align: center;
+}
+
+section.login-page .container .left-sidebar .form-container .form-group,
+section.login-page .container-fluid .left-sidebar .form-container .form-group {
+  margin-bottom: 5px;
+}
+
+section.login-page .container .left-sidebar .form-container label,
+section.login-page .container-fluid .left-sidebar .form-container label {
+  font-size: 12px;
+  color: #212529;
+  font-weight: 500;
+}
+
+section.login-page .container .left-sidebar .form-container input[type=text],
+section.login-page .container .left-sidebar .form-container input[type=email],
+section.login-page .container .left-sidebar .form-container input[type=password],
+section.login-page .container-fluid .left-sidebar .form-container input[type=text],
+section.login-page .container-fluid .left-sidebar .form-container input[type=email],
+section.login-page .container-fluid .left-sidebar .form-container input[type=password] {
+  font-size: 12px;
+  border-radius: 2px;
+  border-color: #ddd;
+  padding: 20px 15px !important;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form,
+section.login-page .container-fluid .left-sidebar .form-container .login-form {
+  display: block;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .extra-links,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .extra-links {
+  display: flex;
+  align-items: center;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .extra-links .form-check,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .extra-links .form-check {
+  flex-grow: 1;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .extra-links a,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .extra-links a {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins .btn-default,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins .btn-default {
+  color: white;
+  font-size: 12px;
+  flex-grow: 1;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins .btn-default:first-child,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins .btn-default:first-child {
+  margin-right: 10px;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins .btn-default:hover,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins .btn-default:hover {
+  box-shadow: 0 0 5px #1755bc;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins .btn-default i,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins .btn-default i {
+  margin-right: 5px;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins .btn-default.google,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins .btn-default.google {
+  background: #DC4D32;
+}
+
+section.login-page .container .left-sidebar .form-container .login-form .social-logins .btn-default.facebook,
+section.login-page .container-fluid .left-sidebar .form-container .login-form .social-logins .btn-default.facebook {
+  background: #1E599C;
+}
+
+section.login-page .container .left-sidebar .form-container .register-form,
+section.login-page .container-fluid .left-sidebar .form-container .register-form {
+  display: none;
+}
+
+section.login-page .container .left-sidebar .form-container .guest-form,
+section.login-page .container-fluid .left-sidebar .form-container .guest-form {
+  display: none;
+}
+
+section.login-page .container .left-sidebar .form-container .register-links,
+section.login-page .container-fluid .left-sidebar .form-container .register-links {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+section.login-page .container .left-sidebar .form-container .submit-button,
+section.login-page .container-fluid .left-sidebar .form-container .submit-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 14px;
+  background: #020024;
+  background: linear-gradient(114deg, #1550c2 37%, #0086ff 65%, #0fb7d2 100%, #1755bc 100%);
+  border-color: white;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+section.login-page .container .left-sidebar .form-container .submit-button:hover,
+section.login-page .container-fluid .left-sidebar .form-container .submit-button:hover {
+  box-shadow: 0 0 5px #1755bc;
+}
+
+section.login-page .container .right-side,
+section.login-page .container-fluid .right-side {
+  flex-grow: 1;
+  background: #020024;
+  background: linear-gradient(114deg, #020024 0%, #1d0979 0%, #1550c2 37%, #0086ff 65%, #0fb7d2 100%, #1755bc 100%);
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+section.login-page .container .right-side .contents,
+section.login-page .container-fluid .right-side .contents {
+  text-align: center;
+  width: 100%;
+}
+
+section.login-page .container .right-side .contents h3,
+section.login-page .container-fluid .right-side .contents h3 {
+  font-size: 35px;
+}
+
+section.login-page .container .right-side .contents p,
+section.login-page .container-fluid .right-side .contents p {
+  font-size: 20px;
+}
+
+.form-check {
+  position: relative;
+}
+
+.form-check > label {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.form-check > label > input.form-check-input {
+  display: none;
+}
+
+.form-check > label > input.form-check-input:checked ~ .checkmark:after {
+  content: "\2713";
+  color: #15A4FF;
+  font-size: 14px;
+  position: absolute;
+  left: 4px;
+  top: -2px;
+}
+
+.form-check > label > .checkmark {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  position: absolute;
+  left: 0px;
+  border: 1px solid #15A4FF;
 }
 
