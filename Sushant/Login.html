@@ -106,8 +106,34 @@
         </div>
         <div class="right-side">
           <div class="contents">
-                <h3>90's Style Messaging</h3>
-                <p>Explore new contacts, Chat with Locals and more</p>
+            <h3>Connect with your neighbors.</h3>
+            <h4>Active chatrooms around you</h4>
+            <div class="row no-gutters" style="width:80%;margin:auto;">
+              <script>
+                for(var i=0; i<4; i++){
+                  document.write(`
+                  <div class="col-md-6 col-sm-12">
+                    <a href="#">
+                      <div class="single-zip-code">
+                        <div class="logo-container">
+                          <div class="logo">M</div>
+                        </div>
+                        <div class="room-details">
+                          <div class="location">
+                            <span>94041</span> 
+                            <span>-</span>
+                            <span>Mountain View</span> 
+                          </div>
+                          <div class="users">
+                            <span>(200 users)</span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  `);
+                }
+              </script>
             </div>
           </div>
         </div>
