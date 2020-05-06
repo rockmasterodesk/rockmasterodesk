@@ -53,6 +53,7 @@
     <section class="main">
       <div class="container-fluid">
         <div class="flex-div">
+          <div class="black-overlay"></div>
           <div class="left-sidebar display-none-min-screen" id="ConversationDetails">
             <div class="chatroom">
               <div class="title">
@@ -62,6 +63,7 @@
                   </div>
                   <div>
                     <small><a href="#">Find More</a></small>
+                    <a href="#" id="CloseDetails"><i class="fa fa-times"></i></a>
                   </div>
                 </div>
                 <div class="flex-div">
@@ -230,7 +232,7 @@
           <div class="flex-grow-1 main-contents">
             <div class="person-header flex-custom" id="ConversationDetailsOpener">
               <div class="name content">
-                Mumbai - 230532
+                <i class="fa fa-bars" id="DetailsOpenerBars" style="margin-right:5px;"></i>Mumbai - 230532
               </div>
               <div class="product-image sidebar">
                 <img src="images/man_avatar1.jpg" alt="Profile Picture">
