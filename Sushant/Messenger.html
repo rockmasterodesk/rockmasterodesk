@@ -232,7 +232,7 @@
                       </div>`;
 
                   document.write(`
-                    <div href="#" class="btn-icon-shower" click-profileInfo="{'room_id':'room~${getRandomInt(10,12)}','name':'${PersonName}', 'image':'${hasImage ? 'images/man_avatar1.jpg' : null}', 'color' : '${color}'}">
+                    <div href="#" class="btn-icon-shower" click-profileInfo="{'room_id':'room~${getRandomInt(1000,1200)}','name':'${PersonName}', 'image':'${hasImage ? 'images/man_avatar1.jpg' : null}', 'color' : '${color}'}">
                       <div class="single-conversation flex-custom">
                         ${$imageShow}
                         <div class="content">
@@ -245,7 +245,7 @@
                               <i class="fa fa-sm fa-ellipsis-h"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="chatroomOptions">
-                              <a class="dropdown-item" href="#"><i class="fa fa-envelope"></i> Send Message</a>
+                              <a class="dropdown-item send-message-dropdown" href="#"><i class="fa fa-envelope"></i> Send Message</a>
                               <a class="dropdown-item" href="#"><i class="fa fa-ban"></i> Mute</a>
                             </div>
                           </div>
@@ -286,7 +286,7 @@
                 </div>
                 <div class="name-and-message">
                   <div class="name">
-                    <a popover-profileInfo="" href="#">Sushant Tripathy</a> - <span>20 min</span>
+                    <a popover-profileInfo="{'room_id':'room~100','name':'Any Name', 'image':'null', 'color' : '000'}" href="#">Sushant Tripathy</a> - <span>20 min</span>
                   </div>
                   <div class="main-message">
                     The website is SpeakSpike.com
@@ -312,7 +312,7 @@
                 </div>
                 <div class="name-and-message">
                   <div class="name">
-                    <a popover-profileInfo="" href="#">Sushant Tripathy</a> - <span>20 min</span>
+                    <a popover-profileInfo="{'room_id':'room~100','name':'Any Name', 'image':'null', 'color' : '000'}" href="#">Sushant Tripathy</a> - <span>20 min</span>
                   </div>
                   <div class="main-message">
                     Good how're you doing? <br>
@@ -339,7 +339,7 @@ Hi, I am online on Skype if you are available.
                 </div>
                 <div class="name-and-message">
                   <div class="name">
-                    <a popover-profileInfo="" href="#">Sushant Tripathy</a> - <span>20 min</span>
+                    <a popover-profileInfo="{'room_id':'room~100','name':'Any Name', 'image':'null', 'color' : '000'}" href="#">Sushant Tripathy</a> - <span>20 min</span>
                   </div>
                   <div class="main-message">
                     Thank you so much. These files are very important to me. I guess you didn't make any changes to these files. So I need the original versions of these files. Thank you very much again.
@@ -409,6 +409,7 @@ Hi, I am online on Skype if you are available.
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="jquery.nicescroll/jquery.nicescroll.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/tabs.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

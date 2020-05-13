@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      section.login-page .container .left-sidebar, section.login-page .container-fluid .left-sidebar {
+        width:100%;
+        min-height:100vh;
+        height:auto;
+      }
+
+      section.login-page .container .left-sidebar .form-container .register-form, section.login-page .container-fluid .left-sidebar .form-container .register-form {
+        display:block;
+      }
+
+      .info {
+        background:black;
+        color:white;
+        padding: 2px 8px;
+        border-radius: 50%;
+      }
+    </style>
+
+
+    <title>SpeakSpike</title>
+  </head>
+  <body>
+    <section class="login-page">
+      <div class="container-fluid">
+        <div class="left-sidebar">
+          <div class="form-container">
+            <div class="logo">
+              <h2>SpeakSpike</h2>
+              <h5>Complete Registration</h5>
+            </div>
+            <div class="register-form">
+              <form action="#">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter Username">
+                </div>
+                <div class="form-group">
+                  <label for="registerPassword">Password</label>
+                  <input type="password" class="form-control" id="registerPassword" placeholder="Password">
+                </div>
+                <div class="form-group">
+                  <label for="fullname">Full Name</label>
+                  <input type="text" class="form-control" id="fullname" placeholder="Enter Full Name">
+                </div>
+                <div class="form-group">
+                  <label for="birthdate">Date of Birth 
+                    <span class="info" data-toggle="tooltip" data-placement="right" title="We need this to restrict adult contents.">?</span>
+                  </label>
+                  <input type="date" class="form-control" id="birthdate" placeholder="Date of Birth">
+                </div>
+                
+                <button type="submit" class="btn btn-primary submit-button">Complete Registration</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    
+
+    
+    <script src="jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

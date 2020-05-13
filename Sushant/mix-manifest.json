@@ -3,7 +3,11 @@
     "/js/listing.js.map": "/js/listing.js.map",
     "/js/login-script.js": "/js/login-script.js",
     "/js/login-script.js.map": "/js/login-script.js.map",
+    "/js/profile-details.js": "/js/profile-details.js",
+    "/js/profile-details.js.map": "/js/profile-details.js.map",
     "/js/script.js": "/js/script.js",
+    "/js/script.js.map": "/js/script.js.map",
+    "/js/tabs.js": "/js/tabs.js",
     "/css/style.css": "/css/style.css",
-    "/js/script.js.map": "/js/script.js.map"
+    "/js/tabs.js.map": "/js/tabs.js.map"
 }
