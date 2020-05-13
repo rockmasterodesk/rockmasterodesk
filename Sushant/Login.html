@@ -22,6 +22,12 @@
               <h2>SpeakSpike</h2>
             </div>
             <div class="login-form">
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Hi There!</strong> This is a Warning Message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
               <form action="#">
                 <div class="form-group">
                   <label for="loginEmail">Email address</label>
@@ -41,7 +47,7 @@
                     </label>
                   </div>
                   <div class="forgot-password">
-                    <a href="#">Forgot Password?</a>
+                    <a href="#ForgotPassword" id="ForgotLink">Forgot Password?</a>
                   </div>
                 </div>
               </form>
@@ -50,11 +56,17 @@
                 <a href="#" class="btn btn-default facebook"><i class="fab fa-facebook-f"></i>Login with Facebook</a>
               </div>
               <div class="register-links">
-                <a href="#" id="RegisterLink">Register</a>
-                <a href="#" id="GuestLink">Chat as Guest</a>
+                <a href="#RegisterLink" id="RegisterLink">Register</a>
+                <a href="#GuestLink" id="GuestLink">Chat as Guest</a>
               </div>
             </div>
             <div class="register-form">
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Hi There!</strong> This is a Success Message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
               <form action="#">
                 <div class="form-group">
                   <label for="registerEmail">Email address</label>
@@ -76,11 +88,17 @@
                 <button type="submit" class="btn btn-primary submit-button">Register</button>
               </form>
               <div class="register-links">
-                <a href="#" id="LoginLink">Login</a>
-                <a href="#" id="GuestLink">Chat as Guest</a>
+                <a href="#LoginLink" id="LoginLink">Login</a>
+                <a href="#GuestLink" id="GuestLink">Chat as Guest</a>
               </div>
             </div>
             <div class="guest-form">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Sorry!</strong> Selected username already exists.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
               <form action="#">
                 <div class="form-group">
                   <label for="chooseUsername">Choose Username</label>
@@ -98,8 +116,27 @@
                 <button type="submit" class="btn btn-primary submit-button">Chat</button>
               </form>
               <div class="register-links">
-                <a href="#" id="RegisterLink">Register</a>
-                <a href="#" id="LoginLink">Login</a>
+                <a href="#RegisterLink" id="RegisterLink">Register</a>
+                <a href="#LoginLink" id="LoginLink">Login</a>
+              </div>
+            </div>
+            <div class="forgot-form">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Email not found on server.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="#">
+                <div class="form-group">
+                  <label for="chooseEmailAddress">Email Address</label>
+                  <input type="text" class="form-control" id="chooseEmailAddress" aria-describedby="chooseEmailAddress" placeholder="Email Address">
+                </div>
+                <button type="submit" class="btn btn-primary submit-button">Reset Password</button>
+              </form>
+              <div class="register-links">
+                <a href="#LoginLink" id="LoginLink">Login</a>
+                <a href="#GuestLink" id="GuestLink">Chat as Guest</a>
               </div>
             </div>
           </div>
