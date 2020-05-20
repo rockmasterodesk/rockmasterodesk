@@ -214,6 +214,44 @@
                                 'color' : '000000' // Hex Color Code
                             });
                         </pre>
+						
+						<h3>Want to include a default message text with this conversation</h3>
+						<p>The input property will be the initial value of the send message input:-</p>
+                        <pre class="brush: js">
+                            new MessageTabs({
+                                'name' : 'Kolkata - 123015',
+                                'image': 'null',
+                                'room_id' : 1,
+                                'input' : 'Send a message to Kolkata'
+                            });
+                        </pre>
+						
+						<h3>Send Message Input</h3>
+						<p>By default, the tabs module takes "#SendMessageInput" as the message input and listens to "input" event on this input. But the input can be changed with some configuration settings</p>
+                        <pre class="brush: js">
+                            new MessageTabs({
+                                'name' : 'Kolkata - 123015',
+                                'image': 'null',
+                                'room_id' : 1
+                            }, {
+                                sendMessageInputSelector: '#SomeOtherInput'
+							});
+                        </pre>
+						
+						<h3>Unsent Messages and After sending messages</h3>
+						<p>Every unsent message will be kept inside their associated tabs. Every time a tab is opened, the input will contain unsent text from that tab. In order to clear the text from the tab and clear the input, please use this line when a message is sent:- </p>
+                        <pre class="brush: js">
+                            // Clicking the send message button, submit the message
+							$(document).on('click', "#SendMessageButton", function(e){
+								// Send the message through websocket/json
+								// axios.post(URL, MessageData).then(()={});
+
+								// Now clear the input and cached message
+								$tabs.clearCurrentTabInput(); // <--- This line is very important to clear text of current input
+							});
+                        </pre>
+						
+						
 
                         <h4>Configuration Settings</h4>
                         <p>You can also pass configuration options, for example, <b>the name of the KEY attribute</b> and <b>Callback function when a tab is activated.</b></p>
