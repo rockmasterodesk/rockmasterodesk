@@ -53,7 +53,12 @@
 
       <section class="profile-details-box">
         <div class="container pt-3">
-          <div class="row">
+          <div class="left-right">
+            <div class="left">
+              <h4 class="ml-3 mr-3 pb-3 opener open">User Profile</h4>
+            </div>
+          </div>
+          <div class="row profile-row">
             <div class="col-md-2">
               <div class="imageContainer">
                 <form action="upload-valid.json" id="fileForm" method="POST" enctype="multipart/form-data">
@@ -113,8 +118,22 @@
       
       <section class="favorite-contacts-box">
         <div class="container pt-3">
-          <h4>Favorite Contacts</h4>
-          <div class="row">
+          <div class="left-right mr-3">
+            <div class="left">
+              <h4 class="ml-3 mr-3 opener">X Favorite Contacts</h4>
+            </div>
+            <div class="right">
+              <form action="#">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Search Contacts" aria-label="Search Contacts" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary search-button" type="button">Button</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row contacts-row">
             <script>
               // Random Integer Generator - For Dummy Data
               function getRandomInt(min, max) {
@@ -189,8 +208,22 @@
 
       <section class="zip-listings mb-5">
         <div class="container">
-          <h4 class="section-title">Favorite Locations</h4>
-          <div class="row">
+          <div class="left-right">
+            <div class="left">
+              <h4 class="opener">X Favorite Locations</h4>
+            </div>
+            <div class="right">
+              <form action="#">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Search Contacts" aria-label="Search Contacts" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary search-button" type="button">Button</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row locations-row">
             <script>
               for(var i=0; i<12; i++){
                 document.write(`
