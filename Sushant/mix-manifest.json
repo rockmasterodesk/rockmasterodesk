@@ -10,5 +10,6 @@
     "/js/tabs.js": "/js/tabs.js",
     "/css/style.css": "/css/style.css",
     "/js/tabs.js.map": "/js/tabs.js.map",
-    "/js/popper.min.js": "/js/popper.min.js"
+    "/js/popper.min.js": "/js/popper.min.js",
+    "/js/notifications.js": "/js/notifications.js"
 }

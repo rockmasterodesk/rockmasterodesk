@@ -73,6 +73,7 @@
                             <li><a href="#line2">Messenger Page</a></li>
                             <li><a href="#line3">Tabbed Messeging</a></li>
                             <li><a href="#line4">Profile Page</a></li>
+                            <li><a href="#line5">Integrating Notifications</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -365,6 +366,115 @@
                         </pre>
 
                         <p>Since we can't make POST request without an actual server. Change the method to "GET" and browse the page. Then click on the edit image button and choose a random picture. You should see the image changing. You can also mock test invalid file upload by changing 'action' to "upload-invalid.json" and repeating the tasks.</p>
+
+                        
+
+
+                    </section>
+                    <!-- end section -->
+					<section id="line5" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Integrating Notification Header Icon On Existing Pages <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <h4>All the necessary stylesheets for the header notification box is integrated with the style.css file. So, we don't have to include it externally.</h4>
+
+                        <p>Only two snippets of codes are required to be injected on the existing pages to display notifications.</p>
+
+                        <b>The notifications HTML codes:-</b>
+                        <pre class="brush: html">
+                            <div class="notifications-container">
+								<button class="btn icon-btn" id="notificationsOpener">
+								  <i class="fa fa-sm fa-bell"></i>
+								</button>
+								<div class="counter">
+								  2
+								</div>
+								<div class="notifications">
+								  <div class="titles">
+									  <h6>Notifications</h6>
+								  </div>
+								  <div class="list">
+									<a href="#">
+									  <div class="single-notification unread">
+										<div class="sidebar nopic">
+										  <p style='background-color:#ccc'>A</p>
+										</div>
+										<div class="content">
+										  <div class="body">
+											<strong>Andrew Gustavo</strong> has sent you a new message.
+										  </div>
+										  <div class="time">
+											10 minutes ago
+										  </div>
+										</div>
+									  </div>
+									</a>
+									<a href="#">
+									  <div class="single-notification unread">
+										<div class="sidebar propic">
+										  <img src="images/man_avatar1.jpg" alt="Profile Picture">
+										</div>
+										<div class="content">
+										  <div class="body">
+											<strong>Andrew Gustavo</strong> added you as contacts.
+										  </div>
+										  <div class="actions">
+											<button class="btn btn-contacts green"><i class="fa fa-check"></i></button>
+											<button class="btn btn-contacts red"><i class="fa fa-times"></i></button>
+										  </div>
+										  <div class="time">
+											10 minutes ago
+										  </div>
+										</div>
+									  </div>
+									</a>
+									<a href="#">
+									  <div class="single-notification">
+										<div class="sidebar nopic">
+										  <p style='background-color:#ccc'>N</p>
+										</div>
+										<div class="content">
+										  <div class="body">
+											You might be interested in chatroom <strong>"NY - 15425"</strong>
+										  </div>
+										  <div class="time">
+											3 hours ago
+										  </div>
+										</div>
+									  </div>
+									</a>
+								  </div>
+								</div>
+							  </div>
+                        </pre>
+
+                        <p>The snippet given above should be inserted between these lines:-</p>
+
+                        <pre class="brush: html">
+                        <button class="btn icon-btn" id="searchIcon">
+								<i class="fa fa-sm fa-search"></i>
+							</button>
+							--- HERE ---
+							<div class="dropdown">
+                        </pre>
+						
+						
+						<p>And we need to insert the following js file at the end of the page:-</p>
+
+                        <pre class="brush: html">
+                        <script src="js/notifications.js"></script>
+                        </pre>
+						
+						<p>Please have a look at the updated HTML files to see how the notifications icon and box has been integrated. Or please ask me directly if you need further clarification.</p>
+
+                        
+
 
                         
 
