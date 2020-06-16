@@ -74,6 +74,7 @@
                             <li><a href="#line3">Tabbed Messeging</a></li>
                             <li><a href="#line4">Profile Page</a></li>
                             <li><a href="#line5">Integrating Notifications</a></li>
+                            <li><a href="#line6">Switching Name/Icon on Header</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -472,6 +473,50 @@
                         </pre>
 						
 						<p>Please have a look at the updated HTML files to see how the notifications icon and box has been integrated. Or please ask me directly if you need further clarification.</p>
+
+                        
+
+
+                        
+
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="line6" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Integrating Name/Profile Picture On Existing Pages <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+
+                        <p>Only one code snippet is required to be injected on the existing pages to display name/image of the user on the upper-right corner of the header.</p>
+
+                        <b>The HTML code:-</b>
+                        <pre class="brush: html">
+                            <div class="user-propic-mobile"> <!-- Only for mobile display -->
+                              <!-- <img src="images/man_avatar1.jpg" /> --> <!-- Use this line when a profile image exists -->
+                              <div class="nopic"> <!-- Or, use this div if there is no profile picture --> 
+                                A
+                              </div>
+                            </div>
+                        </pre>
+
+                        <p>The snippet given above should be inserted between these lines:-</p>
+
+                        <pre class="brush: html">
+                          <div class="user-info ml-2 flex-div">
+                            --- Here ---
+                            <div class="name">Asaduzzaman</div>
+                          </div>
+                        </pre>
+                        
+                        
+                        <p>Please have a look at the updated HTML files for usage examples.</p>
 
                         
 
