@@ -75,6 +75,7 @@
                             <li><a href="#line4">Profile Page</a></li>
                             <li><a href="#line5">Integrating Notifications</a></li>
                             <li><a href="#line6">Switching Name/Icon on Header</a></li>
+                            <li><a href="#line7">Showing Login/Signup links on header</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -517,13 +518,140 @@
                         
                         
                         <p>Please have a look at the updated HTML files for usage examples.</p>
+                    </section>
 
+                    <section id="line7" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Showing Login/Signup links for unauthenticated users <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+
+                        <p>You'll have to add this CSS snippet on the page after <b>&lt;link rel="stylesheet" href="css/style.css"&gt;&lt;/p&gt;</b>
+
+                        The HTML code:-
+                        <pre class="brush: html">
+                            <style type="text/css">
+                              .navbar a.nav-link {
+                                color:white;
+                              }
+                              .navbar a.nav-link:hover {
+                                text-decoration:underline;
+                              }
+                            </style>
+                        </pre>
+
+                        <p>The following codes need to be replaced:-</p>
+
+                        <pre class="brush: html">
+                          <div class="notifications-container user-authenticated-options">
+                            <button class="btn icon-btn" id="notificationsOpener">
+                              <i class="fa fa-sm fa-bell"></i>
+                            </button>
+                            <div class="counter">
+                              2
+                            </div>
+                            <div class="notifications">
+                              <div class="titles">
+                                  <h6>Notifications</h6>
+                              </div>
+                              <div class="list">
+                                <a href="#">
+                                  <div class="single-notification unread">
+                                    <div class="sidebar nopic">
+                                      <p style='background-color:#ccc'>A</p>
+                                    </div>
+                                    <div class="content">
+                                      <div class="body">
+                                        <strong>Andrew Gustavo</strong> has sent you a new message.
+                                      </div>
+                                      <div class="time">
+                                        10 minutes ago
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                                <a href="#">
+                                  <div class="single-notification unread">
+                                    <div class="sidebar propic">
+                                      <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                                    </div>
+                                    <div class="content">
+                                      <div class="body">
+                                        <strong>Andrew Gustavo</strong> added you as contacts.
+                                      </div>
+                                      <div class="actions">
+                                        <button class="btn btn-contacts green"><i class="fa fa-check"></i></button>
+                                        <button class="btn btn-contacts red"><i class="fa fa-times"></i></button>
+                                      </div>
+                                      <div class="time">
+                                        10 minutes ago
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                                <a href="#">
+                                  <div class="single-notification">
+                                    <div class="sidebar nopic">
+                                      <p style='background-color:#ccc'>N</p>
+                                    </div>
+                                    <div class="content">
+                                      <div class="body">
+                                        You might be interested in chatroom <strong>"NY - 15425"</strong>
+                                      </div>
+                                      <div class="time">
+                                        3 hours ago
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="dropdown user-authenticated-options">
+                            <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Dropdown button
+                            </button> -->
+                            <button class="btn dropdown-toggle icon-btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-sm fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </div>
+                          <div class="user-info ml-2 flex-div user-authenticated-options">
+                            <div class="user-propic-mobile"> <!-- Only for mobile display -->
+                              <!-- <img src="images/man_avatar1.jpg" /> -->
+                              <div class="nopic">
+                                A
+                              </div>
+                            </div>
+                            <div class="name">Asaduzzaman</div> <!-- Only for desktop display -->
+                          </div>
+                        </pre>
                         
-
-
                         
-
-
+                        <p>By this snippet:-</p>
+                        <pre class="brush: html">
+                          <nav class="navbar navbar-expand-lg">
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                              <ul class="navbar-nav">
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#">Sign Up</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </nav>
+                        </pre>
                     </section>
                     <!-- end section -->
                 </div>
