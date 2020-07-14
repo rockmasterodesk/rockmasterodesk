@@ -18,6 +18,8 @@ $(document).ready(function(){
 	        success: function(response){
 	            // console.log(response);
 	            generateTable(response);
+	            imagePreview(formdata.get('file'));
+	 			$(".globalOverlay").hide();
 	        },
 	        error: function(response, status, error){
 	            console.log(error);
@@ -39,11 +41,29 @@ $(document).ready(function(){
 	        success: function(response){
 	            // console.log(response);
 	            generateTable(response);
+	            $(".globalOverlay").hide();	
 	        },
 	        error: function(response, status, error){
 	            console.log(error);
 	        }
 	    });
+	}
+
+	function imagePreview(input) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			// $('#blah').attr('src', e.target.result);
+			$('.image-grid').prepend(
+				"<div class=\"grid-col\">" +
+				"	<div class=\"imageContainer\">" +
+				"		<img data-imageid=\"Chrysanthemum\" src=\""+ e.target.result +"\" />" +
+				"	</div>" +
+				"</div>"
+			);
+		}
+
+		reader.readAsDataURL(input);
 	}
 
 	// Show the table with Confusion Data
@@ -58,7 +78,6 @@ $(document).ready(function(){
 
 		$(".table-container").find("tbody").html($tbody);
 		$(".table-container").show();
-		$(".globalOverlay").hide();
 	}
 
 
@@ -102,7 +121,7 @@ $(document).ready(function(){
 
     $("#imageInput").change(function(){
         var file = $('#imageInput')[0].files[0];
-        console.log(file);
+        // console.log(file);
 
         // Validate file type against Mimes
         if (window.acceptedMimes.indexOf(file.type) > -1){
@@ -112,7 +131,7 @@ $(document).ready(function(){
         }
     });
 
-    $(".imageContainer img").on('click', function(e){
+    $(document).on('click',".imageContainer img", function(e){
     	var image_id = $(this).data('imageid');
     	getDataByImage(image_id);
     })
