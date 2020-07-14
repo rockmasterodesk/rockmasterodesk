@@ -9,7 +9,7 @@ $(document).ready(function(){
 		$(".globalOverlay").css("display", "flex");
 		// TODO: This snippet receives some dummy data from JSON file, please modify it according to your needs
 		jQuery.ajax({
-	        url: 'ServerResponse.json', // DUMMY Endpoint
+	        url: 'ServerResponse.json?timestamp='+(new Date()).getTime(), // DUMMY Endpoint
 	        type: 'get', // TODO: Please change it to POST in order to upload image genuinely
 	        data: formdata,
 	        contentType: false,
@@ -30,7 +30,7 @@ $(document).ready(function(){
 		$(".globalOverlay").css("display", "flex");
 		// TODO: This snippet receives some dummy data from JSON file, please modify it according to your needs
 		jQuery.ajax({
-	        url: 'ServerResponse.json', // DUMMY Endpoint
+	        url: 'ServerResponse.json?timestamp='+(new Date()).getTime(), // DUMMY Endpoint
 	        type: 'get',
 	        data: {image_id: image_id},
 	        contentType: false,
