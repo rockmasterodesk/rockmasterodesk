@@ -92,9 +92,9 @@ var PhoneValidator = /*#__PURE__*/function () {
       requirementType: 'string',
       validateString: function validateString(value, requirement) {
         var user_country = window.phone_validator_getSelectedCountry();
-        console.log(user_country);
+        
         var user_rule = window.phone_validator_rules[user_country];
-        console.log(user_rule); // Minimum Length
+        // Minimum Length
 
         if (undefined !== user_rule.minLength) {
           if (value.length < user_rule.minLength) {
@@ -118,7 +118,7 @@ var PhoneValidator = /*#__PURE__*/function () {
               window.Parsley.addMessage('en', 'validPhone', user_rule.ErrorMessage);
               return false;
             }
-          } else if ("array" === typeof user_rule.startsWith) {
+          } else if (Array.isArray(user_rule.startsWith)) {
             var matched = false;
 
             for (var i = 0; i < user_rule.startsWith.length; i++) {

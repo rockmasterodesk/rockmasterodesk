@@ -83,9 +83,7 @@ class PhoneValidator {
 			requirementType: 'string',
 			validateString: function(value, requirement) {
 				var user_country = window.phone_validator_getSelectedCountry();
-				console.log(user_country);
 				var user_rule = window.phone_validator_rules[user_country];
-				console.log(user_rule);
 				
 				// Minimum Length
 				if (undefined !== user_rule.minLength){
@@ -109,7 +107,7 @@ class PhoneValidator {
 							return false;
 						}
 					}
-					else if ("array" === typeof user_rule.startsWith){
+					else if (Array.isArray(user_rule.startsWith)){
 						var matched = false;
 						for(var i=0; i<user_rule.startsWith.length; i++){
 							if (value.substr(0,user_rule.startsWith[i].length) === user_rule.startsWith[i]){
