@@ -3,6 +3,9 @@ $(document).ready(function(){
 	// Accepted File Types for Image Upload
 	window.acceptedMimes = ["image/png", "image/jpeg"];
 
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 	// Function that Uploads Image on Drop/Click
 	function uploadData(formdata){
 		$(".table-container").hide();
@@ -91,13 +94,13 @@ $(document).ready(function(){
 	$("html").on("dragover", function(e) {
 		e.preventDefault();
 		e.stopPropagation();
-		$("#uploadArea").text("Drop here to upload");
+		$("#uploadArea span").text("Drop here to upload");
 	});
 
 	$("html").on("drop", function(e) { 
 		e.preventDefault(); 
 		e.stopPropagation(); 
-		$("#uploadArea").text($("#uploadArea").data('text'));
+		$("#uploadArea span").text($("#uploadArea").data('text'));
 	});
 
     $('#uploadArea').on('drop', function (e) {
