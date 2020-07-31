@@ -147,7 +147,15 @@
                   Name
                 </div>
                 <div class="col-md-9">
-                  Sushant Tripathy
+                  <div class="name-display">
+                    <span class="NameDisplayBox">Sushant Tripathy</span>
+                    <span class="NameEditButton"><i class="fa fa-edit"></i></span>
+                  </div>
+                  <div class="name-edit-display">
+                    <span class="NameEditInput"><input class="form-control" placeholder="Name" value="Sushant Tripathy" type="text" name="full_name" id="FullNameField"/></span>
+                    <span class="NameSubmitButton"><button class="btn btn-default btn-primary"><i class="fa fa-check"></i></button></span>
+                    <span class="NameCancelButton"><button class="btn btn-default btn-danger"><i class="fa fa-times"></i></button></span>
+                  </div>
                 </div>
               </div>
               <div class="row no-gutter">
@@ -288,7 +296,7 @@
 
 
       <section class="zip-listings mb-5">
-        <div class="container">
+        <div class="container pt-3">
           <div class="left-right">
             <div class="left">
               <h4 class="opener" href="zip-listings">12 Favorite Locations</h4>
@@ -373,6 +381,14 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="globalOverlay">
+      <div class="loading">
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
     </div>
 
 

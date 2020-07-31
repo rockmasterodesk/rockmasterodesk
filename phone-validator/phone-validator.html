@@ -273,7 +273,7 @@
 		</select>
 	</div>
 	<div class="right">
-		<input type="text" required data-parsley-type="number" data-parsley-valid-phone data-parsley-trigger="blur" />
+		<input type="text" required data-parsley-pattern="^[\d\-\/]*$" data-parsley-pattern-message="Only numbers, hyphen (-) and slash (/) accepted." data-parsley-valid-phone data-parsley-trigger="blur" />
 	</div>
 </div>
 
