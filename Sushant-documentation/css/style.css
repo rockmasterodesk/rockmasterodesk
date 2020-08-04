@@ -81,7 +81,6 @@ p {
     font-weight: 400;
     line-height: 26px;
     letter-spacing: 0;
-    margin-top: 15px;
 }
 
 img.aligncenter {
@@ -160,9 +159,6 @@ sub {
     top: .5ex;
 }
 
-p {
-    padding: 0 0 20px 0;
-}
 
 .check li:before {
     content: "\f00c";

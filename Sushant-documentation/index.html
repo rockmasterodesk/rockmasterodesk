@@ -15,7 +15,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
 
-    <title>Item Name | Documentation by Author Name</title>
+    <title>SpeakSpike API and Documentation | ASM Asaduzzaman</title>
 
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -76,6 +76,7 @@
                             <li><a href="#line5">Integrating Notifications</a></li>
                             <li><a href="#line6">Switching Name/Icon on Header</a></li>
                             <li><a href="#line7">Showing Login/Signup links on header</a></li>
+                            <li><a href="#line8">New methods in Tabs Section</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -652,6 +653,158 @@
                             </div>
                           </nav>
                         </pre>
+                    </section>
+                    <section id="line8" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">New Methods in Tabs Sectiohn <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+
+                        <p>I've added few methods in the Messenger page inside Tabs class as per your specification. The methods can be called from any instance (usually a single instance $tabs) </p>
+
+                        <h3>scrollToBottom()</h3>
+                        <p><b>Arguments:</b> void</p>
+                        <p><b>Returns:</b> void </p>
+                        <p><b>Description: </b> In the chat page, scrolls the window to the very bottom of the chat section.</p>
+
+                        Example:-
+                        <pre class="brush: javascript">
+                          var $tabs = new MessageTabs({
+                            'name' : 'Mumbai - 230532',
+                            'image': 'images/man_avatar1.jpg',
+                            'room_id' : 1
+                          });
+
+                          // Now scroll to bottom
+                          $tabs.scrollToBottom();
+                        </pre>
+
+
+                        <h3>addScrolledToTopListener(func)</h3>
+                        <p><b>Arguments:</b> func:function - the callback function </p>
+                        <p><b>Returns:</b> void </p>
+                        <p><b>Description: </b> A callback function setter that can be used to fetch messages when user scrolls to the top of the messages section. The callback receives "tab" as only argument which includes the tab information.</p>
+
+                        Example:-
+                        <pre class="brush: javascript">
+                          $tabs.addScrolledToTopListener(function(tab){
+                            // tab is the JSON tab object which is used to create the tab, for example tab = {'name' : 'Mumbai - 230532','image': 'images/man_avatar1.jpg','room_id' : 1}
+                            // TODO: retreive previous messages from the server using AJAX
+                          });
+
+                          // An example usage is given in dist/js/script.js on line: 57-63
+                        </pre>
+
+
+                        <h3>clearInputByTabID(selector)</h3>
+                        <p><b>Arguments:</b> selector:int|string  </p>
+                        <p><b>Returns:</b> void </p>
+                        <p><b>Description: </b> Clears the input field of the given Tab. The tab can be selected in two ways. Whether by using the index of the tab as Integer, or the "room_id" field of the JSON tab object.</p>
+
+                        Example:-
+                        <pre class="brush: javascript">
+                          // Let's add a tab first
+                          $tabs.addTab({
+                            'name' : 'Dhaka - 1203',
+                            'image': 'images/dhaka_1203_chatroom.jpg',
+                            'room_id' : 'dhaka_1203_chatroom'
+                          });
+                          // If there are already two existing tabs in the page, the index of the new tab will be 2
+                          // Now, if we type something in the input field of this tab, we can clear the input by the following line
+                          $tabs.clearInputByTabID(2);
+                          
+                          // We can use the room_id property of the new Tab object too to invoke the function
+                          $tabs.clearInputByTabID("dhaka_1203_chatroom");
+                        </pre>
+
+
+                        <h3>disableTabInputByTabId(room_id) || enableTabInputByTabId(room_id) </h3>
+                        <p><b>Arguments:</b> room_id:string  </p>
+                        <p><b>Returns:</b> void </p>
+                        <p><b>Description: </b> Disables/Enables the input field of the given tab. We can only use "room_id" of the tab object in order to identify the tabs as the index for a tab is a variable. Index changes by many factors for a given tab, for example, when a previous tab is closed, the index for every following tabs will drop by one unit.</p>
+
+                        Example:-
+                        <pre class="brush: javascript">
+                          // Suppose we have 3 tabs
+                          console.log($tabs.tabs);
+                          // 0: {name: "Mumbai - 230532", image: "images/man_avatar1.jpg", room_id: 1, input: ""}
+                          // 1: {name: "Tab 0", image: "images/man_avatar1.jpg", room_id: "test-tab-0", input: ""}
+                          // 2: {name: "Tab 1", image: "images/man_avatar1.jpg", room_id: "test-tab-1", input: ""}
+
+                          // Now, in order to disable the input for Tab 2 (room_id: "test-tab-1")
+                          $tabs.disableTabInputByTabId("test-tab-1");
+
+
+                          // Once this line is executed, the input for the given tab will be disabled. 
+                          // But I believe you will mostly use it on Ajax calls when a message is going through the network. 
+                          // In that case, the usage will be as follows:-
+                          function sendMessage(room_id, message_text){
+                            $tabs.disableTabInputByTabId(room_id);
+                            $.ajax({
+                              method: 'post',
+                              ...
+                              success: function(response){
+                                // do anything with the message
+                                $tabs.enableTabInputByTabId(room_id); // enable the input back
+                              }
+                            });
+                          }
+
+                          // Now you can invoke the function
+                          sendMessage("test-tab-1", "A random message");
+                        </pre>
+
+
+                        <h3>Class: MessengerOverlay()</h3>
+                        <p><b>Methods:</b> hide(), show()  </p>
+                        <p><b>Description: </b> Hides or shows an overlay loading icon for the Messenger Page</p>
+
+                        Example:-
+                        <pre class="brush: javascript">
+                          // The HTML code for the overlay is available written on: dist/Messenger.html on lines: 519-524
+                          // The JavaScript codes are written on: dist/js/script.js on lines: 13-22
+
+                          // The only thing you will take care of is hiding the overlay once the page is loaded.
+                          // The dist/js/script.js - lines 27-28 :- 
+                          var overlay = new MessengerOverlay();
+                          overlay.hide();
+
+                          // Since we are calling this inside $(document).ready() function, the overlay becomes hidden after the document is ready, i.e. when the page is fully loaded.
+                          // You can show/hide the overlay using:-
+                          overlay.show();
+                          sleep(1000);
+                          overlay.hide();
+                        </pre>
+
+
+
+
+                        <h3>showLoadingIcon() || hideLoadingIcon() </h3>
+                        <p><b>Arguments:</b> void  </p>
+                        <p><b>Returns:</b> void </p>
+                        <p><b>Description: </b> Shows/Hides the Loading icon on top of messages body. It will usually be invoked with addScrolledToTopListener() inside the callback to show the loading icon when previous messages are being pulled from the server.</p>
+
+                        Example:-
+                        <pre class="brush: javascript">
+                          // The lines 57-63 of file: dist/js/script.js shows a perfect example of both these functions with addScrolledToTopListener function. 
+                          // I think it will help you writing your codes for your particular use case.
+
+                          $tabs.addScrolledToTopListener(function(tab){
+                            $tabs.showLoadingIcon(); // here we are showing the loading icon
+                            setTimeout(function(){ // setTimeout is used to simulate ajax pull request of previous messages
+                              $tabs.hideLoadingIcon(); // once messages are ready, hide the icon, and then prepend the messages
+                              $('#MessagesContainer').prepend("<center>"+ tab.room_id + " onScrollTop event occured" +"</center>");
+                            }, 500);
+                          });
+                        </pre>
+
+
+
                     </section>
                     <!-- end section -->
                 </div>
