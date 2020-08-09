@@ -1,0 +1,47 @@
+// Nav Selector Menu Design
+.jfb-selector-nav {
+  a {
+    padding:5px 10px;
+    color:#51BF23;
+  }
+
+  a.active {
+    color:#1E1E1E;
+  }
+}
+
+// Table Design
+.jfb-table {
+  font-size:12px;
+
+  td, th {
+    vertical-align: middle;
+    padding:10px 2px;
+
+    input, .input-group-text {
+      font-size:12px;
+    }
+  }
+
+  .buttons {
+    .btn-sm {
+      font-size:12px;
+    }
+  }
+
+  .small-width {
+    width:60px;
+  }
+  .medium-width {
+    width:100px;
+  }
+
+  .jfb-img-td {
+    width:40px;
+    
+    img {
+      width:100%;
+      height:auto;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="dist/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/css/style.css">
+  <link rel="stylesheet" href="dist/css/temporary.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Temporary Elements -->
+    <div class="temporary text-right">
+      <button class="btn btn-outline-secondary" id="ImportButton">Import JSON</button>
+      <button class="btn btn-outline-secondary" id="ExportButton" disabled>Export JSON</button>
+
+      <div class="json-box">
+        <textarea name="json_box" id="json_box" cols="30" rows="10"></textarea>
+        <button class="btn btn-primary" id="SubmitButton">Generate Table</button>
+      </div>
+    </div>
+    <nav class="nav jfb-selector-nav">
+      <a class="nav-link active" href="#">All</a>
+      <a class="nav-link" href="#">None</a>
+      <a class="nav-link" href="#">Czech Republic</a>
+      <a class="nav-link" href="#">Australia</a>
+      <a class="nav-link" href="#">China</a>
+    </nav>
+    <table class="table jfb-table" id="BuildThisForm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Image</th>
+          <th scope="col">SKU</th>
+          <th scope="col" class="small-width">Color</th>
+          <th scope="col" class="small-width">Width</th>
+          <th scope="col" class="small-width">Length</th>
+          <th scope="col" class="medium-width">Ships From</th>
+          <th scope="col" class="medium-width">Cost</th>
+          <th scope="col">Shipping</th>
+          <th scope="col">Price</th>
+          <th scope="col">Profit</th>
+          <th scope="col">Compared At Price</th>
+          <th scope="col">Inventory</th>
+        </tr>
+        <tr class="buttons">
+          <th colspan="8"></th>
+          <th colspan="1"><button class="btn btn-primary btn-sm">USA</button></th>
+          <th colspan="1"><button class="btn btn-primary btn-sm">Change All</button></th>
+          <th colspan="1"></th>
+          <th colspan="1"><button class="btn btn-primary btn-sm">Change All</button></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="dist/jquery/dist/jquery.min.js"></script>
+  <!-- <script src="dist/popper/dist/popper.min.js"></script> -->
+  <script src="dist/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="products.js"></script>
+  <!-- <script src="src/jquery.JsonFormBuilder.js"></script>
+  <script src="src/temporary.js"></script> -->
+  <script src="dist/js/jquery.JsonFormBuilder.dev.js"></script>
+  <script src="dist/js/temporary.dev.js"></script>
+  <script>
+    // var formBuilder = new JsonFormBuilder(products);
+  </script>
+</body>
+</html>

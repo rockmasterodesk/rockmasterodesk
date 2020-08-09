@@ -1,0 +1,25 @@
+1. What does "skuPrice" and "skuSalePrice" from JSON represent in the form?
+	- So... you need to do if statement... if SkuSalePrice not found, then use SkuPrice otherwise use SkuSalePrice.
+	- it represents Cost in the screenshot
+2. What is the use of "typeID" in the JSON?
+	- TypeID you can ignore, but you need to update VariantName if user modifies the name in the form
+3. What do I do with "skuID"? In Oberlo, it is a Text Input which editable. But in our JSON, it is some sort of identifier. How do I put it in the form?
+	- okay for SKUID you need to auto generate based on this rule
+		- first create a randsku = rand(11111111,99999999);
+		- then SKUID = rand(11111111,99999999) + preg_replace("/[^A-Za-z0-9]+/", "-", $value['variantName']);
+		- so final sku will look something like thie
+			- 32342398-green-small   (8 digit number followed by the variantName with dashes between the options)
+4. How do I find or calculate the "Cost", "Shipping", "Price", "Profit" and "Compared At Price" of the table from your given JSON data? If you can specify which data represents which column and how should I go about calculating the columns based on the JSON data. That will be very helpful.
+	- Cost: is SkuSalePrice or SkyPrice explained above
+	- Shipping: will be grabbed from the popup I will provide
+	- Price & Compare At Price: will be calculated based on two values sent to your form on load in two variables
+		- price_multiplier and price_multiplier_mode
+		- multiplier: will be a number   (ie: 2 or 4 or 3 etc...)
+		- mode: either "multiply" or "fixed"
+		- to arrive at the "Cost"
+			- if multiply, then multiply the cost with the multiplier number
+			- if fixed, then add the multiplier number to the Cost
+
+		Compare At Price will be calculated the same way but using compare_multiplier & compare_multiplier_mode variables
+
+	- Profit:  will be Price (-)minus Cost (-)minus Shipping (if any)

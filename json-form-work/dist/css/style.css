@@ -1,0 +1,42 @@
+.jfb-selector-nav a {
+  padding: 5px 10px;
+  color: #51BF23;
+}
+
+.jfb-selector-nav a.active {
+  color: #1E1E1E;
+}
+
+.jfb-table {
+  font-size: 12px;
+}
+
+.jfb-table td, .jfb-table th {
+  vertical-align: middle;
+  padding: 10px 2px;
+}
+
+.jfb-table td input, .jfb-table td .input-group-text, .jfb-table th input, .jfb-table th .input-group-text {
+  font-size: 12px;
+}
+
+.jfb-table .buttons .btn-sm {
+  font-size: 12px;
+}
+
+.jfb-table .small-width {
+  width: 60px;
+}
+
+.jfb-table .medium-width {
+  width: 100px;
+}
+
+.jfb-table .jfb-img-td {
+  width: 40px;
+}
+
+.jfb-table .jfb-img-td img {
+  width: 100%;
+  height: auto;
+}

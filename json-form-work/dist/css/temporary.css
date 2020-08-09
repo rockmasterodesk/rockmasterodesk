@@ -1,0 +1,19 @@
+.temporary .json-box {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.5);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.temporary .json-box textarea {
+  width: 80%;
+  height: 80%;
+  margin-bottom: 5px;
+}
