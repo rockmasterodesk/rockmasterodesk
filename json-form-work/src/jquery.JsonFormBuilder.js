@@ -40,6 +40,33 @@ class JsonFormBuilder {
     this.config = {};
     this.config.table = undefined !== options.table ? options.table : ".jfb-table";
 
+    // Validate required options
+    const required_fields = ["price_multiplier", "price_multiplier_mode", "compare_multiplier", "compare_multiplier_mode"];
+    for(let field of required_fields){
+      if (undefined === options[field]){
+        console.error("Missing " + field + " in JsonFormBuilder() instanciation options");
+        return;
+      }
+      if ("mode" === field.substr(field.length-4)){
+        if ("multiply" !== options[field] && "fixed" !== options[field]){
+          console.error(field + " in JsonFormBuilder() instanciation must be either of \"multiply\" or \"fixed\"");
+          return;
+        }
+      } else {
+        let int_val = parseInt(options[field]);
+        if (isNaN(int_val)){
+          console.error(field + " in JsonFormBuilder() instanciation must be a number");
+          return;
+        }
+      }
+    }
+
+    // Now set the options
+    this.config.price_multiplier = options.price_multiplier;
+    this.config.price_multiplier_mode = options.price_multiplier_mode;
+    this.config.compare_multiplier = options.compare_multiplier;
+    this.config.compare_multiplier_mode = options.compare_multiplier_mode;
+
     // Build the form from Data
     this.buildForm();
 
@@ -55,6 +82,9 @@ class JsonFormBuilder {
       let SKU =   (10000000 + Math.floor(Math.random() * 90000000)) // Random Digits
                 + "-"
                 + variant.variantName.replace(/[^A-Za-z0-9.]+/g, "-"); // The String
+      let price = "multiply" === this.config.price_multiplier_mode ? (cost * this.config.price_multiplier) : (cost + this.config.price_multiplier);
+      let comparedAtPrice = "multiply" === this.config.compare_multiplier_mode ? (cost * this.config.compare_multiplier) : (cost + this.config.compare_multiplier);
+      let shipping = 0;
       
       content += `
       <tr id="${variant.id}">
@@ -67,22 +97,36 @@ class JsonFormBuilder {
         <td><input class="form-control" type="text" name="" value="${variant.shipsFrom}" /></td>
         <td>
           <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">USD$</span>
-          </div>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">USD$</span>
+            </div>
             <input class="form-control" type="text" name="" value="${cost}" />
           </div>
         </td>
-        <td>--</td>
-        <td>--</td>
-        <td>--</td>
-        <td>--</td>
+        <td>--</td> <!-- Shipping -->
+        <td>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">USD$</span>
+            </div>
+            <input class="form-control" type="text" name="" value="${price}" />
+          </div>
+        </td> <!-- Price -->
+        <td>${price-cost-shipping}</td> <!-- Profit -->
+        <td>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">USD$</span>
+            </div>
+            <input class="form-control" type="text" name="" value="${comparedAtPrice}" />
+          </div>
+        </td> <!-- Compared At Price -->
         <td>${variant.inventory}</td>
       </tr>
       `;
     });
     
-    console.log(content);
+    // console.log(content);
 
     // Now inject the contents in the table
     window.jQuery(this.config.table).find('tbody').html(content);

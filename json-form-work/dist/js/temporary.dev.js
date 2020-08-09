@@ -12,7 +12,12 @@ $(document).ready(function () {
   $('#SubmitButton').click(function () {
     var $text = $('#json_box').val();
     console.log($text);
-    var formBuilder = new JsonFormBuilder($text);
+    var formBuilder = new JsonFormBuilder($text, {
+      price_multiplier: $('#price_multiplier').val(),
+      price_multiplier_mode: $('#price_multiplier_mode').val(),
+      compare_multiplier: $('#compare_multiplier').val(),
+      compare_multiplier_mode: $('#compare_multiplier_mode').val()
+    });
     $('.json-box').css('display', 'none');
   });
 });

@@ -16,7 +16,37 @@
       <button class="btn btn-outline-secondary" id="ExportButton" disabled>Export JSON</button>
 
       <div class="json-box">
-        <textarea name="json_box" id="json_box" cols="30" rows="10"></textarea>
+        <textarea name="json_box" id="json_box" cols="30" rows="10" placeholder="Enter JSON Code Here"></textarea>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">price_multiplier</span>
+          </div>
+          <input class="form-control" type="text" name="price_multiplier" id="price_multiplier" />
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">price_multiplier_mode</span>
+          </div>
+          <select class="form-control" type="text" name="price_multiplier_mode" id="price_multiplier_mode">
+            <option value="multiply">multiply</option>
+            <option value="fixed">fixed</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">compare_multiplier</span>
+          </div>
+          <input class="form-control" type="text" name="compare_multiplier" id="compare_multiplier" />
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">compare_multiplier_mode</span>
+          </div>
+          <select class="form-control" type="text" name="compare_multiplier_mode" id="compare_multiplier_mode">
+            <option value="multiply">multiply</option>
+            <option value="fixed">fixed</option>
+          </select>
+        </div>
         <button class="btn btn-primary" id="SubmitButton">Generate Table</button>
       </div>
     </div>
@@ -66,7 +96,12 @@
   <script src="dist/js/jquery.JsonFormBuilder.dev.js"></script>
   <script src="dist/js/temporary.dev.js"></script>
   <script>
-    // var formBuilder = new JsonFormBuilder(products);
+    // var formBuilder = new JsonFormBuilder(products, {
+    //   price_multiplier: "2",
+    //   price_multiplier_mode: "multiply",
+    //   compare_multiplier: "3",
+    //   compare_multiplier_mode: "fixed",
+    // });
   </script>
 </body>
 </html>

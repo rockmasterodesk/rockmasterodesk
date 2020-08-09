@@ -57,7 +57,38 @@ function () {
     }); // Configuration Options
 
     this.config = {};
-    this.config.table = undefined !== options.table ? options.table : ".jfb-table"; // Build the form from Data
+    this.config.table = undefined !== options.table ? options.table : ".jfb-table"; // Validate required options
+
+    var required_fields = ["price_multiplier", "price_multiplier_mode", "compare_multiplier", "compare_multiplier_mode"];
+
+    for (var _i = 0, _required_fields = required_fields; _i < _required_fields.length; _i++) {
+      var field = _required_fields[_i];
+
+      if (undefined === options[field]) {
+        console.error("Missing " + field + " in JsonFormBuilder() instanciation options");
+        return;
+      }
+
+      if ("mode" === field.substr(field.length - 4)) {
+        if ("multiply" !== options[field] && "fixed" !== options[field]) {
+          console.error(field + " in JsonFormBuilder() instanciation must be either of \"multiply\" or \"fixed\"");
+          return;
+        }
+      } else {
+        var int_val = parseInt(options[field]);
+
+        if (isNaN(int_val)) {
+          console.error(field + " in JsonFormBuilder() instanciation must be a number");
+          return;
+        }
+      }
+    } // Now set the options
+
+
+    this.config.price_multiplier = options.price_multiplier;
+    this.config.price_multiplier_mode = options.price_multiplier_mode;
+    this.config.compare_multiplier = options.compare_multiplier;
+    this.config.compare_multiplier_mode = options.compare_multiplier_mode; // Build the form from Data
 
     this.buildForm();
     return this;
@@ -75,9 +106,12 @@ function () {
         var SKU = 10000000 + Math.floor(Math.random() * 90000000) + // Random Digits
         "-" + variant.variantName.replace(/[^A-Za-z0-9.]+/g, "-"); // The String
 
-        content += "\n      <tr id=\"".concat(variant.id, "\">\n        <th scope=\"row\"><input type=\"checkbox\" name=\"checkbox[]\" /></th>\n        <td class=\"jfb-img-td\"><img src=\"").concat(variant.variantImages, "\" alt=\"\"></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(SKU, "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(_this2.$options.Color[fulfillNameJson.Color - 1], "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(_this2.$options.Width[fulfillNameJson.Width - 1], "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(_this2.$options.Length[fulfillNameJson.Length - 1], "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(variant.shipsFrom, "\" /></td>\n        <td>\n          <div class=\"input-group\">\n          <div class=\"input-group-prepend\">\n            <span class=\"input-group-text\" id=\"basic-addon1\">USD$</span>\n          </div>\n            <input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(cost, "\" />\n          </div>\n        </td>\n        <td>--</td>\n        <td>--</td>\n        <td>--</td>\n        <td>--</td>\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
-      });
-      console.log(content); // Now inject the contents in the table
+        var price = "multiply" === _this2.config.price_multiplier_mode ? cost * _this2.config.price_multiplier : cost + _this2.config.price_multiplier;
+        var comparedAtPrice = "multiply" === _this2.config.compare_multiplier_mode ? cost * _this2.config.compare_multiplier : cost + _this2.config.compare_multiplier;
+        var shipping = 0;
+        content += "\n      <tr id=\"".concat(variant.id, "\">\n        <th scope=\"row\"><input type=\"checkbox\" name=\"checkbox[]\" /></th>\n        <td class=\"jfb-img-td\"><img src=\"").concat(variant.variantImages, "\" alt=\"\"></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(SKU, "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(_this2.$options.Color[fulfillNameJson.Color - 1], "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(_this2.$options.Width[fulfillNameJson.Width - 1], "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(_this2.$options.Length[fulfillNameJson.Length - 1], "\" /></td>\n        <td><input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(variant.shipsFrom, "\" /></td>\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">USD$</span>\n            </div>\n            <input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(cost, "\" />\n          </div>\n        </td>\n        <td>--</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">USD$</span>\n            </div>\n            <input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(price, "\" />\n          </div>\n        </td> <!-- Price -->\n        <td>").concat(price - cost - shipping, "</td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">USD$</span>\n            </div>\n            <input class=\"form-control\" type=\"text\" name=\"\" value=\"").concat(comparedAtPrice, "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
+      }); // console.log(content);
+      // Now inject the contents in the table
 
       window.jQuery(this.config.table).find('tbody').html(content);
     }
