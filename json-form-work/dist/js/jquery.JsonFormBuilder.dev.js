@@ -334,10 +334,10 @@ function () {
           thisClass.$variants.forEach(function (v) {
             var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
 
-            v.price = new_price.toFixed(2); // 2 decimal places
+            v.comparePrice = new_price.toFixed(2); // 2 decimal places
             // Update DOM Dependencies
 
-            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-compare-price-field').val(v.price);
+            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-compare-price-field').val(v.comparePrice);
           });
           $(this).val("");
           $inputContainer.hide();
