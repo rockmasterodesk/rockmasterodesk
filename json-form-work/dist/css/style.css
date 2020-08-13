@@ -1,3 +1,7 @@
+.jfb-selector-nav > div {
+  display: flex;
+}
+
 .jfb-selector-nav a {
   padding: 5px 10px;
   color: #51BF23;
@@ -39,4 +43,32 @@
 .jfb-table .jfb-img-td img {
   width: 100%;
   height: auto;
+}
+
+.jfb-table .jfb-nowrap {
+  white-space: nowrap;
+}
+
+.jfb-table .price-change-all, .jfb-table .compare-price-change-all {
+  position: relative;
+}
+
+.jfb-table .price-change-all .change-input, .jfb-table .compare-price-change-all .change-input {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  left: 0;
+  top: -25px;
+  padding: 5px;
+  background: white;
+  box-shadow: 0 0 5px #aaa;
+  z-index: 2;
+}
+
+.jfb-table .price-change-all .change-input .input, .jfb-table .compare-price-change-all .change-input .input {
+  margin-bottom: 5px;
+}
+
+.jfb-table .price-change-all .change-input .buttons button, .jfb-table .compare-price-change-all .change-input .buttons button {
+  font-size: 12px;
 }

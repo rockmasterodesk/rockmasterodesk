@@ -1,5 +1,9 @@
 // Nav Selector Menu Design
 .jfb-selector-nav {
+  &> div {
+    display:flex;
+  }
+  
   a {
     padding:5px 10px;
     color:#51BF23;
@@ -42,6 +46,35 @@
     img {
       width:100%;
       height:auto;
+    }
+  }
+
+  .jfb-nowrap {
+    white-space: nowrap;
+  }
+
+  .price-change-all, .compare-price-change-all {
+    position:relative;
+
+    .change-input {
+      position:absolute;
+      display: none;
+      flex-direction: column;
+      left: 0;
+      top: -25px;
+      padding: 5px;
+      background: white;
+      box-shadow: 0 0 5px #aaa;
+      z-index:2;
+
+      .input {
+        margin-bottom:5px;
+      }
+      .buttons {
+        button {
+          font-size:12px;
+        }
+      }
     }
   }
 }
