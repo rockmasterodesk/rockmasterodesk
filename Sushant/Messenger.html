@@ -312,6 +312,9 @@
                           <p class="name">${PersonName}</p>
                           <p class="designation">Designation</p>
                         </div>
+                        <div class="new_message_count ${getRandomInt(1,10)%3==0 ? "hasCount" :""}">
+                          <div class="count_icon">4</div>  
+                        </div>
                         <div class="sidebar options">
                           <div class="dropdown">
                             <button class="btn btn-icon" type="button" id="chatroomOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -456,7 +459,7 @@ Hi, I am online on Skype if you are available.
               <div class="single-message flex-custom from_me">
                 <div class="name-and-message">
                   <div class="name">
-                    <a href="#">ASM Asaduzzaman</a> - <span>20 min</span>
+                    <a popover-profileInfo="{'room_id':'room~100','name':'ASM Asaduzzaman', 'image':'null', 'color' : '000', 'self':true}" href="#">ASM Asaduzzaman</a> - <span>20 min</span>
                   </div>
                   <div class="main-message">
                     Another Message
@@ -502,6 +505,7 @@ Hi, I am online on Skype if you are available.
         Hi, My name is Sushant Tripathy and I am building this amazing Chatroom.
       </div>
       <div class="actions">
+        <a href="ProfileDetails.html" class="btn btn-success myProfile">My Profile</a>
         <button class="btn btn-success">Add Contact</button>
         <button class="btn btn-primary send-message" data-room="{'name':'Andrew Gustavo', 'image':'images/man_avatar1.jpg'}">Send Message</button>
         <button class="btn btn-danger">Mute</button>
