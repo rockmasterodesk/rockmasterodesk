@@ -73,11 +73,20 @@
   <script src="dist/js/jquery.JsonFormBuilder.dev.js"></script>
   <script src="dist/js/temporary.dev.js"></script>
   <script>
-    // window.formBuilder = new JsonFormBuilder(products_1, {
+
+    var changeShipping = function(callback){
+      // show modal and get user contents
+
+      // on submit, call the callback function with 3 values: shipping price, country, shipping option
+      callback(2.33, "China", "Anything");
+    };
+
+    // window.formBuilder = new JsonFormBuilder(products_4, {
     //   price_multiplier: "2",
     //   price_multiplier_mode: "multiply",
     //   compare_multiplier: "3",
     //   compare_multiplier_mode: "fixed",
+    //   // changeShippingFunction: changeShipping
     // });
   </script>
 </body>

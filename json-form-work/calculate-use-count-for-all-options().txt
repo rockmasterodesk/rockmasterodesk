@@ -1,0 +1,14 @@
+calculate-use-count-for-all-options()
+foreach (options as option){
+  if (option.use_count === 0){
+
+    1. foreach(next options of current category){
+      update $variant.fulfillName[option] by -1
+      update tr#variant_# [data-option="OPTION"] data-s_index by -1
+    }
+
+    2. remove this option from $options and $options_count top DOM
+
+
+  }
+}
