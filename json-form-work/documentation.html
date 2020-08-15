@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JsonFormBuilder Documentation</title>
+  <link rel="stylesheet" href="dist/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    pre {
+      background:#1e1e1e;
+      color:white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">JsonFormBuilder Documentation</h1>
+
+
+    <div class="html">
+      <h3>HTML Section</h3>
+      <p>You will need the following snippet to integrate this JsonFormBuilder in your HTML</p>
+      <pre>
+&lt;nav class="nav jfb-selector-nav"&gt;
+&lt;/nav&gt;
+&lt;table class="table jfb-table" id="BuildThisForm"&gt;
+  &lt;thead&gt;
+    &lt;tr class="titles"&gt;
+    &lt;/tr&gt;
+    &lt;tr class="buttons"&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </pre>
+
+      It needs a Bootstrap nav and a Bootstrap table to work. The library automatically uses a nav with class <b>.jfb-selector-nav</b> as the nav and a table with class <b>.jfb-table</b> as the table to render on the screen.
+
+      <p>Make sure to include bootstrap stylesheet on the header and "jquery", "popper" and "bootstrap" javascripts in the body. Include the script <b>"jquery.JsonFormBuilder.dev.js"</b> only after including all the other javascripts. Please refer to the <b>index.html</b> file for example usage.</p>
+    </div>
+    <div class="javascript">
+      <h3>JavaScript Section</h3>
+      <pre>
+&lt;script src="dist/jquery/dist/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="dist/popper/dist/umd/popper.min.js"&gt;&lt;/script&gt;
+&lt;script src="dist/bootstrap/dist/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script src="dist/js/jquery.JsonFormBuilder.dev.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.formBuilder = new JsonFormBuilder(products_2, {
+    price_multiplier: "10",
+    price_multiplier_mode: "fixed", // fixed or multiply
+    compare_multiplier: "10",
+    compare_multiplier_mode: "fixed", // fixed or multiply
+  });
+&lt;/script&gt;
+      </pre>
+      <br>
+      <p>As you can see, you have to include jquery, popper.js, bootstrap and jquery.JsonFormBuilder.dev.js sequencially in order to call the object.</p>
+      <p>Then, to generate the form, you have to call <b>new JsonFormBuilder(JSON, OPTIONS)</b> with the JSON and Options.</p>
+      <p>The JSON should follow the exact format that you sent me.</p>
+      <p>Options is a JavaScript object. This object provides necessary information to the library such as <b>price_multiplier</b>, <b>price_multiplier_mode</b> etc.</p>
+
+      <br>
+      <h4>Change Shipping Method Function</h4>
+      <p>You can put the changeShippingFunction as a property of the OPTIONS object that you give to the class.</p>
+      <p>For example:-</p>
+      <pre>
+window.formBuilder = new JsonFormBuilder(products_2, {
+  price_multiplier: "10",
+  price_multiplier_mode: "fixed", // fixed or multiply
+  compare_multiplier: "10",
+  compare_multiplier_mode: "fixed", // fixed or multiply
+  changeShippingFunction: function(callback, data){
+    // show modal and get user contents here
+    // existing data.country and data.option is available
+    console.log(data.country, data.option);
+
+    // on submit, call the callback function with 3 values: shipping price, country, shipping option
+    callback(2.33, "Bangladesh", "Pathao");
+  };
+});
+      </pre>
+      <p>The comments should tell you everything on how to use it. Still, ask me if you need further clarification.</p>
+    </div>
+  </div>
+</body>
+</html>
