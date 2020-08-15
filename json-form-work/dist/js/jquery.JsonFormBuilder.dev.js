@@ -93,12 +93,12 @@ function () {
     this.config.compare_multiplier_mode = options.compare_multiplier_mode; // Store the data in formatted way
 
     this.$options = this.JsonData.options;
-    this.$variants = []; // console.log(this.config.price_multiplier_mode, this.config.compare_multiplier_mode);
+    this.$variants = [];
+    var randomDigits = 10000000 + Math.floor(Math.random() * 90000000); // console.log(this.config.price_multiplier_mode, this.config.compare_multiplier_mode);
 
     this.JsonData.variants.forEach(function (v, i) {
       var cost = undefined !== v.skuSalePrice ? v.skuSalePrice : skuPrice;
       var costFloat = parseFloat(cost);
-      var randomDigits = 10000000 + Math.floor(Math.random() * 90000000);
       var price = "multiply" === _this.config.price_multiplier_mode ? costFloat * _this.config.price_multiplier : costFloat + _this.config.price_multiplier;
       var comparedAtPrice = "multiply" === _this.config.compare_multiplier_mode ? costFloat * _this.config.compare_multiplier : costFloat + _this.config.compare_multiplier; // console.log(cost, this.config.price_multiplier, this.config.compare_multiplier, price, comparedAtPrice);
 
@@ -381,9 +381,11 @@ function () {
             new_index = thisClass.$options[option].push(value) - 1; // Add this to Selectors and Top Bar
 
             $(thisClass.config.selectors).find('.selector-' + option.replace(" ", "-")).append("\n              <a class=\"nav-link\" href=\"#\" data-option=\"".concat(option, "\" data-selector=\"").concat(value, "\" data-s_index=\"").concat(new_index, "\">").concat(value, "</a>\n            "));
+            console.log("New - " + value);
           } else {
             // If not new, check whether it is unique for all variants
             // check for uniqueness
+            console.log("Existing - Check uniqueness - " + value);
             var unique = true;
             thisClass.$variants.filter(function (v) {
               return v.fulfillName[option] === new_index + 1 + "";
@@ -391,10 +393,11 @@ function () {
               var thisfulfillName = thisClass.$variants[variant_index].fulfillName;
               thisfulfillName[option] = new_index + 1 + "";
               var thisString = JSON.stringify(thisfulfillName);
-              var compareToString = JSON.stringify(v.fulfillName); // console.log(thisString,compareToString);
+              var compareToString = JSON.stringify(v.fulfillName);
+              console.log(thisString, variant_id, compareToString, v.id);
 
               if (thisString === compareToString && thisClass.$variants[variant_index].id !== v.id) {
-                // console.log("Matched",thisString,compareToString);
+                console.log("Matched", thisString, variant_id, compareToString, v.id);
                 unique = false;
               }
             });

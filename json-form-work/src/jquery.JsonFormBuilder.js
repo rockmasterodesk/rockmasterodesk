@@ -69,11 +69,11 @@ class JsonFormBuilder {
     // Store the data in formatted way
     this.$options = this.JsonData.options;
     this.$variants = [];
+    let randomDigits = (10000000 + Math.floor(Math.random() * 90000000));
     // console.log(this.config.price_multiplier_mode, this.config.compare_multiplier_mode);
     this.JsonData.variants.forEach((v,i)=>{
       let cost = undefined !== v.skuSalePrice ? v.skuSalePrice : skuPrice;
       let costFloat = parseFloat(cost);
-      let randomDigits = (10000000 + Math.floor(Math.random() * 90000000));
       let price = "multiply" === this.config.price_multiplier_mode ? (costFloat * this.config.price_multiplier) : (costFloat + this.config.price_multiplier);
       let comparedAtPrice = "multiply" === this.config.compare_multiplier_mode ? (costFloat * this.config.compare_multiplier) : (costFloat + this.config.compare_multiplier);
 
@@ -362,8 +362,10 @@ class JsonFormBuilder {
             $(thisClass.config.selectors).find('.selector-'+option.replace(" ","-")).append(`
               <a class="nav-link" href="#" data-option="${option}" data-selector="${value}" data-s_index="${new_index}">${value}</a>
             `);
+            console.log("New - " + value);
           } else { // If not new, check whether it is unique for all variants
             // check for uniqueness
+            console.log("Existing - Check uniqueness - " + value);
             let unique = true;
             thisClass.$variants.filter(v=>{
               return v.fulfillName[option] === new_index+1+""
@@ -373,10 +375,10 @@ class JsonFormBuilder {
               let thisString = JSON.stringify(thisfulfillName);
               let compareToString = JSON.stringify(v.fulfillName);
 
-              // console.log(thisString,compareToString);
+              console.log(thisString,variant_id,compareToString,v.id);
 
               if (thisString === compareToString && thisClass.$variants[variant_index].id !== v.id){
-                // console.log("Matched",thisString,compareToString);
+              console.log("Matched",thisString,variant_id,compareToString,v.id);
                 unique = false;
               }
 
