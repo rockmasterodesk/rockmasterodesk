@@ -206,19 +206,32 @@ class JsonFormBuilder {
       deleteLater.forEach(d=>{
         // Update Index
         d.index = this.$options[d.option].findIndex(o=>{return o === d.value});
-        console.log(this.$options[d.option]);
-        console.log("Deleting " + d.index + "-" + d.value);
+        // console.log(this.$options[d.option]);
+        // console.log("Deleting " + d.index + "-" + d.value);
         this.$options[option].splice(d.index,1);
         this.$options_use_count[option].splice(d.index,1);
-        console.log(this.$options[d.option]);
+        // console.log(this.$options[d.option]);
         this.config.jQuery(this.config.selectors+" a.nav-link[data-option='"+d.option+"'][data-selector='"+d.value+"']").remove();
       });
 
     });
   }
 
-  removeOption(option, index){
+  calculateAndUpdateProfit(v){
+    let profit = this.calculateProfit(v);
+    let $profitTD = $(this.config.table + " tr#variant_"+v.id).find('.jfb-profit-field').parent();
 
+    // Update DOM to success or danger
+    if (parseFloat(profit) < 0){
+      $profitTD.removeClass('text-success');
+      $profitTD.addClass('text-danger');
+    } else {
+      $profitTD.removeClass('text-danger');
+      $profitTD.addClass('text-success');
+    }
+
+    // Update profit field
+    $(this.config.table + " tr#variant_"+v.id).find('.jfb-profit-field').text(profit);
   }
 
   addEventListeners(){
@@ -256,7 +269,7 @@ class JsonFormBuilder {
             });
             // Check All with that option
             thisClass.$variants.forEach((v)=>{
-              console.log("Finding to check : " + (s_index+1));
+              // console.log("Finding to check : " + (s_index+1));
               if (v.fulfillName[option] === (s_index + 1) + ""){
                 $("#variant_"+v.id).find(".main-checkbox").prop('checked', true);
               }
@@ -303,13 +316,13 @@ class JsonFormBuilder {
           let button = $(this);
           thisClass.config.changeShippingFunction(function(price=0, country=null, option=null){
             thisClass.$variants.forEach(function(v){
-              console.log(v.id);
+              // console.log(v.id);
               // update variant
               v.__shipping__ = thisClass.roundNumber(price);
               // Change the shipping price
-              $(thisClass.config.table + " tr#variant_"+v.id).find('.shipping-cost').text("USD$ "+thisClass.roundNumber(price).toFixed(2));
+              $(thisClass.config.table + " tr#variant_"+v.id).find('.shipping-cost').text("US$ "+thisClass.roundNumber(price).toFixed(2));
               // Update profit for each element
-              $(thisClass.config.table + " tr#variant_"+v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
+              thisClass.calculateAndUpdateProfit(v);
             });
     
             button.find('.country').text(country);
@@ -324,13 +337,18 @@ class JsonFormBuilder {
           let s_name = thisClass.$options[option][s_index];
   
           let value = $(this).val();
+          let originalValue = $(this).attr('value');
+          let thisField = $(this);
+
+          let variant_id = $(this).parent().parent().attr('id').substr(8);
+          let variant_index = thisClass.getVariantIndexByID(variant_id);
   
+          // Can't be empty
           if ("" === value || null === value){
             $(this).val(s_name);
             return;
           }
-  
-          console.log(option,s_index,s_name);
+          // console.log(option,s_index,s_name);
   
           // Check whether this is a new value
           let new_index = thisClass.$options[option].indexOf(value);
@@ -344,14 +362,38 @@ class JsonFormBuilder {
             $(thisClass.config.selectors).find('.selector-'+option.replace(" ","-")).append(`
               <a class="nav-link" href="#" data-option="${option}" data-selector="${value}" data-s_index="${new_index}">${value}</a>
             `);
+          } else { // If not new, check whether it is unique for all variants
+            // check for uniqueness
+            let unique = true;
+            thisClass.$variants.filter(v=>{
+              return v.fulfillName[option] === new_index+1+""
+            }).forEach(v=>{
+              let thisfulfillName = thisClass.$variants[variant_index].fulfillName;
+              thisfulfillName[option] = new_index+1+"";
+              let thisString = JSON.stringify(thisfulfillName);
+              let compareToString = JSON.stringify(v.fulfillName);
+
+              // console.log(thisString,compareToString);
+
+              if (thisString === compareToString && thisClass.$variants[variant_index].id !== v.id){
+                // console.log("Matched",thisString,compareToString);
+                unique = false;
+              }
+
+            });
+
+            if (!unique){
+              alert("This options combination is not unique");
+              thisField.val(originalValue);
+              return;
+            }
           }
   
           // Update the variants field for this row with associated index
-          let variant_id = $(this).parent().parent().attr('id').substr(8);
-          let variant_index = thisClass.getVariantIndexByID(variant_id);
           thisClass.$variants[variant_index].fulfillName[option] = new_index + 1 +"";
           thisClass.$variants[variant_index].variantName = thisClass.generateVariantName(thisClass.$variants[variant_index].fulfillName);
           $(this).parent().attr('data-s_index', new_index);
+          thisField.attr('value', value);
           
           // Update shopSKU Field
           // thisClass.updateShopSKU(variant_index);
@@ -386,6 +428,7 @@ class JsonFormBuilder {
             thisClass.$variants[variant_index].shopSKU = thisValue;
             thisField.attr('value', thisValue);
           } else {
+            alert("This SKU already exists on other variants.");
             thisField.val(originalValue);
           }
 
@@ -412,8 +455,7 @@ class JsonFormBuilder {
           if ("change" === e.type){
             $(this).val(variant.price);
           }
-          let profit = thisClass.roundNumber(thisClass.calculateProfit(variant));
-          $(thisClass.config.table + " tr#variant_"+variant.id+" span.jfb-profit-field").text(profit);
+          thisClass.calculateAndUpdateProfit(variant);
         };
         $(document).on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
         $(document).on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
@@ -466,7 +508,7 @@ class JsonFormBuilder {
   
             // Update DOM Dependencies
             $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-price-field').val(v.price); // Price Field
-            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-profit-field').text(thisClass.calculateProfit(v)); // Price Field
+            thisClass.calculateAndUpdateProfit(v);
   
           });
   
@@ -654,21 +696,21 @@ class JsonFormBuilder {
       }
 
       content += `
-        <td class="jfb-nowrap">USD$ ${variant.__cost__}</td>
+        <td class="jfb-nowrap">US$ ${variant.__cost__}</td>
         <td class="shipping-cost">--</td> <!-- Shipping -->
         <td>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">USD$</span>
+              <span class="input-group-text" id="basic-addon1">US$</span>
             </div>
             <input class="form-control jfb-price-field" type="text" name="price_${variant.id}" value="${this.roundNumber(variant.price).toFixed(2)}" />
           </div>
         </td> <!-- Price -->
-        <td class="jfb-nowrap">USD$ <span class="jfb-profit-field">${this.roundNumber( this.calculateProfit(variant) ).toFixed(2)}</span></td> <!-- Profit -->
+        <td class="jfb-nowrap ${parseFloat(this.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success'}">US$ <span class="jfb-profit-field">${this.roundNumber( this.calculateProfit(variant) ).toFixed(2)}</span></td> <!-- Profit -->
         <td>
           <div class="input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">USD$</span>
+              <span class="input-group-text" id="basic-addon1">US$</span>
             </div>
             <input class="form-control jfb-compare-price-field" type="text" name="comparePrice_${variant.id}" value="${this.roundNumber(variant.comparePrice).toFixed(2)}" />
           </div>

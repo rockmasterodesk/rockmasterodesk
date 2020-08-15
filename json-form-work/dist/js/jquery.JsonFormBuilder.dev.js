@@ -234,23 +234,35 @@ function () {
           // Update Index
           d.index = _this4.$options[d.option].findIndex(function (o) {
             return o === d.value;
-          });
-          console.log(_this4.$options[d.option]);
-          console.log("Deleting " + d.index + "-" + d.value);
+          }); // console.log(this.$options[d.option]);
+          // console.log("Deleting " + d.index + "-" + d.value);
 
           _this4.$options[option].splice(d.index, 1);
 
-          _this4.$options_use_count[option].splice(d.index, 1);
+          _this4.$options_use_count[option].splice(d.index, 1); // console.log(this.$options[d.option]);
 
-          console.log(_this4.$options[d.option]);
 
           _this4.config.jQuery(_this4.config.selectors + " a.nav-link[data-option='" + d.option + "'][data-selector='" + d.value + "']").remove();
         });
       });
     }
   }, {
-    key: "removeOption",
-    value: function removeOption(option, index) {}
+    key: "calculateAndUpdateProfit",
+    value: function calculateAndUpdateProfit(v) {
+      var profit = this.calculateProfit(v);
+      var $profitTD = $(this.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').parent(); // Update DOM to success or danger
+
+      if (parseFloat(profit) < 0) {
+        $profitTD.removeClass('text-success');
+        $profitTD.addClass('text-danger');
+      } else {
+        $profitTD.removeClass('text-danger');
+        $profitTD.addClass('text-success');
+      } // Update profit field
+
+
+      $(this.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(profit);
+    }
   }, {
     key: "addEventListeners",
     value: function addEventListeners() {
@@ -285,8 +297,7 @@ function () {
             }); // Check All with that option
 
             thisClass.$variants.forEach(function (v) {
-              console.log("Finding to check : " + (s_index + 1));
-
+              // console.log("Finding to check : " + (s_index+1));
               if (v.fulfillName[option] === s_index + 1 + "") {
                 $("#variant_" + v.id).find(".main-checkbox").prop('checked', true);
               }
@@ -332,13 +343,13 @@ function () {
             var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
             thisClass.$variants.forEach(function (v) {
-              console.log(v.id); // update variant
-
+              // console.log(v.id);
+              // update variant
               v.__shipping__ = thisClass.roundNumber(price); // Change the shipping price
 
-              $(thisClass.config.table + " tr#variant_" + v.id).find('.shipping-cost').text("USD$ " + thisClass.roundNumber(price).toFixed(2)); // Update profit for each element
+              $(thisClass.config.table + " tr#variant_" + v.id).find('.shipping-cost').text("US$ " + thisClass.roundNumber(price).toFixed(2)); // Update profit for each element
 
-              $(thisClass.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
+              thisClass.calculateAndUpdateProfit(v);
             });
             button.find('.country').text(country);
             button.find('.option').text(option);
@@ -350,13 +361,17 @@ function () {
           var s_index = $(this).parent().attr('data-s_index');
           var s_name = thisClass.$options[option][s_index];
           var value = $(this).val();
+          var originalValue = $(this).attr('value');
+          var thisField = $(this);
+          var variant_id = $(this).parent().parent().attr('id').substr(8);
+          var variant_index = thisClass.getVariantIndexByID(variant_id); // Can't be empty
 
           if ("" === value || null === value) {
             $(this).val(s_name);
             return;
-          }
+          } // console.log(option,s_index,s_name);
+          // Check whether this is a new value
 
-          console.log(option, s_index, s_name); // Check whether this is a new value
 
           var new_index = thisClass.$options[option].indexOf(value);
           var isNew = new_index <= -1; // If new, add it to the options and update top bar
@@ -366,14 +381,36 @@ function () {
             new_index = thisClass.$options[option].push(value) - 1; // Add this to Selectors and Top Bar
 
             $(thisClass.config.selectors).find('.selector-' + option.replace(" ", "-")).append("\n              <a class=\"nav-link\" href=\"#\" data-option=\"".concat(option, "\" data-selector=\"").concat(value, "\" data-s_index=\"").concat(new_index, "\">").concat(value, "</a>\n            "));
+          } else {
+            // If not new, check whether it is unique for all variants
+            // check for uniqueness
+            var unique = true;
+            thisClass.$variants.filter(function (v) {
+              return v.fulfillName[option] === new_index + 1 + "";
+            }).forEach(function (v) {
+              var thisfulfillName = thisClass.$variants[variant_index].fulfillName;
+              thisfulfillName[option] = new_index + 1 + "";
+              var thisString = JSON.stringify(thisfulfillName);
+              var compareToString = JSON.stringify(v.fulfillName); // console.log(thisString,compareToString);
+
+              if (thisString === compareToString && thisClass.$variants[variant_index].id !== v.id) {
+                // console.log("Matched",thisString,compareToString);
+                unique = false;
+              }
+            });
+
+            if (!unique) {
+              alert("This options combination is not unique");
+              thisField.val(originalValue);
+              return;
+            }
           } // Update the variants field for this row with associated index
 
 
-          var variant_id = $(this).parent().parent().attr('id').substr(8);
-          var variant_index = thisClass.getVariantIndexByID(variant_id);
           thisClass.$variants[variant_index].fulfillName[option] = new_index + 1 + "";
           thisClass.$variants[variant_index].variantName = thisClass.generateVariantName(thisClass.$variants[variant_index].fulfillName);
-          $(this).parent().attr('data-s_index', new_index); // Update shopSKU Field
+          $(this).parent().attr('data-s_index', new_index);
+          thisField.attr('value', value); // Update shopSKU Field
           // thisClass.updateShopSKU(variant_index);
           // Update options use count
 
@@ -404,6 +441,7 @@ function () {
             thisClass.$variants[variant_index].shopSKU = thisValue;
             thisField.attr('value', thisValue);
           } else {
+            alert("This SKU already exists on other variants.");
             thisField.val(originalValue);
           } // console.log(value, val2);
 
@@ -427,8 +465,7 @@ function () {
             $(this).val(variant.price);
           }
 
-          var profit = thisClass.roundNumber(thisClass.calculateProfit(variant));
-          $(thisClass.config.table + " tr#variant_" + variant.id + " span.jfb-profit-field").text(profit);
+          thisClass.calculateAndUpdateProfit(variant);
         };
 
         $(document).on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
@@ -479,7 +516,7 @@ function () {
 
             $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-price-field').val(v.price); // Price Field
 
-            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-profit-field').text(thisClass.calculateProfit(v)); // Price Field
+            thisClass.calculateAndUpdateProfit(v);
           });
           $(this).val("");
           $inputContainer.hide();
@@ -630,7 +667,7 @@ function () {
           });
         }
 
-        content += "\n        <td class=\"jfb-nowrap\">USD$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">--</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">USD$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this8.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap\">USD$ <span class=\"jfb-profit-field\">").concat(_this8.roundNumber(_this8.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">USD$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this8.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
+        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">--</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this8.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this8.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this8.roundNumber(_this8.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this8.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
       });
       return content;
     }
