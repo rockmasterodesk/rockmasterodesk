@@ -8,6 +8,12 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59,7 +65,10 @@ function () {
     this.config.jQuery = undefined !== options.jQuery ? options.jQuery : window.jQuery;
     this.config.changeShippingFunction = undefined !== options.changeShippingFunction ? options.changeShippingFunction : function (callback) {
       callback(0, "", "");
-    }; // Validate required options
+    };
+    this.config.shipping = {};
+    this.config.shipping.country = null;
+    this.config.shipping.option = null; // Validate required options
 
     var required_fields = ["price_multiplier", "price_multiplier_mode", "compare_multiplier", "compare_multiplier_mode"];
 
@@ -342,6 +351,8 @@ function () {
             var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+            thisClass.config.shipping.country = country;
+            thisClass.config.shipping.option = option;
             thisClass.$variants.forEach(function (v) {
               // console.log(v.id);
               // update variant
@@ -353,6 +364,9 @@ function () {
             });
             button.find('.country').text(country);
             button.find('.option').text(option);
+          }, {
+            country: thisClass.config.shipping.country,
+            option: thisClass.config.shipping.option
           });
         }); // Edit Option Event Listener
 
@@ -390,14 +404,14 @@ function () {
             thisClass.$variants.filter(function (v) {
               return v.fulfillName[option] === new_index + 1 + "";
             }).forEach(function (v) {
-              var thisfulfillName = thisClass.$variants[variant_index].fulfillName;
+              var thisfulfillName = _objectSpread({}, thisClass.$variants[variant_index].fulfillName);
+
               thisfulfillName[option] = new_index + 1 + "";
               var thisString = JSON.stringify(thisfulfillName);
-              var compareToString = JSON.stringify(v.fulfillName);
-              console.log(thisString, variant_id, compareToString, v.id);
+              var compareToString = JSON.stringify(v.fulfillName); // console.log(thisString,variant_id,compareToString,v.id);
 
               if (thisString === compareToString && thisClass.$variants[variant_index].id !== v.id) {
-                console.log("Matched", thisString, variant_id, compareToString, v.id);
+                // console.log("Matched",thisString,variant_id,compareToString,v.id);
                 unique = false;
               }
             });

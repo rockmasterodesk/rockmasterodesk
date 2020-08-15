@@ -38,6 +38,9 @@ class JsonFormBuilder {
     this.config.selectors = undefined !== options.selectors ? options.selectors : ".jfb-selector-nav";
     this.config.jQuery = undefined !== options.jQuery ? options.jQuery : window.jQuery;
     this.config.changeShippingFunction = undefined !== options.changeShippingFunction ? options.changeShippingFunction : callback=>{callback(0,"","")};
+    this.config.shipping = {};
+    this.config.shipping.country = null;
+    this.config.shipping.option = null;
 
     // Validate required options
     const required_fields = ["price_multiplier", "price_multiplier_mode", "compare_multiplier", "compare_multiplier_mode"];
@@ -315,6 +318,9 @@ class JsonFormBuilder {
         $(document).on('click', thisClass.config.table + " #changeShipping", function(e){
           let button = $(this);
           thisClass.config.changeShippingFunction(function(price=0, country=null, option=null){
+            thisClass.config.shipping.country = country;
+            thisClass.config.shipping.option = option;
+
             thisClass.$variants.forEach(function(v){
               // console.log(v.id);
               // update variant
@@ -327,7 +333,7 @@ class JsonFormBuilder {
     
             button.find('.country').text(country);
             button.find('.option').text(option);
-          });
+          }, {country:thisClass.config.shipping.country, option:thisClass.config.shipping.option});
         });
 
         // Edit Option Event Listener
@@ -370,15 +376,15 @@ class JsonFormBuilder {
             thisClass.$variants.filter(v=>{
               return v.fulfillName[option] === new_index+1+""
             }).forEach(v=>{
-              let thisfulfillName = thisClass.$variants[variant_index].fulfillName;
+              let thisfulfillName = {...thisClass.$variants[variant_index].fulfillName};
               thisfulfillName[option] = new_index+1+"";
               let thisString = JSON.stringify(thisfulfillName);
               let compareToString = JSON.stringify(v.fulfillName);
 
-              console.log(thisString,variant_id,compareToString,v.id);
+              // console.log(thisString,variant_id,compareToString,v.id);
 
               if (thisString === compareToString && thisClass.$variants[variant_index].id !== v.id){
-              console.log("Matched",thisString,variant_id,compareToString,v.id);
+              // console.log("Matched",thisString,variant_id,compareToString,v.id);
                 unique = false;
               }
 
