@@ -87,19 +87,20 @@ function () {
     } // Now set the options
 
 
-    this.config.price_multiplier = options.price_multiplier;
+    this.config.price_multiplier = parseFloat(options.price_multiplier);
     this.config.price_multiplier_mode = options.price_multiplier_mode;
-    this.config.compare_multiplier = options.compare_multiplier;
+    this.config.compare_multiplier = parseFloat(options.compare_multiplier);
     this.config.compare_multiplier_mode = options.compare_multiplier_mode; // Store the data in formatted way
 
     this.$options = this.JsonData.options;
-    this.$variants = [];
+    this.$variants = []; // console.log(this.config.price_multiplier_mode, this.config.compare_multiplier_mode);
+
     this.JsonData.variants.forEach(function (v, i) {
       var cost = undefined !== v.skuSalePrice ? v.skuSalePrice : skuPrice;
+      var costFloat = parseFloat(cost);
       var randomDigits = 10000000 + Math.floor(Math.random() * 90000000);
-      var price = "multiply" === _this.config.price_multiplier_mode ? cost * _this.config.price_multiplier : cost + _this.config.price_multiplier;
-      var comparedAtPrice = "multiply" === _this.config.compare_multiplier_mode ? cost * _this.config.compare_multiplier : cost + _this.config.compare_multiplier;
-      var shipping = 0;
+      var price = "multiply" === _this.config.price_multiplier_mode ? costFloat * _this.config.price_multiplier : costFloat + _this.config.price_multiplier;
+      var comparedAtPrice = "multiply" === _this.config.compare_multiplier_mode ? costFloat * _this.config.compare_multiplier : costFloat + _this.config.compare_multiplier; // console.log(cost, this.config.price_multiplier, this.config.compare_multiplier, price, comparedAtPrice);
 
       _this.$variants.push({
         id: i,
@@ -255,272 +256,269 @@ function () {
     value: function addEventListeners() {
       var $ = this.config.jQuery;
       var thisClass = this; // Only add these Listeners on First Instanciation
+      //if (undefined === window.JFB_EVENT_LISTENERS_REGISTERED || false === window.JFB_EVENT_LISTENERS_REGISTERED){
+      //  window.JFB_EVENT_LISTENERS_REGISTERED = true;
 
-      if (undefined === window.JFB_EVENT_LISTENERS_REGISTERED || false === window.JFB_EVENT_LISTENERS_REGISTERED) {
-        window.JFB_EVENT_LISTENERS_REGISTERED = true;
-        $(document).ready(function () {
-          // Top Selector Event Listener
-          $(document).on('click', thisClass.config.selectors + "  a.nav-link", function (e) {
-            e.preventDefault();
-            var key = $(this).attr('data-selector');
-            var option = $(this).attr('data-option');
-            var s_index = parseInt($(this).attr('data-s_index')); // Change Selected Selector
+      $(document).ready(function () {
+        // Top Selector Event Listener
+        $(document).on('click', thisClass.config.selectors + "  a.nav-link", function (e) {
+          e.preventDefault();
+          var key = $(this).attr('data-selector');
+          var option = $(this).attr('data-option');
+          var s_index = parseInt($(this).attr('data-s_index')); // Change Selected Selector
 
-            $(thisClass.config.selectors + "  a.active").removeClass('active');
-            $(this).addClass('active');
+          $(thisClass.config.selectors + "  a.active").removeClass('active');
+          $(this).addClass('active');
 
-            if ("All" === key) {
-              $('.main-checkbox').each(function () {
-                $(this).prop('checked', true);
-              });
-            } else if ("None" === key) {
-              $('.main-checkbox').each(function () {
-                $(this).prop('checked', false);
-              });
-            } else {
-              // Uncheck All
-              $('.main-checkbox').each(function () {
-                $(this).prop('checked', false);
-              }); // Check All with that option
+          if ("All" === key) {
+            $('.main-checkbox').each(function () {
+              $(this).prop('checked', true);
+            });
+          } else if ("None" === key) {
+            $('.main-checkbox').each(function () {
+              $(this).prop('checked', false);
+            });
+          } else {
+            // Uncheck All
+            $('.main-checkbox').each(function () {
+              $(this).prop('checked', false);
+            }); // Check All with that option
 
-              thisClass.$variants.forEach(function (v) {
-                console.log("Finding to check : " + (s_index + 1));
+            thisClass.$variants.forEach(function (v) {
+              console.log("Finding to check : " + (s_index + 1));
 
-                if (v.fulfillName[option] === s_index + 1 + "") {
-                  $("#variant_" + v.id).find(".main-checkbox").prop('checked', true);
-                }
-              });
-            }
-
-            thisClass.updateDeleteButtonState();
-          }); // Update delete button stata on checkbox selection
-
-          $(document).on('click', thisClass.config.table + " .main-checkbox", function (e) {
-            thisClass.updateDeleteButtonState();
-          }); // Delete Button Action
-
-          $(document).on('click', thisClass.config.table + " .jfb-delete-button", function (e) {
-            var _this5 = this;
-
-            var sure = confirm('Are you sure you want to delete these variants?');
-            var selectedVariants = thisClass.getSelectedVariants();
-
-            if (sure && selectedVariants.length > 0) {
-              selectedVariants.forEach(function (id) {
-                if (thisClass.$variants.length === 1) {
-                  alert('At least one variant must exist.');
-                  return;
-                } // Remove variant from $variants
-
-
-                thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
-
-                $(thisClass.config.table + " tr#variant_" + id).remove();
-                $(_this5).attr('disabled', true); // Update Delete Fields
-
-                thisClass.updateOptionsUseCount();
-                thisClass.removeUnusedOptions();
-              });
-            }
-          }); // Edit Option Event Listener
-
-          var EditOptionListener = function EditOptionListener(e) {
-            var option = $(this).parent().attr('data-option');
-            var s_index = $(this).parent().attr('data-s_index');
-            var s_name = thisClass.$options[option][s_index];
-            var value = $(this).val();
-
-            if ("" === value || null === value) {
-              $(this).val(s_name);
-              return;
-            }
-
-            console.log(option, s_index, s_name); // Check whether this is a new value
-
-            var new_index = thisClass.$options[option].indexOf(value);
-            var isNew = new_index <= -1; // If new, add it to the options and update top bar
-
-            if (isNew) {
-              // Add this to options
-              new_index = thisClass.$options[option].push(value) - 1; // Add this to Selectors and Top Bar
-
-              $(thisClass.config.selectors).find('.selector-' + option.replace(" ", "-")).append("\n              <a class=\"nav-link\" href=\"#\" data-option=\"".concat(option, "\" data-selector=\"").concat(value, "\" data-s_index=\"").concat(new_index, "\">").concat(value, "</a>\n            "));
-            } // Update the variants field for this row with associated index
-
-
-            var variant_id = $(this).parent().parent().attr('id').substr(8);
-            var variant_index = thisClass.getVariantIndexByID(variant_id);
-            thisClass.$variants[variant_index].fulfillName[option] = new_index + 1 + "";
-            thisClass.$variants[variant_index].variantName = thisClass.generateVariantName(thisClass.$variants[variant_index].fulfillName);
-            $(this).parent().attr('data-s_index', new_index); // Update shopSKU Field
-            // thisClass.updateShopSKU(variant_index);
-            // Update options use count
-
-            thisClass.updateOptionsUseCount();
-            thisClass.removeUnusedOptions(); // console.log(thisClass.$variants[variant_index]);
-            // Update selected status
-          };
-
-          $(document).on('blur', ".jfb_option_input", EditOptionListener); // Edit shop sku field
-
-          $(document).on('blur', thisClass.config.table + ' .shop-sku-field', function () {
-            var thisField = $(this);
-            var variant_id = thisField.parent().parent().attr('id').substr(8);
-            var variant_index = thisClass.getVariantIndexByID(variant_id);
-            var thisValue = thisField.val();
-            var originalValue = $(this).attr('value'); // check for uniqueness
-
-            var unique = true;
-            $(thisClass.config.table + ' .shop-sku-field').each(function () {
-              var value_matched = $(this).val() === thisValue;
-
-              if (value_matched && $(this)[0] !== thisField[0]) {
-                unique = false;
+              if (v.fulfillName[option] === s_index + 1 + "") {
+                $("#variant_" + v.id).find(".main-checkbox").prop('checked', true);
               }
             });
+          }
 
-            if (unique) {
-              thisClass.$variants[variant_index].shopSKU = thisValue;
-              thisField.attr('value', thisValue);
-            } else {
-              thisField.val(originalValue);
-            } // console.log(value, val2);
+          thisClass.updateDeleteButtonState();
+        }); // Update delete button stata on checkbox selection
 
-          }); // Edit Price Field
+        $(document).on('click', thisClass.config.table + " .main-checkbox", function (e) {
+          thisClass.updateDeleteButtonState();
+        }); // Delete Button Action
 
-          var EditPriceListener = function EditPriceListener(e) {
-            var price = $(this).val();
+        $(document).on('click', thisClass.config.table + " .jfb-delete-button", function (e) {
+          var _this5 = this;
 
-            if (isNaN(parseFloat(price))) {
-              return;
-            }
+          var sure = confirm('Are you sure you want to delete these variants?');
+          var selectedVariants = thisClass.getSelectedVariants();
 
-            var variant_id = $(this).parent().parent().parent().attr('id').substr(8);
-            var variant_index = thisClass.getVariantIndexByID(variant_id);
-            var variant = thisClass.$variants[variant_index]; // Update $variants value
+          if (sure && selectedVariants.length > 0) {
+            selectedVariants.forEach(function (id) {
+              if (thisClass.$variants.length === 1) {
+                alert('At least one variant must exist.');
+                return;
+              } // Remove variant from $variants
 
-            variant.price = thisClass.roundNumber(price).toFixed(2); // thisClass.$variants[variant_index].price(thisClass.roundNumber(price));
-            // Update Dependencies (profit field)
 
-            if ("change" === e.type) {
-              $(this).val(variant.price);
-            }
+              thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
 
-            var profit = thisClass.roundNumber(thisClass.calculateProfit(variant));
-            $(thisClass.config.table + " tr#variant_" + variant.id + " span.jfb-profit-field").text(profit);
-          };
+              $(thisClass.config.table + " tr#variant_" + id).remove();
+              $(_this5).attr('disabled', true); // Update Delete Fields
 
-          $(document).on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
-          $(document).on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
-
-          var EditComparePriceListener = function EditComparePriceListener(e) {
-            var price = $(this).val();
-
-            if (isNaN(parseFloat(price))) {
-              return;
-            }
-
-            var variant_id = $(this).parent().parent().parent().attr('id').substr(8);
-            var variant_index = thisClass.getVariantIndexByID(variant_id);
-            var variant = thisClass.$variants[variant_index]; // Update $variants value
-
-            variant.comparePrice = thisClass.roundNumber(price).toFixed(2); // Update Dependencies (profit field)
-
-            if ("change" === e.type) {
-              $(this).val(variant.comparePrice);
-            }
-          };
-
-          $(document).on('keyup', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
-          $(document).on('change', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener); // Change all prices
-
-          $(document).on('click', thisClass.config.table + " .price-change-all .dropdown-item", function () {
-            var mode = $(this).data('mode');
-            $(thisClass.config.table + ' .price-change-all .change-input').attr('data-mode', mode);
-            $(thisClass.config.table + ' .price-change-all .change-input').css('display', 'flex');
-          }); // Apply Button Click
-
-          $(document).on('click', thisClass.config.table + " .price-change-all .apply-button", function () {
-            var $inputContainer = $(this).parent().parent();
-            var mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
-
-            var value = $inputContainer.find('.input>input').val();
-
-            if (isNaN(value) || null === value || "" === value) {
-              return;
-            }
-
-            thisClass.$variants.forEach(function (v) {
-              var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
-
-              v.price = new_price.toFixed(2); // 2 decimal places
-              // Update DOM Dependencies
-
-              $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-price-field').val(v.price); // Price Field
-
-              $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-profit-field').text(thisClass.calculateProfit(v)); // Price Field
+              thisClass.updateOptionsUseCount();
+              thisClass.removeUnusedOptions();
             });
-            $(this).val("");
-            $inputContainer.hide();
-          }); // Change all compare prices
+          }
+        }); // Change Shipping Action
 
-          $(document).on('click', thisClass.config.table + " .compare-price-change-all .dropdown-item", function () {
-            var mode = $(this).data('mode');
-            $(thisClass.config.table + ' .compare-price-change-all .change-input').attr('data-mode', mode);
-            $(thisClass.config.table + ' .compare-price-change-all .change-input').css('display', 'flex');
-          }); // Apply Button Click Compare prices
-
-          $(document).on('click', thisClass.config.table + " .compare-price-change-all .apply-button", function () {
-            var $inputContainer = $(this).parent().parent();
-            var mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
-
-            var value = $inputContainer.find('.input>input').val();
-
-            if (isNaN(value) || null === value || "" === value) {
-              return;
-            }
-
+        $(document).on('click', thisClass.config.table + " #changeShipping", function (e) {
+          var button = $(this);
+          thisClass.config.changeShippingFunction(function () {
+            var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+            var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
             thisClass.$variants.forEach(function (v) {
-              var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
+              console.log(v.id); // update variant
 
-              v.comparePrice = new_price.toFixed(2); // 2 decimal places
-              // Update DOM Dependencies
+              v.__shipping__ = thisClass.roundNumber(price); // Change the shipping price
 
-              $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-compare-price-field').val(v.comparePrice);
+              $(thisClass.config.table + " tr#variant_" + v.id).find('.shipping-cost').text("USD$ " + thisClass.roundNumber(price).toFixed(2)); // Update profit for each element
+
+              $(thisClass.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
             });
-            $(this).val("");
-            $inputContainer.hide();
-          }); // Close Button Click
-
-          $(document).on('click', thisClass.config.table + " .close-button", function () {
-            $(this).parent().parent().css('display', 'none');
+            button.find('.country').text(country);
+            button.find('.option').text(option);
           });
-        });
-      } else {} // Do nothing
-      // Must change this method every time
-      // Change Shipping Button Click
+        }); // Edit Option Event Listener
+
+        var EditOptionListener = function EditOptionListener(e) {
+          var option = $(this).parent().attr('data-option');
+          var s_index = $(this).parent().attr('data-s_index');
+          var s_name = thisClass.$options[option][s_index];
+          var value = $(this).val();
+
+          if ("" === value || null === value) {
+            $(this).val(s_name);
+            return;
+          }
+
+          console.log(option, s_index, s_name); // Check whether this is a new value
+
+          var new_index = thisClass.$options[option].indexOf(value);
+          var isNew = new_index <= -1; // If new, add it to the options and update top bar
+
+          if (isNew) {
+            // Add this to options
+            new_index = thisClass.$options[option].push(value) - 1; // Add this to Selectors and Top Bar
+
+            $(thisClass.config.selectors).find('.selector-' + option.replace(" ", "-")).append("\n              <a class=\"nav-link\" href=\"#\" data-option=\"".concat(option, "\" data-selector=\"").concat(value, "\" data-s_index=\"").concat(new_index, "\">").concat(value, "</a>\n            "));
+          } // Update the variants field for this row with associated index
 
 
-      $(document).find('click', thisClass.config.table + " #changeShipping").unbind('click');
-      $(document).on('click', thisClass.config.table + " #changeShipping", function (e) {
-        var button = $(this);
-        thisClass.config.changeShippingFunction(function () {
-          var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-          var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-          var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+          var variant_id = $(this).parent().parent().attr('id').substr(8);
+          var variant_index = thisClass.getVariantIndexByID(variant_id);
+          thisClass.$variants[variant_index].fulfillName[option] = new_index + 1 + "";
+          thisClass.$variants[variant_index].variantName = thisClass.generateVariantName(thisClass.$variants[variant_index].fulfillName);
+          $(this).parent().attr('data-s_index', new_index); // Update shopSKU Field
+          // thisClass.updateShopSKU(variant_index);
+          // Update options use count
+
+          thisClass.updateOptionsUseCount();
+          thisClass.removeUnusedOptions(); // console.log(thisClass.$variants[variant_index]);
+          // Update selected status
+        };
+
+        $(document).on('blur', ".jfb_option_input", EditOptionListener); // Edit shop sku field
+
+        $(document).on('blur', thisClass.config.table + ' .shop-sku-field', function () {
+          var thisField = $(this);
+          var variant_id = thisField.parent().parent().attr('id').substr(8);
+          var variant_index = thisClass.getVariantIndexByID(variant_id);
+          var thisValue = thisField.val();
+          var originalValue = $(this).attr('value'); // check for uniqueness
+
+          var unique = true;
+          $(thisClass.config.table + ' .shop-sku-field').each(function () {
+            var value_matched = $(this).val() === thisValue;
+
+            if (value_matched && $(this)[0] !== thisField[0]) {
+              unique = false;
+            }
+          });
+
+          if (unique) {
+            thisClass.$variants[variant_index].shopSKU = thisValue;
+            thisField.attr('value', thisValue);
+          } else {
+            thisField.val(originalValue);
+          } // console.log(value, val2);
+
+        }); // Edit Price Field
+
+        var EditPriceListener = function EditPriceListener(e) {
+          var price = $(this).val();
+
+          if (isNaN(parseFloat(price))) {
+            return;
+          }
+
+          var variant_id = $(this).parent().parent().parent().attr('id').substr(8);
+          var variant_index = thisClass.getVariantIndexByID(variant_id);
+          var variant = thisClass.$variants[variant_index]; // Update $variants value
+
+          variant.price = thisClass.roundNumber(price).toFixed(2); // thisClass.$variants[variant_index].price(thisClass.roundNumber(price));
+          // Update Dependencies (profit field)
+
+          if ("change" === e.type) {
+            $(this).val(variant.price);
+          }
+
+          var profit = thisClass.roundNumber(thisClass.calculateProfit(variant));
+          $(thisClass.config.table + " tr#variant_" + variant.id + " span.jfb-profit-field").text(profit);
+        };
+
+        $(document).on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
+        $(document).on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
+
+        var EditComparePriceListener = function EditComparePriceListener(e) {
+          var price = $(this).val();
+
+          if (isNaN(parseFloat(price))) {
+            return;
+          }
+
+          var variant_id = $(this).parent().parent().parent().attr('id').substr(8);
+          var variant_index = thisClass.getVariantIndexByID(variant_id);
+          var variant = thisClass.$variants[variant_index]; // Update $variants value
+
+          variant.comparePrice = thisClass.roundNumber(price).toFixed(2); // Update Dependencies (profit field)
+
+          if ("change" === e.type) {
+            $(this).val(variant.comparePrice);
+          }
+        };
+
+        $(document).on('keyup', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
+        $(document).on('change', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener); // Change all prices
+
+        $(document).on('click', thisClass.config.table + " .price-change-all .dropdown-item", function () {
+          var mode = $(this).data('mode');
+          $(thisClass.config.table + ' .price-change-all .change-input').attr('data-mode', mode);
+          $(thisClass.config.table + ' .price-change-all .change-input').css('display', 'flex');
+        }); // Apply Button Click
+
+        $(document).on('click', thisClass.config.table + " .price-change-all .apply-button", function () {
+          var $inputContainer = $(this).parent().parent();
+          var mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
+
+          var value = $inputContainer.find('.input>input').val();
+
+          if (isNaN(value) || null === value || "" === value) {
+            return;
+          }
+
           thisClass.$variants.forEach(function (v) {
-            console.log(v.id); // update variant
+            var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
 
-            v.__shipping__ = thisClass.roundNumber(price); // Change the shipping price
+            v.price = new_price.toFixed(2); // 2 decimal places
+            // Update DOM Dependencies
 
-            $(thisClass.config.table + " tr#variant_" + v.id).find('.shipping-cost').text("USD$ " + thisClass.roundNumber(price).toFixed(2)); // Update profit for each element
+            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-price-field').val(v.price); // Price Field
 
-            $(thisClass.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
+            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-profit-field').text(thisClass.calculateProfit(v)); // Price Field
           });
-          button.find('.country').text(country);
-          button.find('.option').text(option);
+          $(this).val("");
+          $inputContainer.hide();
+        }); // Change all compare prices
+
+        $(document).on('click', thisClass.config.table + " .compare-price-change-all .dropdown-item", function () {
+          var mode = $(this).data('mode');
+          $(thisClass.config.table + ' .compare-price-change-all .change-input').attr('data-mode', mode);
+          $(thisClass.config.table + ' .compare-price-change-all .change-input').css('display', 'flex');
+        }); // Apply Button Click Compare prices
+
+        $(document).on('click', thisClass.config.table + " .compare-price-change-all .apply-button", function () {
+          var $inputContainer = $(this).parent().parent();
+          var mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
+
+          var value = $inputContainer.find('.input>input').val();
+
+          if (isNaN(value) || null === value || "" === value) {
+            return;
+          }
+
+          thisClass.$variants.forEach(function (v) {
+            var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
+
+            v.comparePrice = new_price.toFixed(2); // 2 decimal places
+            // Update DOM Dependencies
+
+            $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-compare-price-field').val(v.comparePrice);
+          });
+          $(this).val("");
+          $inputContainer.hide();
+        }); // Close Button Click
+
+        $(document).on('click', thisClass.config.table + " .close-button", function () {
+          $(this).parent().parent().css('display', 'none');
         });
-      });
+      }); //} else {
+      // Do nothing
+      //}
     }
   }, {
     key: "calculateProfit",

@@ -61,20 +61,23 @@ class JsonFormBuilder {
     }
 
     // Now set the options
-    this.config.price_multiplier = options.price_multiplier;
+    this.config.price_multiplier = parseFloat(options.price_multiplier);
     this.config.price_multiplier_mode = options.price_multiplier_mode;
-    this.config.compare_multiplier = options.compare_multiplier;
+    this.config.compare_multiplier = parseFloat(options.compare_multiplier);
     this.config.compare_multiplier_mode = options.compare_multiplier_mode;
 
     // Store the data in formatted way
     this.$options = this.JsonData.options;
     this.$variants = [];
+    // console.log(this.config.price_multiplier_mode, this.config.compare_multiplier_mode);
     this.JsonData.variants.forEach((v,i)=>{
       let cost = undefined !== v.skuSalePrice ? v.skuSalePrice : skuPrice;
+      let costFloat = parseFloat(cost);
       let randomDigits = (10000000 + Math.floor(Math.random() * 90000000));
-      let price = "multiply" === this.config.price_multiplier_mode ? (cost * this.config.price_multiplier) : (cost + this.config.price_multiplier);
-      let comparedAtPrice = "multiply" === this.config.compare_multiplier_mode ? (cost * this.config.compare_multiplier) : (cost + this.config.compare_multiplier);
-      let shipping = 0;
+      let price = "multiply" === this.config.price_multiplier_mode ? (costFloat * this.config.price_multiplier) : (costFloat + this.config.price_multiplier);
+      let comparedAtPrice = "multiply" === this.config.compare_multiplier_mode ? (costFloat * this.config.compare_multiplier) : (costFloat + this.config.compare_multiplier);
+
+      // console.log(cost, this.config.price_multiplier, this.config.compare_multiplier, price, comparedAtPrice);
 
       this.$variants.push({
         id: i,
@@ -223,8 +226,8 @@ class JsonFormBuilder {
     const thisClass = this;
 
     // Only add these Listeners on First Instanciation
-    if (undefined === window.JFB_EVENT_LISTENERS_REGISTERED || false === window.JFB_EVENT_LISTENERS_REGISTERED){
-      window.JFB_EVENT_LISTENERS_REGISTERED = true;
+    //if (undefined === window.JFB_EVENT_LISTENERS_REGISTERED || false === window.JFB_EVENT_LISTENERS_REGISTERED){
+    //  window.JFB_EVENT_LISTENERS_REGISTERED = true;
       $(document).ready(function(){
         // Top Selector Event Listener
         $(document).on('click', thisClass.config.selectors + "  a.nav-link", function(e){
@@ -293,6 +296,25 @@ class JsonFormBuilder {
               thisClass.removeUnusedOptions();
             });
           }
+        });
+
+        // Change Shipping Action
+        $(document).on('click', thisClass.config.table + " #changeShipping", function(e){
+          let button = $(this);
+          thisClass.config.changeShippingFunction(function(price=0, country=null, option=null){
+            thisClass.$variants.forEach(function(v){
+              console.log(v.id);
+              // update variant
+              v.__shipping__ = thisClass.roundNumber(price);
+              // Change the shipping price
+              $(thisClass.config.table + " tr#variant_"+v.id).find('.shipping-cost').text("USD$ "+thisClass.roundNumber(price).toFixed(2));
+              // Update profit for each element
+              $(thisClass.config.table + " tr#variant_"+v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
+            });
+    
+            button.find('.country').text(country);
+            button.find('.option').text(option);
+          });
         });
 
         // Edit Option Event Listener
@@ -492,30 +514,9 @@ class JsonFormBuilder {
           $(this).parent().parent().css('display','none');
         });
       });
-    } else {
+    //} else {
       // Do nothing
-    }
-
-    // Must change this method every time
-    // Change Shipping Button Click
-    $(document).find('click', thisClass.config.table + " #changeShipping").unbind('click');
-    $(document).on('click', thisClass.config.table + " #changeShipping", function(e){
-      let button = $(this);
-      thisClass.config.changeShippingFunction(function(price=0, country=null, option=null){
-        thisClass.$variants.forEach(function(v){
-          console.log(v.id);
-          // update variant
-          v.__shipping__ = thisClass.roundNumber(price);
-          // Change the shipping price
-          $(thisClass.config.table + " tr#variant_"+v.id).find('.shipping-cost').text("USD$ "+thisClass.roundNumber(price).toFixed(2));
-          // Update profit for each element
-          $(thisClass.config.table + " tr#variant_"+v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
-        });
-
-        button.find('.country').text(country);
-        button.find('.option').text(option);
-      });
-    });
+    //}
   }
 
   calculateProfit(variant){
