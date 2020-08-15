@@ -254,7 +254,7 @@ function () {
     key: "addEventListeners",
     value: function addEventListeners() {
       var $ = this.config.jQuery;
-      var thisClass = this;
+      var thisClass = this; // Only add these Listeners on First Instanciation
 
       if (undefined === window.JFB_EVENT_LISTENERS_REGISTERED || false === window.JFB_EVENT_LISTENERS_REGISTERED) {
         window.JFB_EVENT_LISTENERS_REGISTERED = true;
@@ -322,25 +322,6 @@ function () {
                 thisClass.removeUnusedOptions();
               });
             }
-          }); // Change Shipping Button Click
-
-          $(document).on('click', thisClass.config.table + " #changeShipping", function (e) {
-            var button = $(this);
-            thisClass.config.changeShippingFunction(function () {
-              var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-              var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-              var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-              thisClass.$variants.forEach(function (v) {
-                // update variant
-                v.__shipping__ = thisClass.roundNumber(price); // Change the shipping price
-
-                $(thisClass.config.table + " tr#variant_" + v.id).find('.shipping-cost').text("USD$ " + thisClass.roundNumber(price).toFixed(2)); // Update profit for each element
-
-                $(thisClass.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
-              });
-              button.find('.country').text(country);
-              button.find('.option').text(option);
-            });
           }); // Edit Option Event Listener
 
           var EditOptionListener = function EditOptionListener(e) {
@@ -515,8 +496,31 @@ function () {
             $(this).parent().parent().css('display', 'none');
           });
         });
-      } else {// Do nothing
-      }
+      } else {} // Do nothing
+      // Must change this method every time
+      // Change Shipping Button Click
+
+
+      $(document).find('click', thisClass.config.table + " #changeShipping").unbind('click');
+      $(document).on('click', thisClass.config.table + " #changeShipping", function (e) {
+        var button = $(this);
+        thisClass.config.changeShippingFunction(function () {
+          var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+          var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+          var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+          thisClass.$variants.forEach(function (v) {
+            console.log(v.id); // update variant
+
+            v.__shipping__ = thisClass.roundNumber(price); // Change the shipping price
+
+            $(thisClass.config.table + " tr#variant_" + v.id).find('.shipping-cost').text("USD$ " + thisClass.roundNumber(price).toFixed(2)); // Update profit for each element
+
+            $(thisClass.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(thisClass.calculateProfit(v));
+          });
+          button.find('.country').text(country);
+          button.find('.option').text(option);
+        });
+      });
     }
   }, {
     key: "calculateProfit",

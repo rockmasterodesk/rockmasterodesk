@@ -24,7 +24,10 @@ $(document).ready(function () {
       price_multiplier: $('#price_multiplier').val(),
       price_multiplier_mode: $('#price_multiplier_mode').val(),
       compare_multiplier: $('#compare_multiplier').val(),
-      compare_multiplier_mode: $('#compare_multiplier_mode').val()
+      compare_multiplier_mode: $('#compare_multiplier_mode').val(),
+      changeShippingFunction: function changeShippingFunction(callback) {
+        callback(2.33, "China", "FedEx");
+      }
     });
     $('.json-box').css('display', 'none');
   });
