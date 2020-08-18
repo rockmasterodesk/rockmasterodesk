@@ -21,7 +21,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text">price_multiplier</span>
           </div>
-          <input class="form-control" type="text" name="price_multiplier" id="price_multiplier" />
+          <input class="form-control" type="text" name="price_multiplier" id="price_multiplier" value="2" />
         </div>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -36,7 +36,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text">compare_multiplier</span>
           </div>
-          <input class="form-control" type="text" name="compare_multiplier" id="compare_multiplier" />
+          <input class="form-control" type="text" name="compare_multiplier" id="compare_multiplier" value="2" />
         </div>
         <div class="input-group">
           <div class="input-group-prepend">
@@ -83,13 +83,13 @@
       callback(2.33, "Bangladesh", "Pathao");
     };
 
-    window.formBuilder = new JsonFormBuilder(products_2, {
-      price_multiplier: "10",
-      price_multiplier_mode: "fixed",
-      compare_multiplier: "10",
-      compare_multiplier_mode: "fixed",
-      changeShippingFunction: changeShipping
-    });
+    // window.formBuilder = new JsonFormBuilder(products_2, {
+    //   price_multiplier: "10",
+    //   price_multiplier_mode: "fixed",
+    //   compare_multiplier: "10",
+    //   compare_multiplier_mode: "fixed",
+    //   changeShippingFunction: changeShipping
+    // });
   </script>
 </body>
 </html>

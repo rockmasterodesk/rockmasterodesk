@@ -99,9 +99,9 @@ class JsonFormBuilder {
         __randomNumber__: randomDigits,
         __shipping__: 0,
 
-        price: this.roundNumber(price).toFixed(2),
-        comparePrice: this.roundNumber(comparedAtPrice).toFixed(2),
-        shopSKU: this.getShopSku(randomDigits, v.variantName)
+        price: undefined !== v.price ? v.price : this.roundNumber(price).toFixed(2),
+        comparePrice: undefined !== v.comparePrice ? v.comparePrice :  this.roundNumber(comparedAtPrice).toFixed(2),
+        shopSKU: undefined !== v.shopSKU ? v.shopSKU : this.getShopSku(randomDigits, v.variantName)
 
       });
     });

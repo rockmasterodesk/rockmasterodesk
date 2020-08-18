@@ -127,9 +127,9 @@ function () {
         __cost__: cost,
         __randomNumber__: randomDigits,
         __shipping__: 0,
-        price: _this.roundNumber(price).toFixed(2),
-        comparePrice: _this.roundNumber(comparedAtPrice).toFixed(2),
-        shopSKU: _this.getShopSku(randomDigits, v.variantName)
+        price: undefined !== v.price ? v.price : _this.roundNumber(price).toFixed(2),
+        comparePrice: undefined !== v.comparePrice ? v.comparePrice : _this.roundNumber(comparedAtPrice).toFixed(2),
+        shopSKU: undefined !== v.shopSKU ? v.shopSKU : _this.getShopSku(randomDigits, v.variantName)
       });
     });
     this.updateOptionsUseCount(); // Set the Selectors
