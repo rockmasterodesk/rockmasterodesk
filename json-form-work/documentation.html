@@ -82,6 +82,18 @@ window.formBuilder = new JsonFormBuilder(products_2, {
 });
       </pre>
       <p>The comments should tell you everything on how to use it. Still, ask me if you need further clarification.</p>
+	  
+	  <br>
+      <h4>Export the generated JSON</h4>
+      <p>Once the table/form has been updated by the user, you can export the new JSON from the object method <b>generateExportData()</b></p>
+      <p>For example:-</p>
+      <pre>
+// Since we've put the Form Builder instance as window.formBuilder.
+// We can call this method on this instance
+var generatedJSON = window.formBuilder.generateExportData();
+console.log(generatedJSON);
+      </pre>
+      <p>Thank you.</p>
     </div>
   </div>
 </body>
