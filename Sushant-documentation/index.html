@@ -78,6 +78,7 @@
                             <li><a href="#line7">Showing Login/Signup links on header</a></li>
                             <li><a href="#line8">New methods in Tabs Section</a></li>
                             <li><a href="#line9">Updates on ProfileDetails and Messenger Page</a></li>
+                            <li><a href="#line10">Badges, Reply, Reply Text Update Notes</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -915,6 +916,233 @@
                         <li>Whenever a tab with count is clicked/opened, the count is removed automatically. Please let me know if you don't need this default behavior and want to handle it yourself.</li>
                       </ol>
 
+
+
+                  </section>
+                    <section id="line10" class="section">
+
+                      <div class="row">
+                          <div class="col-md-12 left-align">
+                              <h2 class="dark-text">Badges, Reply, Reply Text Update Notes <a href="#top">#back to top</a><hr></h2>
+                          </div>
+                          <!-- end col -->
+                      </div>
+                      <!-- end row -->
+
+                      <h3>Badges</h3>
+                      <p>Since we use Bootstrap as the CSS Framework for our application. We can use bootstrap to show badges on anywhere we want.</p>
+                      <p>For example, On line 312 of <b>Messenger.html, we can add a badge like this:-</b> </p>
+                      <pre class="brush: html">
+                        <div class="content">
+                          <p class="name">${PersonName} <span class="badge badge-primary">Me</span> </p>
+                          <p class="designation">Designation</p>
+                        </div>
+                      </pre>
+
+                      <p><b>&lt;span class="badge badge-primary"&gt;Me&lt;/span&gt;</b> is the code we used for that badge</p>
+                      <p>The section will now look like this:-</p>
+                      <div class="text-center"><img src="badge-example.png" alt="Badge-Example" /></div>
+                      <h4>Badge Variations</h4>
+                      <p>Bootstrap already comes with many color variations of badges by default.</p>
+                      <div class="text-center"><img src="badge-variations.png" alt="Badge Variations"></div>
+                      <p>The codes for these variations are as follows:-</p>
+                      <pre class="brush: html">
+                        <span class="badge badge-primary">Primary</span>
+                        <span class="badge badge-secondary">Secondary</span>
+                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-danger">Danger</span>
+                        <span class="badge badge-warning">Warning</span>
+                        <span class="badge badge-info">Info</span>
+                        <span class="badge badge-light">Light</span>
+                        <span class="badge badge-dark">Dark</span>
+                      </pre>
+
+                      <p>More information about badges can be found here: <a href="https://getbootstrap.com/docs/4.1/components/badge/">Bootstrap Badges</a></p>
+
+                      <p>Apart from Bootstrap default colors, I've added 3 new classes for 3 different colors for the background.</p>
+                      <div class="text-center"><img src="more-badge-colors.png" alt="More Colors for Badges   "></div>
+                      <p>These colors can be used with the following codes:-</p>
+                      <pre class="brush: html">
+                        <span class="badge badge-primary bg-greenish">Greenish</span>
+                        <span class="badge badge-primary bg-bluish">Bluish</span>
+                        <span class="badge badge-primary bg-yellowish">Yellowish</span>
+                      </pre>
+
+                      <h4>Icon badges</h4>
+                      <p>Since we use Fontawesome-5 for our icons in the web application. We can use all the <a href="https://fontawesome.com/icons">icons available in Fontawesome-5</a> according to usage guide.</p>
+                      <p>For example, we can show the medal icon with name as follows:-</p>
+                      <pre class="brush: html">
+                        <div class="content">
+                          <p class="name">
+                            Firstname Lastname
+                            <span class="badge badge-primary bg-greenish">me</span>
+                            <span class="badge color-yellowish" title="Text to show on hover"><i class="fas fa-medal"></i></span>
+                          </p>
+                          <p class="designation">Designation</p>
+                        </div>
+                      </pre>
+                      <p><b>&lt;i class="fas fa-medal"&gt;&lt;/i&gt;</b> is the code we used to show the Icon inside span. All Fontawesome usage applies here too.</p>
+                      <div class="text-center">
+                        <img src="badge-icon.png" alt="Icon in badge">
+                      </div>
+
+                      <h3>Reply Function</h3>
+                      <p>Many changes has been made to the HTML, CSS and JavaScript parts to implement the reply feature. The changes are:-</p>
+                      
+                      <h5>HTML Changes</h5>
+                      <ol>
+                        <li>Line: 391 of <b>Messenger.html</b> and many other places.
+                          <pre class="brush: html">
+                            <div class="message-options">
+                              <a class="reply-button" href="#">Reply</a>
+                            </div>
+                          </pre>
+                          This div shows the reply option in the Messenger Page
+                        </li>
+                        <li>Line: 617-618 of <b>Messenger.html</b>
+                          <pre class="brush: html">
+                            <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
+                            <script src="jquery/jquery.mobile.min.js"></script>
+                          </pre>
+                          These scripts load the jQuery Mobile to satisfy "Swipe-Right" action on mobile devices.
+                        </li>
+                        <li>
+                          Line: 543-558 of <b>Messenger.html</b>
+                          <pre class="brush: html">
+                            <div class="replying-to">
+                              <div class="sidebar">
+                                <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                              </div>
+                              <div class="name-and-message">
+                                <div class="name">
+                                  <a >Sushant Tripathy</a>
+                                </div>
+                                <div class="main-message">
+                                  Thank you so much.
+                                </div>
+                                <div class="close-reply-box">
+                                  <i class="fa fa-times"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </pre>
+                          This code actually shows the message that is being replied to when user replies to a message. This is the box which is visible on top of the message input when "Reply" button is clicked on desktop and "Swipe Right" event is occured on Mobile.
+                          <div class="text-center">
+                            <img src="reply-box.png" style="width:300px;" alt="">
+                          </div>
+                        </li>
+                      </ol>
+                      <h5>JavaScript Changes</h5>
+                      <ol>
+                        <li>
+                          A script is added that listens to the Click event of "Reply" button on Desktop Devices. (Line: 366 of <b>script.js</b>)
+                          <pre class="brush: js">
+                            $(document).on('click', '.reply-button', function(e){
+                              e.preventDefault();
+                              var ProfilePicture = $(this).parent().parent().parent().find('.sidebar').find('img').attr('src');
+                              var Name = $(this).parent().parent().find('.name').find('a').text();
+                              var Message = $(this).parent().parent().find('.main-message').text();
+                          
+                              $('.replying-to').find('.sidebar').find('img').attr('src', ProfilePicture);
+                              $('.replying-to').find('.name').text(Name);
+                              $('.replying-to').find('.main-message').text(Message);
+                          
+                              $('.replying-to').css('display','flex');
+                            });
+                          </pre>
+                          As we can read, this snippet does the following:-
+                          <ol type="i">
+                            <li>Takes name, profile picture and the main message text of the message that we are about to reply and put that in the box of reply.</li>
+                            <li>Then set <b>.replying-to</b> display to flex, making it visible.</li>
+                          </ol>
+                        </li>
+                        <li>Similar action happens when user swipes right on any message in Mobile device. ( Line: 389 of <b>script.js</b> )
+                          <pre class="brush: js">
+                            if( window.deviceSize === "small" ) { // Add swipe-right listener only for mobile devices
+                              $(document).on("swiperight",".single-message",function(e){
+                                var ProfilePicture = $(this).find('.sidebar').find('img').attr('src');
+                                var Name = $(this).find('.name').find('a').text();
+                                var Message = $(this).find('.main-message').text();
+                          
+                                $('.replying-to').find('.sidebar').find('img').attr('src', ProfilePicture);
+                                $('.replying-to').find('.name').text(Name);
+                                $('.replying-to').find('.main-message').text(Message);
+                          
+                                $('.replying-to').css('display','flex');
+                              });
+                            }
+                          </pre>
+                        </li>
+                        <li>
+                          We also have a "cancel reply" icon in the top-right corner of reply box. Clicking/Touching this should clear the reply mode of message. An example usage is given on line 379 of <b>script.js</b>.
+                          <pre class="brush:js">
+                            $(document).on('click', '.close-reply-box', function(e){
+                              e.preventDefault();
+                          
+                              $('.replying-to').find('.sidebar').find('img').attr('src', "");
+                              $('.replying-to').find('.name').text("");
+                              $('.replying-to').find('.main-message').text("");
+                          
+                              $('.replying-to').css('display','none');
+                            });
+                          </pre>
+                          You should include neccessary codes for switiching to/from reply mode on the message input.
+                        </li>
+                      </ol>
+
+                      <h5>Displaying Replies with Messages</h5>
+                      <p>Previously, the messages have been shown as the following code:- </p>
+                      <pre class="brush:html">
+                        <div class="name-and-message">
+                          <div class="name">
+                            <a popover-profileInfo="..." href="#">ASM Asaduzzaman</a>
+                          </div>
+                          <div class="main-message">
+                            Another Message
+                          </div>
+                          <div class="message-options">
+                            <a class="reply-button" href="#">Reply</a>
+                          </div>
+                        </div>
+                      </pre>
+                      <p>If a message is a reply to another message, you can add the main message with the reply by modifying the message as bellow:-</p>
+                      <pre class="brush:html">
+                        <div class="name-and-message">
+                          <div class="name">
+                            <a popover-profileInfo="..." href="#">ASM Asaduzzaman</a>
+                          </div>
+                          <div class="reply-for-message">
+                            <div class="reply-image-and-name">
+                              <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                              <div class="reply-name">
+                                <a >Sushant Tripathy</a>
+                              </div>
+                            </div>
+                            <div class="reply-main-message">
+                              This is the message which has been replied to.
+                            </div>
+                          </div>
+                          <div class="main-message">
+                            This is the reply message.
+                          </div>
+                          <div class="message-options">
+                            <a class="reply-button" href="#">Reply</a>
+                          </div>
+                        </div>
+                      </pre>
+                      <p>As we can see, the div <b>.reply-for-message</b> should be inserted after <b>.name</b> and before <b>.main-message</b> to result in the best look. </p>
+
+                      Example:-
+                      <div class="text-center">
+                        <img src="reply-show.png" alt="">
+                        <br>
+                        Caption: With image and name of the main message sender.
+                      </div>
+                      <div class="text-center">
+                        <img src="reply-show-nopic.png" alt="">
+                        <br>
+                        Caption: Only main message text (removed <b>.reply-image-and-name</b> div )
+                      </div>
 
 
                   </section>

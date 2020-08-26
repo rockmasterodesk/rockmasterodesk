@@ -228,7 +228,10 @@
                         <p style="background-color:#FFB822">V</p>
                       </div>
                     <div class="content">
-                      <p class="name">Vipul Goyal</p>
+                      <p class="name">Vipul Goyal 
+                        <span class="badge badge-primary bg-greenish">text</span>
+                        <span class="badge color-yellowish" title="A medal text"><i class="fas fa-medal"></i></span>
+                      </p>
                       <p class="designation">Comdeian</p>
                     </div>
                     <div class="sidebar options">
@@ -304,12 +307,19 @@
                         <p style='background-color:#${color}'>${PersonName.slice(0,1)}</p>
                       </div>`;
 
+                  var rint = getRandomInt(1,3);
+                  var rint2 = getRandomInt(1,3);
+                  var bgclass =  rint === 1 ? 'bg-greenish' : rint === 2 ? 'bg-bluish' : 'bg-yellowish';
+                  var randomBadge = `<span class="badge badge-primary ${bgclass}">text</span>`;
+                  var colorclass =  rint2 === 1 ? 'color-greenish' : rint2 === 2 ? 'color-bluish' : 'color-yellowish';
+                  var iconBadge = `<span class="badge ${colorclass}" title="Medal Text"><i class="fas fa-medal"></i></span>`;
+
                   document.write(`
                     <div href="#" class="btn-icon-shower" click-profileInfo="{'room_id':'room~${getRandomInt(1000,1200)}','name':'${PersonName}', 'image':'${hasImage ? 'images/man_avatar1.jpg' : null}', 'color' : '${color}'}">
                       <div class="single-conversation flex-custom">
                         ${$imageShow}
                         <div class="content">
-                          <p class="name">${PersonName}</p>
+                          <p class="name">${PersonName} ${randomBadge} ${iconBadge} </p>
                           <p class="designation">Designation</p>
                         </div>
                         <div class="new_message_count ${getRandomInt(1,10)%3==0 ? "hasCount" :""}">
@@ -378,12 +388,26 @@
                       </div>
                     </a>
                   </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
+                  </div>
                 </div>
               </div>
               <div class="single-message flex-custom from_me">
                 <div class="name-and-message">
                   <div class="name">
                     <a href="#">ASM Asaduzzaman</a> - <span>20 min</span>
+                  </div>
+                  <div class="reply-for-message">
+                    <div class="reply-image-and-name">
+                      <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                      <div class="reply-name">
+                        <a >Sushant Tripathy</a>
+                      </div>
+                    </div>
+                    <div class="reply-main-message">
+                      This is a message that has been replied to.
+                    </div>
                   </div>
                   <div class="main-message">
                     That's perfect. Please have a look at <a href="https://rockmasterodesk.github.io/Sushant/Messenger.html">https://rockmasterodesk.github.io/Sushant/Messenger.html</a>
@@ -397,6 +421,9 @@
                         SpeakSpike · Login · Sign Up. Find. Active Locations Around You. N. 10003 - New York, NY. (1 users)
                       </div>
                     </a>
+                  </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
                   </div>
                 </div>
                 <div class="sidebar">
@@ -415,6 +442,9 @@
                     Good how're you doing? <br>
 Hi, I am online on Skype if you are available.
                   </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
+                  </div>
                 </div>
               </div>
               <div class="single-message flex-custom from_me">
@@ -424,6 +454,9 @@ Hi, I am online on Skype if you are available.
                   </div>
                   <div class="main-message">
                     What files are you talking about? I'm sorry I can't remember right now.
+                  </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
                   </div>
                 </div>
                 <div class="sidebar">
@@ -438,8 +471,22 @@ Hi, I am online on Skype if you are available.
                   <div class="name">
                     <a popover-profileInfo="{'room_id':'room~100','name':'Any Name', 'image':'null', 'color' : '000'}" href="#">Sushant Tripathy</a> - <span>20 min</span>
                   </div>
+                  <div class="reply-for-message">
+                    <div class="reply-image-and-name">
+                      <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                      <div class="reply-name">
+                        <a >Sushant Tripathy</a>
+                      </div>
+                    </div>
+                    <div class="reply-main-message">
+                      Thank you so much. These files are very important to me. I guess you didn't make any changes to these files. So I need the original versions of these files. Thank you very much again.
+                    </div>
+                  </div>
                   <div class="main-message">
-                    Thank you so much. These files are very important to me. I guess you didn't make any changes to these files. So I need the original versions of these files. Thank you very much again.
+                    This is a reply to the main message.
+                  </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
                   </div>
                 </div>
               </div>
@@ -450,6 +497,9 @@ Hi, I am online on Skype if you are available.
                   </div>
                   <div class="main-message">
                     Lorem ipsum dolor sit amet
+                  </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
                   </div>
                 </div>
                 <div class="sidebar">
@@ -463,6 +513,9 @@ Hi, I am online on Skype if you are available.
                   </div>
                   <div class="main-message">
                     Another Message
+                  </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
                   </div>
                 </div>
                 <div class="sidebar">
@@ -480,10 +533,29 @@ Hi, I am online on Skype if you are available.
                   <div class="main-message">
                     Thank you so much.
                   </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="send-message flex-custom pl-2 pr-2">
+              <div class="replying-to">
+                <div class="sidebar">
+                  <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                </div>
+                <div class="name-and-message">
+                  <div class="name">
+                    <a >Sushant Tripathy</a>
+                  </div>
+                  <div class="main-message">
+                    Thank you so much.
+                  </div>
+                  <div class="close-reply-box">
+                    <i class="fa fa-times"></i>
+                  </div>
+                </div>
+              </div>
               <div class="type-message content">
                 <input type="text" id="SendMessageInput" placeholder="Write a message" class="form-control">
               </div>
@@ -542,11 +614,14 @@ Hi, I am online on Skype if you are available.
     
     <script src="jquery/jquery.min.js"></script>
     <!-- <script src="https://unpkg.com/@popperjs/core@2"></script> -->
+    <script type="text/javascript">$(document).bind("mobileinit", function(){$.extend(  $.mobile , {autoInitializePage: false})});</script>
+    <script src="jquery/jquery.mobile.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="jquery.nicescroll/jquery.nicescroll.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/tabs.js"></script>
     <script src="js/script.js"></script>
     <script src="js/notifications.js"></script>
+
   </body>
 </html>
