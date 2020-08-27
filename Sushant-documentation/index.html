@@ -1111,18 +1111,20 @@
                           <div class="name">
                             <a popover-profileInfo="..." href="#">ASM Asaduzzaman</a>
                           </div>
-                          <div class="reply-for-message">
-                            <div class="reply-image-and-name">
-                              <img src="images/man_avatar1.jpg" alt="Profile Picture">
-                              <div class="reply-name">
-                                <a >Sushant Tripathy</a>
-                              </div>
-                            </div>
-                            <div class="reply-main-message">
-                              This is the message which has been replied to.
-                            </div>
-                          </div>
                           <div class="main-message">
+                            <a href="#" class="reply-for-message-display">
+                              <div class="reply-for-message">
+                                <div class="reply-image-and-name">
+                                  <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                                  <div class="reply-name">
+                                    <p>Sushant Tripathy</p>
+                                  </div>
+                                </div>
+                                <div class="reply-main-message">
+                                  This is a message that has been replied to.
+                                </div>
+                              </div>
+                            </a>
                             This is the reply message.
                           </div>
                           <div class="message-options">
@@ -1143,6 +1145,28 @@
                         <br>
                         Caption: Only main message text (removed <b>.reply-image-and-name</b> div )
                       </div>
+
+                      <h5>Moving message to side</h5>
+                      <p>The margin on the left side of messages can be something you don't want. </p>
+                      <div class="text-center">
+                        <img src="this-margin.png" alt="">
+                        <br>
+                        Caption: Margin on left side.
+                      </div>
+
+                      <p>You can remove the margin and push messages to the side by adding the class <b>.push-to-side</b> with the div <b>.single-message</b> </p>
+                      <div class="text-center">
+                        <img src="this-margin-removed.png" alt="">
+                        <br>
+                        Caption: Messages pushed to side.
+                      </div>
+
+                      <p>This can be achieved by the following code (by using <b>.push-to-side</b>):-</p>
+                      <pre class="brush:html">
+                        <div class="single-message flex-custom push-to-side to_me">
+                          .....
+                        </div>
+                      </pre>
 
 
                   </section>
