@@ -417,9 +417,35 @@
                   <div class="name">
                     <a popover-profileInfo="{'room_id':'room~100','name':'Any Name', 'image':'null', 'color' : '000'}" href="#">Sushant Tripathy</a> - <span>20 min</span>
                   </div>
+                  <div class="main-message">
+                    This message contains a simple image
+                  </div>
+                  <div class="attached-image">
+                    <div class="image-container">
+                      <img src="images/image-1.png" alt="Image to upload" >
+                      <div class="overlay"></div>
+                    </div>
+                    <div class="caption-container">
+                      <p>"Hey, don't go outside today" - Ravindranath Tagore</p>
+                    </div>
+                  </div>
+                  <div class="message-options">
+                    <a class="reply-button" href="#">Reply</a><a class="new-tab-button" href="#">Open In New Tab</a>
+                  </div>
+                </div>
+              </div>
+              <div class="single-message flex-custom push-to-side to_me">
+                <div class="sidebar">
+                  <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                </div>
+                <div class="name-and-message">
+                  <div class="name">
+                    <a popover-profileInfo="{'room_id':'room~100','name':'Any Name', 'image':'null', 'color' : '000'}" href="#">Sushant Tripathy</a> - <span>20 min</span>
+                  </div>
                   <div class="main-message has-replies">
-                    This is a message with nested replies.
-                    <ul class="levels level-0" data-level="0">
+                    This is a message with nested replies. <br>
+                    <small style="background:red;color:white">[Levels Is Commented Out For Not Being Used]</small>
+                    <!-- <ul class="levels level-0" data-level="0">
                       <li>
                         <div class="single-message">
                           <div class="image-and-name">
@@ -666,7 +692,7 @@
                           </ul>
                         </ul>
                       </ul>
-                    </ul>
+                    </ul> -->
                   </div>
                   <div class="message-options">
                     <a class="reply-button" href="#">Reply</a><a class="new-tab-button" href="#">Open In New Tab</a>
@@ -693,6 +719,18 @@
                       </div>
                     </a>
                     That's perfect. Please have a look at <a href="https://rockmasterodesk.github.io/Sushant/Messenger.html">https://rockmasterodesk.github.io/Sushant/Messenger.html</a>
+                  </div>
+                  <div class="attached-image">
+                    <div class="image-container">
+                      <img src="images/image-3.webp" class="sensitive" alt="Image to upload" >
+                      <div class="overlay"></div>
+                      <div class="sensitive-info">
+                        This message contains images which might be sensitive, please click to display
+                      </div>
+                    </div>
+                    <div class="caption-container">
+                      <p>Sensitive Material</p>
+                    </div>
                   </div>
                   <div class="link-preview">
                     <a href="#" target="_blank">
@@ -737,6 +775,15 @@ Hi, I am online on Skype if you are available.
                   <div class="main-message">
                     What files are you talking about? I'm sorry I can't remember right now.
                   </div>
+                  <div class="attached-image">
+                    <div class="image-container">
+                      <img src="images/image-2.jpg" alt="Image to upload" >
+                      <div class="overlay"></div>
+                    </div>
+                    <div class="caption-container">
+                      <p>"Hey, don't go outside today" - Ravindranath Tagore</p>
+                    </div>
+                  </div>
                   <div class="message-options">
                     <a class="reply-button" href="#">Reply</a><a class="new-tab-button" href="#">Open In New Tab</a>
                   </div>
@@ -780,7 +827,13 @@ Hi, I am online on Skype if you are available.
                     <a href="#">ASM Asaduzzaman</a> - <span>20 min</span>
                   </div>
                   <div class="main-message">
-                    Lorem ipsum dolor sit amet
+                    An Image with No Caption
+                  </div>
+                  <div class="attached-image">
+                    <div class="image-container">
+                      <img src="images/man_avatar1.jpg" alt="Image to upload" >
+                      <div class="overlay"></div>
+                    </div>
                   </div>
                   <div class="message-options">
                     <a class="reply-button" href="#">Reply</a><a class="new-tab-button" href="#">Open In New Tab</a>
@@ -823,7 +876,7 @@ Hi, I am online on Skype if you are available.
                 </div>
               </div>
             </div>
-            <div class="send-message flex-custom pl-2 pr-2">
+            <div class="send-message flex-custom flex-column pl-2 pr-2">
               <div class="replying-to">
                 <div class="sidebar">
                   <img src="images/man_avatar1.jpg" alt="Profile Picture">
@@ -840,11 +893,27 @@ Hi, I am online on Skype if you are available.
                   </div>
                 </div>
               </div>
-              <div class="type-message content">
-                <input type="text" id="SendMessageInput" placeholder="Write a message" class="form-control">
+              <div class="image-to-upload">
+                <div class="image-container">
+                  <img id="ImageUploadPreview" src="" alt="Image to upload" >
+                  <div class="overlay"></div>
+                  <div class="cancel-upload-button" id="CancelUploadButton"><i class="fa fa-times"></i></div>
+                </div>
+                <div class="caption-container">
+                  <input type="text" class="form-control" name="caption" id="ImageCaption" placeholder="Caption" />
+                </div>
               </div>
-              <div class="send-button">
-                <button class="btn btn-primary" id="SendMessageButton"><i class="fa fa-paper-plane"></i>  Send</button>
+              <div class="input-box">
+                <div class="image-upload">
+                  <input type="file" id="ImageUploadButton" style="display: none;" class="form-control">
+                  <label for="ImageUploadButton"><i class="far fa-2x fa-image"></i></label>
+                </div>
+                <div class="type-message content">
+                  <input type="text" id="SendMessageInput" placeholder="Write a message" class="form-control">
+                </div>
+                <div class="send-button">
+                  <button class="btn btn-primary" id="SendMessageButton"><i class="fa fa-paper-plane"></i>  Send</button>
+                </div>
               </div>
             </div>
           </div>
@@ -884,7 +953,23 @@ Hi, I am online on Skype if you are available.
       </div>
     </div>
 
-
+    <!-- Message Image Display Modal -->
+    <div class="modal fade" id="ImageDisplayModal" tabindex="-1" role="dialog" aria-labelledby="ImageDisplayModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="attached-image">
+              <div class="image-container">
+                <img src="" alt="Image to upload" >
+              </div>
+              <div class="caption-container">
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="messenger-overlay-loading">
       <div class="spinner-border text-danger" role="status">
