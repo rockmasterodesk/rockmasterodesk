@@ -123,10 +123,17 @@
       <div class="container mt-4">
         <div class="news-feed">
           <div class="location-details bg-white mb-3 p-2">
-            <h4>West Palm Beach, FL</h4>
+            <div class="flex-custom flex-col-sm">
+              <h4 class="flex-grow-1">West Palm Beach, FL</h4>
+              <a href="PostSingle.html" class="btn btn-default btn-submit" style="font-size:15px">
+                <i class="fas fa-users"></i>
+                <span class="link-text">Go to local Chatroom</span>
+                <span class="chatroom-online-count">12</span>
+              </a>
+            </div>
 
             <h6>Channels</h6>
-            <div class="channels">
+            <div class="channels" id="HeaderChannels" data-show_maximum="2">
               <a href="#" class="single-channel">
                 <div>Moving <span class="channel-post-count">21</span></div>
               </a>
@@ -161,7 +168,7 @@
             <div class="input-group mb-3">
               <input autocomplete="off" id="searchInput" type="text" class="form-control" placeholder="Search Posts" aria-label="Search Posts" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-submit font-15" type="button" id="searchButton">Search</button>
+                <button class="btn btn-submit font-15 z-index-0" type="button" id="searchButton">Search</button>
               </div>
             </div>
           </div>
@@ -255,11 +262,6 @@
                     <a class="dropdown-item" href="#"><i class="fas fa-flag"></i>Report</a>
                   </div>
                 </div>
-                <a href="PostSingle.html" class="btn btn-default btn-option float-right">
-                  <i class="fas fa-users"></i>
-                  Go to local Chatroom
-                  <span class="chatroom-online-count">12</span>
-                </a>
               </div>
             </div>
             <div class="single-post bg-white">
@@ -336,7 +338,7 @@
             </div>
             <div class="box-body">
               <div class="single-location">
-                <a href="#">
+                <div href="#">
                   <div class="single-zip-code">
                     <div class="logo-container">
                       <div class="logo">M</div>
@@ -350,12 +352,19 @@
                       <div class="users">
                         <span>(200 users)</span>
                       </div>
+                      <div class="go-to-link">
+                        <a href="PostSingle.html" class="">
+                          <i class="fas fa-users"></i>
+                          <span class="link-text">Go to local Chatroom</span>
+                          <span class="chatroom-online-count">12</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
               <div class="single-location">
-                <a href="#">
+                <div href="#">
                   <div class="single-zip-code">
                     <div class="logo-container">
                       <div class="logo">M</div>
@@ -369,12 +378,19 @@
                       <div class="users">
                         <span>(200 users)</span>
                       </div>
+                      <div class="go-to-link">
+                        <a href="PostSingle.html" class="">
+                          <i class="fas fa-users"></i>
+                          <span class="link-text">Go to local Chatroom</span>
+                          <span class="chatroom-online-count">12</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
               <div class="single-location">
-                <a href="#">
+                <div href="#">
                   <div class="single-zip-code">
                     <div class="logo-container">
                       <div class="logo">M</div>
@@ -388,12 +404,19 @@
                       <div class="users">
                         <span>(200 users)</span>
                       </div>
+                      <div class="go-to-link">
+                        <a href="PostSingle.html" class="">
+                          <i class="fas fa-users"></i>
+                          <span class="link-text">Go to local Chatroom</span>
+                          <span class="chatroom-online-count">12</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
               <div class="single-location">
-                <a href="#">
+                <div href="#">
                   <div class="single-zip-code">
                     <div class="logo-container">
                       <div class="logo">M</div>
@@ -407,9 +430,16 @@
                       <div class="users">
                         <span>(200 users)</span>
                       </div>
+                      <div class="go-to-link">
+                        <a href="PostSingle.html" class="">
+                          <i class="fas fa-users"></i>
+                          <span class="link-text">Go to local Chatroom</span>
+                          <span class="chatroom-online-count">12</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -475,6 +505,11 @@
         </div>
       </div>
     </div>
+
+    <!-- Scroll To Top Button -->
+    <a href="#" class="btn btn-primary" ID="backToTop">
+      <i class="fas fa-arrow-up    "></i>
+    </a>
 
 
 
