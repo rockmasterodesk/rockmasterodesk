@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <title>SpeakSpike</title>
+  </head>
+  <body>
+    <div class="listing-page">
+      <section class="site-header">
+        <div class="container-fluid">
+          <div class="flex-div">
+            <div class="flex-grow-1">
+              <div class="logo">SpeakSpike</div>
+            </div>
+            <div class="right-contents flex-div">
+              <div class="notifications-container">
+                <button class="btn icon-btn" id="notificationsOpener">
+                  <i class="fa fa-sm fa-bell"></i>
+                </button>
+                <div class="counter">
+                  2
+                </div>
+                <div class="notifications">
+                  <div class="titles">
+                      <h6>Notifications</h6>
+                  </div>
+                  <div class="list">
+                    <a href="#">
+                      <div class="single-notification unread">
+                        <div class="sidebar nopic">
+                          <p style='background-color:#ccc'>A</p>
+                        </div>
+                        <div class="content">
+                          <div class="body">
+                            <strong>Andrew Gustavo</strong> has sent you a new message.
+                          </div>
+                          <div class="time">
+                            10 minutes ago
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#">
+                      <div class="single-notification unread">
+                        <div class="sidebar propic">
+                          <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                        </div>
+                        <div class="content">
+                          <div class="body">
+                            <strong>Andrew Gustavo</strong> added you as contacts.
+                          </div>
+                          <div class="actions">
+                            <button class="btn btn-contacts green"><i class="fa fa-check"></i></button>
+                            <button class="btn btn-contacts red"><i class="fa fa-times"></i></button>
+                          </div>
+                          <div class="time">
+                            10 minutes ago
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#">
+                      <div class="single-notification">
+                        <div class="sidebar nopic">
+                          <p style='background-color:#ccc'>N</p>
+                        </div>
+                        <div class="content">
+                          <div class="body">
+                            You might be interested in chatroom <strong>"NY - 15425"</strong>
+                          </div>
+                          <div class="time">
+                            3 hours ago
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown main-dropdown">
+                <div class="dropdown-toggle user-dropdown" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="user-info ml-2 flex-div">
+                    <div class="user-propic-mobile">
+                      <!-- Either use "img" or "div.nopic" as profile picture -->
+                      <!-- <img src="images/man_avatar1.jpg" /> -->
+                      <div class="nopic">
+                        A
+                      </div>
+                    </div>
+                    <div class="name-and-points">
+                      <p class="name">Asaduzzaman</p>
+                      <p class="ken-points">12 Ken Points</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                  <h6 class="dropdown-header">My Stuff</h6>
+                  <a class="dropdown-item" href="ProfileDetails.html"><i class="fas fa-user-alt    "></i> My profile</a>
+                  <a class="dropdown-item" href="Messenger.html"><i class="fas fa-envelope    "></i> Messages</a>
+                  <h6 class="dropdown-header">Account</h6>
+                  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt    "></i> Logout</a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="activity-page mt-5">
+        <div class="container">
+          
+          <div class="navigation-bar box-bordered">
+            <nav class="nav nav-pills flex-column flex-sm-row pagination-nav">
+              <a id="button_posts" class="flex-sm-fill flex-md-grow-0 text-sm-center nav-link active" href="#">
+                <i class="fas fa-paragraph    "></i>
+                <span class="text">Posts</span>
+              </a>
+              <a id="button_comments" class="flex-sm-fill flex-md-grow-0 text-sm-center nav-link" href="#">
+                <i class="fas fa-comment-alt    "></i>
+                <span class="text">Comments</span>
+              </a>
+              <a id="button_upvotes" class="flex-sm-fill flex-md-grow-0 text-sm-center nav-link" href="#">
+                <i class="fas fa-arrow-up   "></i>
+                <span class="text">Upvoted</span>
+              </a>
+              <a id="button_chats" class="flex-sm-fill flex-md-grow-0 text-sm-center nav-link" href="#">
+                <i class="fas fa-comment    "></i>
+                <span class="text">Chats</span>
+              </a>
+            </nav>
+          </div>
+
+          <div class="search-bar mt-3 mb-3 p-2 bg-white box-bordered">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <i class="fa fa-search"></i>
+              </div>
+              <input autocomplete="off" id="searchInput" type="text" class="form-control" placeholder="Search Activity" aria-label="Search Zip Codes" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn" type="button" id="searchButton">Search</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Posts Page -->
+          <div class="activity-posts mb-5">
+            <div class="single bg-white p-2 mt-2 box-bordered">
+              <div class="name-and-badges">
+                <div class="name-box">
+                  <a href="#">
+                    <img class="post-user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="post-user-name">ASM Asaduzzaman</span>
+                  </a>
+                  <span> posted </span>
+                  <span class="time">
+                    <a href="#">2 hours ago</a>
+                  </span>
+                </div>
+              </div>
+              <div class="post-title">
+                <a href="PostSingle.html"><h4>Attention! All members.</h4></a>
+              </div>
+              <div class="post-body">
+                This post is dynamically created and it has image and comments.
+              </div>
+              <div class="post-images">
+                <div class="single-image">
+                  <img src="images/image-1.png" alt="Post Image">
+                  <div class="overlay"></div>
+                </div>
+              </div>
+              <div class="post-info">
+                <span class="upvotes">
+                  <a href="PostSingle.html"><i class="fas fa-arrow-up"></i> 24 Upvotes</a>
+                </span>
+                <span class="comments">
+                  <a href="PostSingle.html"><i class="fas fa-comment-alt"></i> 24 Comments</a>
+                </span>
+              </div>
+            </div>
+            <div class="single bg-white p-2 mt-2 box-bordered">
+              <div class="name-and-badges">
+                <div class="name-box">
+                  <a href="#">
+                    <img class="post-user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="post-user-name">ASM Asaduzzaman</span>
+                  </a>
+                  <span> posted </span>
+                  <span class="time">
+                    <a href="#">2 hours ago</a>
+                  </span>
+                </div>
+              </div>
+              <div class="post-title">
+                <a href="PostSingle.html"><h4>Dynamically created post</h4></a>
+              </div>
+              <div class="post-body">
+                This post is dynamically created and it has image and comments.
+              </div>
+              <div class="post-images">
+                <div class="single-image">
+                  <img src="images/image-2.jpg" alt="Post Image">
+                  <div class="overlay"></div>
+                </div>
+              </div>
+              <div class="post-info">
+                <span class="upvotes">
+                  <a href="PostSingle.html"><i class="fas fa-arrow-up"></i> 24 Upvotes</a>
+                </span>
+                <span class="comments">
+                  <a href="PostSingle.html"><i class="fas fa-comment-alt"></i> 24 Comments</a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Posts Page Ends -->
+
+          <!-- Comments Page -->
+          <div class="activity-comments mb-5">
+            <div class="single bg-white p-2 mt-2 box-bordered">
+              <div class="name-and-badges">
+                <div class="name-box">
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">ASM Asaduzzaman</span>
+                  </a>
+                  <span> commented on </span>
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">Sushant Tripathy</span>
+                  </a>
+                  <span>'s post</span>
+                  <span class="time">
+                    <a href="#">2 hours ago</a>
+                  </span>
+                </div>
+              </div>
+              <div class="body">
+                This is a comment that has been made on the following post.
+              </div>
+              <div class="post bg-white p-2 mt-2 box-bordered">
+                <div class="post-title mt-0">
+                  <a href="PostSingle.html"><h4>Attention! All members.</h4></a>
+                </div>
+                <div class="post-excerpt">
+                  This is an excerpt that contains a link to go to the main post... <a class="see-more" href="PostSingle.html">See More</a>
+                </div>
+                <div class="post-images">
+                  <div class="single-image">
+                    <img src="images/image-6.jpg" alt="Post Image">
+                    <div class="overlay"></div>
+                  </div>
+                </div>
+                <div class="post-info">
+                  <span class="upvotes">
+                    <a href="PostSingle.html"><i class="fas fa-arrow-up"></i> 24 Upvotes</a>
+                  </span>
+                  <span class="comments">
+                    <a href="PostSingle.html"><i class="fas fa-comment-alt"></i> 24 Comments</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="single bg-white p-2 mt-2 box-bordered">
+              <div class="name-and-badges">
+                <div class="name-box">
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">ASM Asaduzzaman</span>
+                  </a>
+                  <span> commented on </span>
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">Nikola Tesla</span>
+                  </a>
+                  <span>'s post</span>
+                  <span class="time">
+                    <a href="#">5 hours ago</a>
+                  </span>
+                </div>
+              </div>
+              <div class="body">
+                Your disovery will always amaze the world.
+              </div>
+              <div class="post bg-white p-2 mt-2 box-bordered">
+                <div class="post-title mt-0">
+                  <a href="PostSingle.html"><h4>Attention! All members.</h4></a>
+                </div>
+                <div class="post-excerpt">
+                  Discovered new way to transmit energy more efficiently... <a class="see-more" href="PostSingle.html">See More</a>
+                </div>
+                <div class="post-images">
+                  <div class="single-image">
+                    <img src="images/image-7.jpg" alt="Post Image">
+                    <div class="overlay"></div>
+                  </div>
+                </div>
+                <div class="post-info">
+                  <span class="upvotes">
+                    <a href="PostSingle.html"><i class="fas fa-arrow-up"></i> 24 Upvotes</a>
+                  </span>
+                  <span class="comments">
+                    <a href="PostSingle.html"><i class="fas fa-comment-alt"></i> 24 Comments</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Comments Page Ends -->
+
+
+
+          <!-- Upvotes Page -->
+          <div class="activity-upvotes mb-5">
+            <div class="single bg-white p-2 mt-2 box-bordered">
+              <div class="name-and-badges">
+                <div class="name-box">
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">ASM Asaduzzaman</span>
+                  </a>
+                  <span> upvoted </span>
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">Sushant Tripathy</span>
+                  </a>
+                  <span>'s post</span>
+                  <span class="time">
+                    <a href="#">2 hours ago</a>
+                  </span>
+                </div>
+              </div>
+              <div class="post bg-white p-2 mt-2 box-bordered">
+                <div class="post-title mt-0">
+                  <a href="PostSingle.html"><h4>Attention! All members.</h4></a>
+                </div>
+                <div class="post-excerpt">
+                  This is an excerpt that contains a link to go to the main post... <a class="see-more" href="PostSingle.html">See More</a>
+                </div>
+                <div class="post-images">
+                  <div class="single-image">
+                    <img src="images/image-4.jpg" alt="Post Image">
+                    <div class="overlay"></div>
+                  </div>
+                </div>
+                <div class="post-info">
+                  <span class="upvotes">
+                    <a href="PostSingle.html"><i class="fas fa-arrow-up"></i> 24 Upvotes</a>
+                  </span>
+                  <span class="comments">
+                    <a href="PostSingle.html"><i class="fas fa-comment-alt"></i> 24 Comments</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="single bg-white p-2 mt-2 box-bordered">
+              <div class="name-and-badges">
+                <div class="name-box">
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">ASM Asaduzzaman</span>
+                  </a>
+                  <span> upvoted </span>
+                  <a href="#">
+                    <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                    <span class="user-name">Nikola Tesla</span>
+                  </a>
+                  <span>'s post</span>
+                  <span class="time">
+                    <a href="#">5 hours ago</a>
+                  </span>
+                </div>
+              </div>
+              <div class="post bg-white p-2 mt-2 box-bordered">
+                <div class="post-title mt-0">
+                  <a href="PostSingle.html"><h4>Attention! All members.</h4></a>
+                </div>
+                <div class="post-excerpt">
+                  Discovered new way to transmit energy more efficiently... <a class="see-more" href="PostSingle.html">See More</a>
+                </div>
+                <div class="post-images">
+                  <div class="single-image">
+                    <img src="images/image-5.jpg" alt="Post Image">
+                    <div class="overlay"></div>
+                  </div>
+                </div>
+                <div class="post-info">
+                  <span class="upvotes">
+                    <a href="PostSingle.html"><i class="fas fa-arrow-up"></i> 24 Upvotes</a>
+                  </span>
+                  <span class="comments">
+                    <a href="PostSingle.html"><i class="fas fa-comment-alt"></i> 24 Comments</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Upvotes Page Ends -->
+
+
+          <!-- Chats Page -->
+          <div class="activity-chats mb-5">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="single bg-white p-2 mt-2 box-bordered">
+                  <div class="name-and-badges">
+                    <div class="name-box">
+                      <a href="#">
+                        <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                        <span class="user-name">ASM Asaduzzaman</span>
+                      </a>
+                      <span> sent a message to </span>
+                      <a href="#">
+                        <span class="user-name">11663 - Hyderabad</span>
+                      </a>
+                      <span> - </span>
+                      <span class="time">
+                        <a href="#">2 hours ago</a>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="message">
+                    <div class="excerpt">
+                      So, we all are here, what else do you... <a class="read-more" href="#">Show More</a>
+                    </div>
+                    <div class="full">
+                      So, we all are here, what else do you think we should do to get things going? <a class="read-less" href="#">Show Less</a>
+                    </div>
+                  </div>
+                  <div class="message-info d-flex flex-wrap mt-1">
+                    <div class="lines-count">
+                      1 Line
+                    </div>
+                    <div class="location">
+                      11663 - Hyderabad
+                    </div>
+                    <div class="date">
+                      19th September, 2020
+                    </div>
+                  </div>
+                </div>
+                <div class="single bg-white p-2 mt-2 box-bordered">
+                  <div class="name-and-badges">
+                    <div class="name-box">
+                      <a href="#">
+                        <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                        <span class="user-name">ASM Asaduzzaman</span>
+                      </a>
+                      <span> sent an image to </span>
+                      <a href="#">
+                        <span class="user-name">Sushant Tripathy</span>
+                      </a>
+                      <span> - </span>
+                      <span class="time">
+                        <a href="#">3 hours ago</a>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="message">
+                    <div class="excerpt">
+                      Please take a look at this demo.
+                    </div>
+                  </div>
+                  <div class="post-images mt-2">
+                    <div class="single-image">
+                      <img src="images/image-6.jpg" alt="Post Image">
+                      <div class="overlay"></div>
+                    </div>
+                  </div>
+                  <div class="message-info d-flex flex-wrap mt-1">
+                    <div class="lines-count">
+                      1 Line, 1 Image
+                    </div>
+                    <div class="location">
+                      Sushant Tripathy
+                    </div>
+                    <div class="date">
+                      19th September, 2020
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="personal-chats bg-white p-2 mt-2 box-bordered">
+                  <div class="single">
+                      <a href="#" class="d-flex align-items-center p-2">
+                        <img class="user-img" src="images/man_avatar1.jpg" alt="DP">
+                        <div class="user-name flex-grow-1">
+                          <div class="name">Sushant Tripathy</div>
+                          <div class="last-message">Last message: 5m ago</div>
+                        </div>
+                      </a>
+                  </div>
+                  <div class="single">
+                      <a href="#" class="d-flex align-items-center p-2">
+                        <img class="user-img" src="images/nick.jpg" alt="DP">
+                        <div class="user-name flex-grow-1">
+                          <div class="name">Nick Jonas</div>
+                          <div class="last-message">Last message: 45m ago</div>
+                        </div>
+                      </a>
+                  </div>
+                  <div class="single">
+                      <a href="#" class="d-flex align-items-center p-2">
+                        <div class="nopic">A</div>
+                        <div class="user-name flex-grow-1">
+                          <div class="name">Arijit Singh</div>
+                          <div class="last-message">Last message: 2h ago</div>
+                        </div>
+                      </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Chats Page Ends -->
+
+
+
+        </div>
+      </section>
+
+
+    </div>
+
+
+    <script src="jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/activity.js"></script>
+  </body>
+</html>
