@@ -1,2 +1,40 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=6)}({6:function(e,t,n){e.exports=n(7)},7:function(e,t){var n=window.jQuery;n(document).ready((function(){n(document).on("click","#searchIcon",(function(){n("#searchForm").toggle()}));for(var e=["0ABB87","00BCD4","FFB822"],t=n(".single-zip-code .logo"),r=0,o=0;o<t.length;o++){var u="#"+e[r++%e.length];t[o].style.backgroundColor=u}n(document).on("click","#searchButton",(function(e){e.preventDefault(),n(this).parent().parent().parent().find(".search-results").toggle()})),n(document).on("focus","#searchInput",(function(){n(this).parent().parent().find(".search-results").show()})),n(document).mouseup((function(e){var t=n(".search-results"),r=n("#searchInput");t.is(e.target)||r.is(e.target)||0!==t.has(e.target).length||t.hide()}))}))}});
-//# sourceMappingURL=listing.js.map
+$(document).ready(function(){
+  
+  // Top Right Search Icon
+  $(document).on('click', "#searchIcon", function(){
+    $("#searchForm").toggle();
+  });
+
+  var colors = ['0ABB87', '00BCD4', 'FFB822'];
+  var doms = $('.single-zip-code .logo');
+  var c=0;
+
+
+  // Colorize the logos
+  for(i=0; i<doms.length; i++){
+    var color = '#'+colors[ c++ % colors.length ];
+    doms[i].style.backgroundColor = color;
+  }
+
+  // Search Button
+	$(document).on('click', "#searchButton", function(e){
+		e.preventDefault();
+		$(this).parent().parent().parent().find('.search-results').toggle();
+	});
+
+	// Search Input -> show results div on focus
+	$(document).on('focus', "#searchInput", function(){
+		$(this).parent().parent().find('.search-results').show();
+	});
+	
+	$(document).mouseup(function(e) {
+			var container = $(".search-results");
+			var input = $("#searchInput");
+			// if the target of the click isn't the container nor a descendant of the container
+			if (!container.is(e.target) && !input.is(e.target) && container.has(e.target).length === 0) 
+			{
+					container.hide();
+			}
+	});
+
+});

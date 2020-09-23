@@ -1,2 +1,65 @@
-!function(t){var e={};function n(i){if(e[i])return e[i].exports;var o=e[i]={i:i,l:!1,exports:{}};return t[i].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=t,n.c=e,n.d=function(t,e,i){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:i})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(i,o,function(e){return t[e]}.bind(null,o));return i},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=0)}([function(t,e,n){n(1),t.exports=n(2)},function(t,e){function n(t){$(".activity-posts").hide(),$(".activity-comments").hide(),$(".activity-upvotes").hide(),$(".activity-chats").hide(),$(".pagination-nav > a.active").removeClass("active"),$(".pagination-nav > #button_"+t).addClass("active"),$(".activity-"+t).show()}$((function(){var t=window.location.href.split("?"),e=void 0!==t[1]?t[1].split("#")[0].split("="):null,i=null!==e&&void 0!==e[0]&&"page"===e[0]?i=e[1]:null;n("comments"===i||"upvotes"===i||"chats"===i||"posts"===i?i:"posts"),$(".pagination-nav > a").on("click",(function(t){t.preventDefault();var e=$(this).attr("id").substr(7);window.history.pushState({page:e},null,"Activity.html?page="+e),n(e)})),window.onpopstate=function(t){null!==t.state&&n(t.state.page)},$(document).on("click",".activity-chats .message .read-more",(function(t){t.preventDefault(),$(this).parent().hide(),$(this).parent().parent().find(".full").show()})),$(document).on("click",".activity-chats .message .read-less",(function(t){t.preventDefault(),$(this).parent().hide(),$(this).parent().parent().find(".excerpt").show()}))}))},function(t,e){}]);
-//# sourceMappingURL=activity.js.map
+$(function(){
+  var $_REQUEST = window.location.href.split('?');
+  var $_GET = $_REQUEST[1] !== undefined ? $_REQUEST[1].split('#')[0].split('=') : null;
+  var $_PAGE = null !== $_GET && undefined !== $_GET[0] && $_GET[0] === 'page' ? $_PAGE = $_GET[1] : null;
+
+  // Understanding if a particular page is requested through "?page=page" query string
+  if ($_PAGE === "comments" || $_PAGE === "upvotes" || $_PAGE === "chats" || $_PAGE === "posts"){
+    showPage($_PAGE);
+  } else {
+    showPage('posts');
+  }
+
+  // Click the nav bar
+  $('.pagination-nav > a').on('click', function(e){
+    e.preventDefault();
+    var to_page = $(this).attr('id').substr(7);
+
+    window.history.pushState({page:to_page},null,"Activity.html?page="+to_page);
+    showPage(to_page);
+  });
+
+  // Browser history Back/Forward event listener
+  window.onpopstate = function(event) {
+    if (event.state !== null){
+      showPage(event.state.page);
+    }
+  }
+
+  // Show More and Show Less on "messages" page
+  $(document).on('click', '.activity-chats .message .read-more', function(e){
+    e.preventDefault();
+
+    $(this).parent().hide();
+    $(this).parent().parent().find('.full').show();
+  });
+
+  $(document).on('click', '.activity-chats .message .read-less', function(e){
+    e.preventDefault();
+
+    $(this).parent().hide();
+    $(this).parent().parent().find('.excerpt').show();
+  });
+});
+
+
+
+// This function takes care of the Pagination from one page to another.
+// If you don't want to load all the HTML content for all 4 pages (posts, comments, upvotes, chats)-
+// you can use this function to load contents dynamically when a page is visited.
+// I strongly recommend using a Cache/localStorage system so you don't have to download same page twice
+function showPage(page){
+  $('.activity-posts').hide();
+  $('.activity-comments').hide();
+  $('.activity-upvotes').hide();
+  $('.activity-chats').hide();
+
+  // Set the dropdown
+  $('.pagination-nav > a.active').removeClass('active');
+  $('.pagination-nav > #button_' + page).addClass('active');
+
+  // Download contents dynamically for selected "page" here
+  // $.get('/activities/posts');
+
+  $('.activity-' + page).show();
+}

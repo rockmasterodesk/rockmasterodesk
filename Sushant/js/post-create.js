@@ -1,2 +1,79 @@
-!function(e){var t={};function n(a){if(t[a])return t[a].exports;var o=t[a]={i:a,l:!1,exports:{}};return e[a].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,a){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:a})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var a=Object.create(null);if(n.r(a),Object.defineProperty(a,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(a,o,function(t){return e[t]}.bind(null,o));return a},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=2)}([,,function(e,t,n){e.exports=n(3)},function(e,t){$(document).ready((function(){$("#post_content").autoResize(),$("#AddImageButton").click((function(){$("#attached_images").click()})),$("#attached_images").change((function(){!function(e){if(e.files&&e.files[0]){var t=new FileReader;if(["image/png","image/jpeg","image/gif","image/webp"].indexOf(e.files[0].type)<0)return void alert("The file must be an image file (jpeg/png/gif/webp).");t.onload=function(e){$(".single-image .the-image").css({"background-image":"url(".concat(e.target.result,")")}),$("#post_content").hide()},t.readAsDataURL(e.files[0]),$(".attached-images").addClass("has-images")}}(this)})),$("#CancelUploadButton").on("click",(function(){$(".attached-images").removeClass("has-images"),$(".single-image .the-image").css({"background-image":"none"}),$("#attached_images").val(""),$("#post_content").show()}));$("#title").autocomplete({lookup:[{value:"Channel 1"},{value:"Andrew"},{value:"Baker"},{value:"New Jersey"},{value:"Poor"},{value:"Rich"},{value:"Guardian"},{value:"Viva"},{value:"Online"},{value:"Virus"},{value:"Monday"},{value:"Moon"}],delimiter:"[",onSelect:function(e){console.log("selected:",e)}})}))}]);
-//# sourceMappingURL=post-create.js.map
+$(document).ready(function(){
+	$('#post_content').autoResize();
+
+	// Programmmatically click the hidden file input by clicking the link
+  $('#AddImageButton').click(function(){
+    $('#attached_images').click();
+	});
+
+	// Displays image directly from user's filesystem before uploading that to server.
+	function DisplayImageBeforeUploading(input) {
+		var acceptedTypes = ["image/png", "image/jpeg", "image/gif", "image/webp"]
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			// console.log(input.files[0].type);
+			if (acceptedTypes.indexOf(input.files[0].type) < 0){
+				alert("The file must be an image file (jpeg/png/gif/webp).");
+				return;
+			}
+
+			reader.onload = function (e) {
+				// We use background image rather than "img" to cover the area
+				$('.single-image .the-image').css({
+          'background-image' : `url(${e.target.result})`
+				});
+				$('#post_content').hide();
+			}
+
+      reader.readAsDataURL(input.files[0]);
+      
+      // console.log('adding-class');
+			$('.attached-images').addClass('has-images');
+		}
+  }
+
+	// Clear the form when user removes image from post
+  function CancelImageSelection(){
+		$('.attached-images').removeClass('has-images'); // Hide the Image Preview
+		$('.single-image .the-image').css({ // Image Preview Source to Empty
+      'background-image' : `none`
+    });
+		$('#attached_images').val('') // Clear file input
+		$('#post_content').show();
+	}
+  
+  // Display the image on selecting from filesystem
+	$('#attached_images').change(function(){
+		DisplayImageBeforeUploading(this);
+  });
+
+  // Cancel the image
+	$('#CancelUploadButton').on('click', function(){
+		CancelImageSelection();
+	});
+
+	// Post title field autocomplete UI
+	var channels = [
+		{ value: 'Channel 1'},
+		{ value: 'Andrew'},
+		{ value: 'Baker'},
+		{ value: 'New Jersey'},
+		{ value: 'Poor'},
+		{ value: 'Rich'},
+		{ value: 'Guardian'},
+		{ value: 'Viva'},
+		{ value: 'Online'},
+		{ value: 'Virus'},
+		{ value: 'Monday'},
+		{ value: 'Moon'},
+	];
+
+	$('#title').autocomplete({
+			lookup: channels,
+			delimiter: "[",
+			onSelect: function (suggestion) {
+					console.log("selected:", suggestion);
+			}
+	});
+});
