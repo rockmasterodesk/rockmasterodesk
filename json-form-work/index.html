@@ -62,6 +62,7 @@
       <tbody>
       </tbody>
     </table>
+
   </div>
 
   <script src="dist/jquery/dist/jquery.min.js"></script>
@@ -83,13 +84,70 @@
       callback(2.33, "Bangladesh", "Pathao");
     };
 
-    // window.formBuilder = new JsonFormBuilder(products_2, {
-    //   price_multiplier: "10",
-    //   price_multiplier_mode: "fixed",
-    //   compare_multiplier: "10",
-    //   compare_multiplier_mode: "fixed",
-    //   changeShippingFunction: changeShipping
-    // });
+    window.formBuilder = new JsonFormBuilder(products_2, {
+      price_multiplier: "10",
+      price_multiplier_mode: "fixed",
+      compare_multiplier: "10",
+      compare_multiplier_mode: "fixed",
+      changeShippingFunction: changeShipping,
+      price_cents: "99",
+      price_compare_cents: "95",
+      shippingOptions: {
+        country: "Bahamas and Jugoslovenina",
+        option: "Prothom Alo Shipment",
+        price: 2.3
+      }
+    });
+
+
+
+//     var changeShipping = function(callback, data){
+//       console.log('this is being repeated');
+//     }
+
+//     $(document).off('click', '.editVariants').on('click', '.editVariants', function() {
+//         rushModalConfirm({title: 'Edit Variants',
+//         content: '<div class="editVariantsContainer">'+
+//                 	'<nav class="nav jfb-selector-nav">'+
+//                 '</nav>'+
+//                 '<table class="table jfb-table" id="BuildThisForm">'+
+//                   '<thead>'+
+//                     '<tr class="titles">'+
+//                     '</tr>'+
+//                     '<tr class="buttons">'+
+//                     '</tr>'+
+//                   '</thead>'+
+//                   '<tbody>'+
+//                   '</tbody>'+
+//                 '</table>'+ 
+//               '</div>',
+//         buttons: {ok: 'Ok', cancel: 'Cancel' },
+//         width: "85%",
+//         id: "editVariantsModal",
+//         onShown: function() {
+//             window.formBuilder = new JsonFormBuilder(products_2, {
+//               price_multiplier: "3",
+//               price_multiplier_mode: "fixed",
+//               compare_multiplier: "4",
+//               compare_multiplier_mode: "fixed",
+//               changeShippingFunction: changeShipping
+//             });
+//         }, 
+//         callback: function(e){
+//         	if (e == 'Ok') {
+//             $("#editVariantsModal").modal("hide");
+//             console.log(formBuilder.generateExportData());
+//          	}
+//         } 
+//     });
+// });
+
+
+
+
+
+
+
   </script>
 </body>
 </html>

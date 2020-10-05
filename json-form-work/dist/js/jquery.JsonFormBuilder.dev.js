@@ -66,9 +66,13 @@ function () {
     this.config.changeShippingFunction = undefined !== options.changeShippingFunction ? options.changeShippingFunction : function (callback) {
       callback(0, "", "");
     };
-    this.config.shipping = {};
-    this.config.shipping.country = null;
-    this.config.shipping.option = null; // Validate required options
+    this.config.shipping = undefined !== options.shippingOptions ? options.shippingOptions : {};
+    this.config.price_cents = undefined !== options.price_cents ? options.price_cents : null;
+    this.config.price_compare_cents = undefined !== options.price_compare_cents ? options.price_compare_cents : null;
+    window.SHIPPING_INFO = this.config.shipping; // this.config.shipping.country = null;
+    // this.config.shipping.option = null;
+    // this.config.shipping.price = null;
+    // Validate required options
 
     var required_fields = ["price_multiplier", "price_multiplier_mode", "compare_multiplier", "compare_multiplier_mode"];
 
@@ -126,7 +130,7 @@ function () {
         // New elements (__attr__ means hidden elements)
         __cost__: cost,
         __randomNumber__: randomDigits,
-        __shipping__: 0,
+        __shipping__: _this.config.shipping.price !== undefined ? _this.config.shipping.price : 0,
         price: undefined !== v.price ? v.price : _this.roundNumber(price).toFixed(2),
         comparePrice: undefined !== v.comparePrice ? v.comparePrice : _this.roundNumber(comparedAtPrice).toFixed(2),
         shopSKU: undefined !== v.shopSKU ? v.shopSKU : _this.getShopSku(randomDigits, v.variantName)
@@ -273,6 +277,22 @@ function () {
       $(this.config.table + " tr#variant_" + v.id).find('.jfb-profit-field').text(profit);
     }
   }, {
+    key: "trancatedValue",
+    value: function trancatedValue(value) {
+      var maximumLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+      var expander = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "...";
+
+      if (value === undefined || typeof value !== "string") {
+        return '';
+      }
+
+      if (value.length <= maximumLength) {
+        return value;
+      }
+
+      return value.substring(0, maximumLength - expander.length) + expander;
+    }
+  }, {
     key: "addEventListeners",
     value: function addEventListeners() {
       var $ = this.config.jQuery;
@@ -282,7 +302,7 @@ function () {
 
       $(document).ready(function () {
         // Top Selector Event Listener
-        $(document).on('click', thisClass.config.selectors + "  a.nav-link", function (e) {
+        $(document).off('click', thisClass.config.selectors + "  a.nav-link").on('click', thisClass.config.selectors + "  a.nav-link", function (e) {
           e.preventDefault();
           var key = $(this).attr('data-selector');
           var option = $(this).attr('data-option');
@@ -316,43 +336,89 @@ function () {
           thisClass.updateDeleteButtonState();
         }); // Update delete button stata on checkbox selection
 
-        $(document).on('click', thisClass.config.table + " .main-checkbox", function (e) {
+        $(document).off('click', thisClass.config.table + " .main-checkbox").on('click', thisClass.config.table + " .main-checkbox", function (e) {
           thisClass.updateDeleteButtonState();
         }); // Delete Button Action
 
-        $(document).on('click', thisClass.config.table + " .jfb-delete-button", function (e) {
-          var _this5 = this;
+        $(document).off('click', thisClass.config.table + " .jfb-delete-button").on('click', thisClass.config.table + " .jfb-delete-button", function (e) {
+          var _this6 = this;
 
-          var sure = confirm('Are you sure you want to delete these variants?');
-          var selectedVariants = thisClass.getSelectedVariants();
+          // console.log('delete action called');return;
+          var sure = false;
 
-          if (sure && selectedVariants.length > 0) {
-            selectedVariants.forEach(function (id) {
-              if (thisClass.$variants.length === 1) {
-                alert('At least one variant must exist.');
-                return;
-              } // Remove variant from $variants
+          if (typeof window.rushModalConfirm === 'function') {
+            rushModalConfirm({
+              title: 'Confirm',
+              content: 'Are you sure you want to delete these variants?',
+              buttons: {
+                ok: 'Yes Delete',
+                cancel: 'Cancel'
+              },
+              callback: function callback(e) {
+                var _this5 = this;
+
+                if (e == 'Ok') {
+                  $("#RushModal").modal("hide");
+                  sure = true;
+                  var selectedVariants = thisClass.getSelectedVariants();
+
+                  if (sure && selectedVariants.length > 0) {
+                    selectedVariants.forEach(function (id) {
+                      if (thisClass.$variants.length === 1) {
+                        alert('At least one variant must exist.');
+                        return;
+                      } // Remove variant from $variants
 
 
-              thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
+                      thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
 
-              $(thisClass.config.table + " tr#variant_" + id).remove();
-              $(_this5).attr('disabled', true); // Update Delete Fields
+                      $(thisClass.config.table + " tr#variant_" + id).remove();
+                      $(_this5).attr('disabled', true); // Update Delete Fields
 
-              thisClass.updateOptionsUseCount();
-              thisClass.removeUnusedOptions();
+                      thisClass.updateOptionsUseCount();
+                      thisClass.removeUnusedOptions();
+                    });
+                  }
+
+                  return true;
+                }
+              }
             });
+          } else {
+            sure = confirm('Are you sure you want to delete these variants?');
+            var selectedVariants = thisClass.getSelectedVariants(); // console.log(sure);
+
+            if (sure && selectedVariants.length > 0) {
+              selectedVariants.forEach(function (id) {
+                if (thisClass.$variants.length === 1) {
+                  alert('At least one variant must exist.');
+                  return;
+                } // Remove variant from $variants
+
+
+                thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
+
+                $(thisClass.config.table + " tr#variant_" + id).remove();
+                $(_this6).attr('disabled', true); // Update Delete Fields
+
+                thisClass.updateOptionsUseCount();
+                thisClass.removeUnusedOptions();
+              });
+            } // console.error("Function window.rushModalConfirm not found.");
+
           }
         }); // Change Shipping Action
 
-        $(document).on('click', thisClass.config.table + " #changeShipping", function (e) {
+        $(document).off('click', thisClass.config.table + " #changeShipping").on('click', thisClass.config.table + " #changeShipping", function (e) {
           var button = $(this);
           thisClass.config.changeShippingFunction(function () {
             var price = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
             var country = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
             var option = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+            thisClass.config.shipping.price = price;
             thisClass.config.shipping.country = country;
             thisClass.config.shipping.option = option;
+            window.SHIPPING_INFO = thisClass.config.shipping;
             thisClass.$variants.forEach(function (v) {
               // console.log(v.id);
               // update variant
@@ -362,8 +428,8 @@ function () {
 
               thisClass.calculateAndUpdateProfit(v);
             });
-            button.find('.country').text(country);
-            button.find('.option').text(option);
+            button.find('.country').text(thisClass.trancatedValue(country, 13));
+            button.find('.option').text(thisClass.trancatedValue(option, 13));
           }, {
             country: thisClass.config.shipping.country,
             option: thisClass.config.shipping.option
@@ -436,9 +502,9 @@ function () {
           // Update selected status
         };
 
-        $(document).on('blur', ".jfb_option_input", EditOptionListener); // Edit shop sku field
+        $(document).off('blur', ".jfb_option_input").on('blur', ".jfb_option_input", EditOptionListener); // Edit shop sku field
 
-        $(document).on('blur', thisClass.config.table + ' .shop-sku-field', function () {
+        $(document).off('blur', thisClass.config.table + ' .shop-sku-field').on('blur', thisClass.config.table + ' .shop-sku-field', function () {
           var thisField = $(this);
           var variant_id = thisField.parent().parent().attr('id').substr(8);
           var variant_index = thisClass.getVariantIndexByID(variant_id);
@@ -485,8 +551,8 @@ function () {
           thisClass.calculateAndUpdateProfit(variant);
         };
 
-        $(document).on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
-        $(document).on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
+        $(document).off('keyup', thisClass.config.table + " .jfb-price-field").on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
+        $(document).off('change', thisClass.config.table + " .jfb-price-field").on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
 
         var EditComparePriceListener = function EditComparePriceListener(e) {
           var price = $(this).val();
@@ -506,16 +572,16 @@ function () {
           }
         };
 
-        $(document).on('keyup', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
-        $(document).on('change', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener); // Change all prices
+        $(document).off('keyup', thisClass.config.table + " .jfb-compare-price-field").on('keyup', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
+        $(document).off('change', thisClass.config.table + " .jfb-compare-price-field").on('change', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener); // Change all prices
 
-        $(document).on('click', thisClass.config.table + " .price-change-all .dropdown-item", function () {
+        $(document).off('click', thisClass.config.table + " .price-change-all .dropdown-item").on('click', thisClass.config.table + " .price-change-all .dropdown-item", function () {
           var mode = $(this).data('mode');
           $(thisClass.config.table + ' .price-change-all .change-input').attr('data-mode', mode);
           $(thisClass.config.table + ' .price-change-all .change-input').css('display', 'flex');
         }); // Apply Button Click
 
-        $(document).on('click', thisClass.config.table + " .price-change-all .apply-button", function () {
+        $(document).off('click', thisClass.config.table + " .price-change-all .apply-button").on('click', thisClass.config.table + " .price-change-all .apply-button", function () {
           var $inputContainer = $(this).parent().parent();
           var mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
 
@@ -529,7 +595,12 @@ function () {
             var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
 
             v.price = new_price.toFixed(2); // 2 decimal places
-            // Update DOM Dependencies
+
+            if ("multiply" === mode && thisClass.config.price_cents !== null) {
+              // Change the cents. For Example: 4.57 -> 4.99
+              v.price = v.price.split('.')[0] + '.' + thisClass.config.price_cents;
+            } // Update DOM Dependencies
+
 
             $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-price-field').val(v.price); // Price Field
 
@@ -539,13 +610,13 @@ function () {
           $inputContainer.hide();
         }); // Change all compare prices
 
-        $(document).on('click', thisClass.config.table + " .compare-price-change-all .dropdown-item", function () {
+        $(document).off('click', thisClass.config.table + " .compare-price-change-all .dropdown-item").on('click', thisClass.config.table + " .compare-price-change-all .dropdown-item", function () {
           var mode = $(this).data('mode');
           $(thisClass.config.table + ' .compare-price-change-all .change-input').attr('data-mode', mode);
           $(thisClass.config.table + ' .compare-price-change-all .change-input').css('display', 'flex');
         }); // Apply Button Click Compare prices
 
-        $(document).on('click', thisClass.config.table + " .compare-price-change-all .apply-button", function () {
+        $(document).off('click', thisClass.config.table + " .compare-price-change-all .apply-button").on('click', thisClass.config.table + " .compare-price-change-all .apply-button", function () {
           var $inputContainer = $(this).parent().parent();
           var mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
 
@@ -559,7 +630,12 @@ function () {
             var new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value)); // Set the price to $variant
 
             v.comparePrice = new_price.toFixed(2); // 2 decimal places
-            // Update DOM Dependencies
+
+            if ("multiply" === mode && thisClass.config.price_compare_cents !== null) {
+              // Change the cents. For Example: 4.57 -> 4.99
+              v.comparePrice = v.comparePrice.split('.')[0] + '.' + thisClass.config.price_compare_cents;
+            } // Update DOM Dependencies
+
 
             $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-compare-price-field').val(v.comparePrice);
           });
@@ -567,7 +643,7 @@ function () {
           $inputContainer.hide();
         }); // Close Button Click
 
-        $(document).on('click', thisClass.config.table + " .close-button", function () {
+        $(document).off('click', thisClass.config.table + " .close-button").on('click', thisClass.config.table + " .close-button", function () {
           $(this).parent().parent().css('display', 'none');
         });
       }); //} else {
@@ -590,11 +666,11 @@ function () {
   }, {
     key: "generateVariantName",
     value: function generateVariantName(fulfillName) {
-      var _this6 = this;
+      var _this7 = this;
 
       var v_name = [];
       Object.keys(this.$options).forEach(function (v) {
-        v_name.push(_this6.$options[v][fulfillName[v] - 1]);
+        v_name.push(_this7.$options[v][fulfillName[v] - 1]);
       });
       return v_name.join(',');
     }
@@ -618,14 +694,14 @@ function () {
         titles += "<th scope=\"col\" class=\"\">".concat(v, "</th>");
       }); // Generate Buttons
 
-      buttons += "\n        <th colspan=\"1\"><button class=\"btn btn-danger jfb-delete-button btn-sm\" disabled>Delete</button></th>\n        <th colspan=\"".concat(blankColumns, "\"></th>\n        <th colspan=\"1\" id=\"changeShipping\">\n          <button class=\"btn btn-primary btn-sm\"><span class=\"country\">USA</span> - <span class=\"option\">FedEx</span></button>\n        </th>\n        <th colspan=\"1\">\n          <div class=\"dropdown price-change-all\">\n            <button class=\"btn btn-primary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-primary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n        <th colspan=\"1\"></th>\n        <th colspan=\"1\">\n          <div class=\"dropdown compare-price-change-all\">\n            <button class=\"btn btn-primary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-primary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n    ");
+      buttons += "\n        <th colspan=\"1\"><button class=\"btn btn-danger jfb-delete-button btn-sm\" disabled>Delete</button></th>\n        <th colspan=\"".concat(blankColumns, "\"></th>\n        <th colspan=\"1\" id=\"changeShipping\">\n          <button class=\"btn btn-primary btn-sm\">\n            <span class=\"country\">").concat(this.trancatedValue(this.config.shipping.country, 13), "</span> - \n            <span class=\"option\">").concat(this.trancatedValue(this.config.shipping.option, 13), "</span>\n          </button>\n        </th>\n        <th colspan=\"1\">\n          <div class=\"dropdown price-change-all\">\n            <button class=\"btn btn-primary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-primary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n        <th colspan=\"1\"></th>\n        <th colspan=\"1\">\n          <div class=\"dropdown compare-price-change-all\">\n            <button class=\"btn btn-primary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-primary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n    ");
       this.config.jQuery(this.config.table).find('thead>tr.titles').html(titles);
       this.config.jQuery(this.config.table).find('thead>tr.buttons').html(buttons);
     }
   }, {
     key: "generateSelectors",
     value: function generateSelectors() {
-      var _this7 = this;
+      var _this8 = this;
 
       var selectors = [{
         option: "All",
@@ -639,9 +715,9 @@ function () {
 
       if (Object.keys(this.$options).length > 0) {
         Object.keys(this.$options).forEach(function (v) {
-          _this7.config.initialCounts[v] = _this7.$options[v].length;
+          _this8.config.initialCounts[v] = _this8.$options[v].length;
 
-          _this7.$options[v].forEach(function (element, index) {
+          _this8.$options[v].forEach(function (element, index) {
             selectors.push({
               option: v,
               selector: element,
@@ -672,19 +748,21 @@ function () {
   }, {
     key: "generateContent",
     value: function generateContent() {
-      var _this8 = this;
+      var _this9 = this;
 
-      var content = '';
+      var content = ''; // Original Checkbox Was: <input class="main-checkbox" type="checkbox" name="checkbox[]" checked />
+      // Updated to Bootstrap-4 Custom Checkbox
+
       this.$variants.forEach(function (variant, index) {
-        content += "\n      <tr id=\"variant_".concat(variant.id, "\">\n        <th scope=\"row\"><input class=\"main-checkbox\" type=\"checkbox\" name=\"checkbox[]\" checked /></th>\n        <td class=\"jfb-img-td\"><img src=\"").concat(variant.variantImages, "\" alt=\"\"></td>\n        <td><input class=\"form-control shop-sku-field\" type=\"text\" name=\"shop_sku_").concat(variant.id, "\" value=\"").concat(variant.shopSKU, "\" /></td>");
+        content += "\n      <tr id=\"variant_".concat(variant.id, "\">\n        <th scope=\"row\">\n          <div class=\"custom-control custom-checkbox\">\n            <input type=\"checkbox\" class=\"custom-control-input main-checkbox\" id=\"customCheck_").concat(variant.id, "\" name=\"checkbox[]\" checked>\n            <label class=\"custom-control-label\" for=\"customCheck_").concat(variant.id, "\"></label>\n          </div>\n        </th>\n        <td class=\"jfb-img-td\"><img src=\"").concat(variant.variantImages, "\" alt=\"\"></td>\n        <td><input class=\"form-control shop-sku-field\" type=\"text\" name=\"shop_sku_").concat(variant.id, "\" value=\"").concat(variant.shopSKU, "\" /></td>");
 
-        if (Object.keys(_this8.$options).length > 0) {
-          Object.keys(_this8.$options).forEach(function (v, i) {
-            content += "\n            <td data-option=\"".concat(v, "\" data-s_index=\"").concat(variant.fulfillName[v] - 1, "\"><input class=\"form-control jfb_option_input\" type=\"text\" name=\"color_of_").concat(variant.id, "\" value=\"").concat(_this8.$options[v][variant.fulfillName[v] - 1], "\" /></td>\n          ");
+        if (Object.keys(_this9.$options).length > 0) {
+          Object.keys(_this9.$options).forEach(function (v, i) {
+            content += "\n            <td data-option=\"".concat(v, "\" data-s_index=\"").concat(variant.fulfillName[v] - 1, "\"><input class=\"form-control jfb_option_input\" type=\"text\" name=\"color_of_").concat(variant.id, "\" value=\"").concat(_this9.$options[v][variant.fulfillName[v] - 1], "\" /></td>\n          ");
           });
         }
 
-        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">--</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this8.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this8.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this8.roundNumber(_this8.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this8.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
+        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">").concat(_this9.config.shipping.price !== undefined ? "US$ " + _this9.roundNumber(_this9.config.shipping.price).toFixed(2) : "--", "</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this9.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this9.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this9.roundNumber(_this9.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this9.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
       });
       return content;
     }
@@ -693,7 +771,7 @@ function () {
     value: function getSelectedVariants() {
       var ids = [];
       this.config.jQuery(this.config.table + " .main-checkbox:checked").each(function () {
-        ids.push($(this).parent().parent().attr('id').substr(8));
+        ids.push($(this).parent().parent().parent().attr('id').substr(8));
       });
       return ids;
     }

@@ -38,9 +38,13 @@ class JsonFormBuilder {
     this.config.selectors = undefined !== options.selectors ? options.selectors : ".jfb-selector-nav";
     this.config.jQuery = undefined !== options.jQuery ? options.jQuery : window.jQuery;
     this.config.changeShippingFunction = undefined !== options.changeShippingFunction ? options.changeShippingFunction : callback=>{callback(0,"","")};
-    this.config.shipping = {};
-    this.config.shipping.country = null;
-    this.config.shipping.option = null;
+    this.config.shipping = undefined !== options.shippingOptions ? options.shippingOptions : {};
+    this.config.price_cents = undefined !== options.price_cents ? options.price_cents : null;
+    this.config.price_compare_cents = undefined !== options.price_compare_cents ? options.price_compare_cents : null;
+    window.SHIPPING_INFO = this.config.shipping;
+    // this.config.shipping.country = null;
+    // this.config.shipping.option = null;
+    // this.config.shipping.price = null;
 
     // Validate required options
     const required_fields = ["price_multiplier", "price_multiplier_mode", "compare_multiplier", "compare_multiplier_mode"];
@@ -97,7 +101,7 @@ class JsonFormBuilder {
         // New elements (__attr__ means hidden elements)
         __cost__: cost,
         __randomNumber__: randomDigits,
-        __shipping__: 0,
+        __shipping__: this.config.shipping.price !== undefined ? this.config.shipping.price : 0,
 
         price: undefined !== v.price ? v.price : this.roundNumber(price).toFixed(2),
         comparePrice: undefined !== v.comparePrice ? v.comparePrice :  this.roundNumber(comparedAtPrice).toFixed(2),
@@ -237,6 +241,16 @@ class JsonFormBuilder {
     $(this.config.table + " tr#variant_"+v.id).find('.jfb-profit-field').text(profit);
   }
 
+  trancatedValue(value, maximumLength=10, expander="..."){
+    if (value === undefined || typeof value !== "string" ){
+      return '';
+    }
+    if (value.length <= maximumLength){
+      return value;
+    }
+    return value.substring(0,maximumLength-expander.length) + expander;
+  }
+
   addEventListeners(){
     let $ = this.config.jQuery;
     const thisClass = this;
@@ -246,7 +260,7 @@ class JsonFormBuilder {
     //  window.JFB_EVENT_LISTENERS_REGISTERED = true;
       $(document).ready(function(){
         // Top Selector Event Listener
-        $(document).on('click', thisClass.config.selectors + "  a.nav-link", function(e){
+        $(document).off('click',thisClass.config.selectors + "  a.nav-link").on('click', thisClass.config.selectors + "  a.nav-link", function(e){
           e.preventDefault();
           
           let key = $(this).attr('data-selector');
@@ -283,43 +297,89 @@ class JsonFormBuilder {
         });
   
         // Update delete button stata on checkbox selection
-        $(document).on('click', thisClass.config.table + " .main-checkbox", function(e){
+        $(document).off('click',thisClass.config.table + " .main-checkbox").on('click', thisClass.config.table + " .main-checkbox", function(e){
           thisClass.updateDeleteButtonState();
         });
   
         // Delete Button Action
-        $(document).on('click', thisClass.config.table + " .jfb-delete-button", function(e){
-          let sure = confirm('Are you sure you want to delete these variants?');
-          let selectedVariants = thisClass.getSelectedVariants();
+        $(document).off('click',thisClass.config.table + " .jfb-delete-button").on('click', thisClass.config.table + " .jfb-delete-button", function(e){
+          // console.log('delete action called');return;
+          let sure = false;
+          if (typeof window.rushModalConfirm === 'function'){
+            rushModalConfirm({title: 'Confirm',
+	 				   content: 'Are you sure you want to delete these variants?',
+                  buttons: {ok: 'Yes Delete', cancel: 'Cancel' },	
+                  callback: function(e){
+                    if (e == 'Ok') {
+                      $("#RushModal").modal("hide");
+
+                      sure = true;
+
+                      let selectedVariants = thisClass.getSelectedVariants();
+
+                      if (sure && selectedVariants.length > 0){
   
-          if (sure && selectedVariants.length > 0){
-  
-            selectedVariants.forEach(id=>{
-              if (thisClass.$variants.length===1){
-                alert('At least one variant must exist.');
-                return;
-              }
-              // Remove variant from $variants
-              thisClass.$variants.splice(thisClass.getVariantIndexByID(id),1);
-  
-              // Remove variant from DOM
-              $(thisClass.config.table + " tr#variant_" + id).remove();
-  
-              $(this).attr('disabled',true);
+                        selectedVariants.forEach(id=>{
+                          if (thisClass.$variants.length===1){
+                            alert('At least one variant must exist.');
+                            return;
+                          }
+                          // Remove variant from $variants
+                          thisClass.$variants.splice(thisClass.getVariantIndexByID(id),1);
               
-              // Update Delete Fields
-              thisClass.updateOptionsUseCount();
-              thisClass.removeUnusedOptions();
-            });
+                          // Remove variant from DOM
+                          $(thisClass.config.table + " tr#variant_" + id).remove();
+              
+                          $(this).attr('disabled',true);
+                          
+                          // Update Delete Fields
+                          thisClass.updateOptionsUseCount();
+                          thisClass.removeUnusedOptions();
+                        });
+                      }
+
+                      return true;
+                    }
+	  			   		  }	
+	  			   	});
+          } else {
+            sure = confirm('Are you sure you want to delete these variants?');
+            let selectedVariants = thisClass.getSelectedVariants();
+    
+            // console.log(sure);
+            if (sure && selectedVariants.length > 0){
+    
+              selectedVariants.forEach(id=>{
+                if (thisClass.$variants.length===1){
+                  alert('At least one variant must exist.');
+                  return;
+                }
+                // Remove variant from $variants
+                thisClass.$variants.splice(thisClass.getVariantIndexByID(id),1);
+    
+                // Remove variant from DOM
+                $(thisClass.config.table + " tr#variant_" + id).remove();
+    
+                $(this).attr('disabled',true);
+                
+                // Update Delete Fields
+                thisClass.updateOptionsUseCount();
+                thisClass.removeUnusedOptions();
+              });
+            }
+            // console.error("Function window.rushModalConfirm not found.");
           }
         });
 
         // Change Shipping Action
-        $(document).on('click', thisClass.config.table + " #changeShipping", function(e){
+        $(document).off('click',thisClass.config.table + " #changeShipping").on('click', thisClass.config.table + " #changeShipping", function(e){
           let button = $(this);
           thisClass.config.changeShippingFunction(function(price=0, country=null, option=null){
+            thisClass.config.shipping.price = price;
             thisClass.config.shipping.country = country;
             thisClass.config.shipping.option = option;
+
+            window.SHIPPING_INFO = thisClass.config.shipping;
 
             thisClass.$variants.forEach(function(v){
               // console.log(v.id);
@@ -331,8 +391,8 @@ class JsonFormBuilder {
               thisClass.calculateAndUpdateProfit(v);
             });
     
-            button.find('.country').text(country);
-            button.find('.option').text(option);
+            button.find('.country').text(thisClass.trancatedValue(country, 13));
+            button.find('.option').text(thisClass.trancatedValue(option, 13));
           }, {country:thisClass.config.shipping.country, option:thisClass.config.shipping.option});
         });
 
@@ -413,10 +473,10 @@ class JsonFormBuilder {
           // console.log(thisClass.$variants[variant_index]);
           // Update selected status
         }
-        $(document).on('blur', ".jfb_option_input", EditOptionListener);
+        $(document).off('blur',".jfb_option_input").on('blur', ".jfb_option_input", EditOptionListener);
 
         // Edit shop sku field
-        $(document).on('blur', thisClass.config.table + ' .shop-sku-field', function(){
+        $(document).off('blur',thisClass.config.table + ' .shop-sku-field').on('blur', thisClass.config.table + ' .shop-sku-field', function(){
           let thisField = $(this);
           let variant_id = thisField.parent().parent().attr('id').substr(8);
           let variant_index = thisClass.getVariantIndexByID(variant_id);
@@ -465,8 +525,8 @@ class JsonFormBuilder {
           }
           thisClass.calculateAndUpdateProfit(variant);
         };
-        $(document).on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
-        $(document).on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
+        $(document).off('keyup',thisClass.config.table + " .jfb-price-field").on('keyup', thisClass.config.table + " .jfb-price-field", EditPriceListener);
+        $(document).off('change',thisClass.config.table + " .jfb-price-field").on('change', thisClass.config.table + " .jfb-price-field", EditPriceListener);
   
         let EditComparePriceListener = function(e){
           let price = $(this).val();
@@ -486,11 +546,11 @@ class JsonFormBuilder {
             $(this).val(variant.comparePrice);
           }
         };
-        $(document).on('keyup', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
-        $(document).on('change', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
+        $(document).off('keyup',thisClass.config.table + " .jfb-compare-price-field").on('keyup', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
+        $(document).off('change',thisClass.config.table + " .jfb-compare-price-field").on('change', thisClass.config.table + " .jfb-compare-price-field", EditComparePriceListener);
   
         // Change all prices
-        $(document).on('click', thisClass.config.table + " .price-change-all .dropdown-item", function(){
+        $(document).off('click',thisClass.config.table + " .price-change-all .dropdown-item").on('click', thisClass.config.table + " .price-change-all .dropdown-item", function(){
           let mode = $(this).data('mode');
   
           $(thisClass.config.table + ' .price-change-all .change-input').attr('data-mode',mode);
@@ -498,7 +558,7 @@ class JsonFormBuilder {
         });
   
         // Apply Button Click
-        $(document).on('click', thisClass.config.table + " .price-change-all .apply-button", function(){
+        $(document).off('click',thisClass.config.table + " .price-change-all .apply-button").on('click', thisClass.config.table + " .price-change-all .apply-button", function(){
           let $inputContainer = $(this).parent().parent();
           let mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
   
@@ -513,6 +573,11 @@ class JsonFormBuilder {
             let new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value));
             // Set the price to $variant
             v.price = new_price.toFixed(2); // 2 decimal places
+
+            if ("multiply" === mode && thisClass.config.price_cents !== null){
+              // Change the cents. For Example: 4.57 -> 4.99
+              v.price = v.price.split('.')[0] + '.' + thisClass.config.price_cents;
+            }
   
             // Update DOM Dependencies
             $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-price-field').val(v.price); // Price Field
@@ -526,7 +591,7 @@ class JsonFormBuilder {
         });
   
         // Change all compare prices
-        $(document).on('click', thisClass.config.table + " .compare-price-change-all .dropdown-item", function(){
+        $(document).off('click',thisClass.config.table + " .compare-price-change-all .dropdown-item").on('click', thisClass.config.table + " .compare-price-change-all .dropdown-item", function(){
           let mode = $(this).data('mode');
   
           $(thisClass.config.table + ' .compare-price-change-all .change-input').attr('data-mode',mode);
@@ -534,7 +599,7 @@ class JsonFormBuilder {
         });
   
         // Apply Button Click Compare prices
-        $(document).on('click', thisClass.config.table + " .compare-price-change-all .apply-button", function(){
+        $(document).off('click',thisClass.config.table + " .compare-price-change-all .apply-button").on('click', thisClass.config.table + " .compare-price-change-all .apply-button", function(){
           let $inputContainer = $(this).parent().parent();
           let mode = $inputContainer.attr('data-mode'); // if "new", then set new value, otherwise multiply
   
@@ -549,6 +614,11 @@ class JsonFormBuilder {
             let new_price = "new" === mode ? thisClass.roundNumber(value) : thisClass.roundNumber(parseFloat(v.__cost__) * parseFloat(value));
             // Set the price to $variant
             v.comparePrice = new_price.toFixed(2); // 2 decimal places
+
+            if ("multiply" === mode && thisClass.config.price_compare_cents !== null){
+              // Change the cents. For Example: 4.57 -> 4.99
+              v.comparePrice = v.comparePrice.split('.')[0] + '.' + thisClass.config.price_compare_cents;
+            }
   
             // Update DOM Dependencies
             $(thisClass.config.table + ' tr#variant_' + v.id + ' .jfb-compare-price-field').val(v.comparePrice);
@@ -560,7 +630,7 @@ class JsonFormBuilder {
         });
   
         // Close Button Click
-        $(document).on('click', thisClass.config.table + " .close-button", function(){
+        $(document).off('click',thisClass.config.table + " .close-button").on('click', thisClass.config.table + " .close-button", function(){
           $(this).parent().parent().css('display','none');
         });
       });
@@ -608,7 +678,10 @@ class JsonFormBuilder {
         <th colspan="1"><button class="btn btn-danger jfb-delete-button btn-sm" disabled>Delete</button></th>
         <th colspan="${blankColumns}"></th>
         <th colspan="1" id="changeShipping">
-          <button class="btn btn-primary btn-sm"><span class="country">USA</span> - <span class="option">FedEx</span></button>
+          <button class="btn btn-primary btn-sm">
+            <span class="country">${this.trancatedValue(this.config.shipping.country, 13)}</span> - 
+            <span class="option">${this.trancatedValue(this.config.shipping.option, 13)}</span>
+          </button>
         </th>
         <th colspan="1">
           <div class="dropdown price-change-all">
@@ -688,10 +761,17 @@ class JsonFormBuilder {
 
   generateContent(){
     let content = '';
+    // Original Checkbox Was: <input class="main-checkbox" type="checkbox" name="checkbox[]" checked />
+    // Updated to Bootstrap-4 Custom Checkbox
     this.$variants.forEach((variant, index)=>{
       content += `
       <tr id="variant_${variant.id}">
-        <th scope="row"><input class="main-checkbox" type="checkbox" name="checkbox[]" checked /></th>
+        <th scope="row">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input main-checkbox" id="customCheck_${variant.id}" name="checkbox[]" checked>
+            <label class="custom-control-label" for="customCheck_${variant.id}"></label>
+          </div>
+        </th>
         <td class="jfb-img-td"><img src="${variant.variantImages}" alt=""></td>
         <td><input class="form-control shop-sku-field" type="text" name="shop_sku_${variant.id}" value="${variant.shopSKU}" /></td>`;
 
@@ -705,7 +785,7 @@ class JsonFormBuilder {
 
       content += `
         <td class="jfb-nowrap">US$ ${variant.__cost__}</td>
-        <td class="shipping-cost">--</td> <!-- Shipping -->
+        <td class="shipping-cost">${this.config.shipping.price !== undefined ? "US$ " + this.roundNumber(this.config.shipping.price).toFixed(2) : "--"}</td> <!-- Shipping -->
         <td>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -735,7 +815,7 @@ class JsonFormBuilder {
     let ids = [];
 
     this.config.jQuery(this.config.table + " .main-checkbox:checked").each(function(){
-      ids.push($(this).parent().parent().attr('id').substr(8));
+      ids.push($(this).parent().parent().parent().attr('id').substr(8));
     });
 
     return ids;
