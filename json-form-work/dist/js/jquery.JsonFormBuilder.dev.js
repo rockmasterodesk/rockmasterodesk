@@ -115,6 +115,12 @@ function () {
       var price = "multiply" === _this.config.price_multiplier_mode ? costFloat * _this.config.price_multiplier : costFloat + _this.config.price_multiplier;
       var comparedAtPrice = "multiply" === _this.config.compare_multiplier_mode ? costFloat * _this.config.compare_multiplier : costFloat + _this.config.compare_multiplier; // console.log(cost, this.config.price_multiplier, this.config.compare_multiplier, price, comparedAtPrice);
 
+      var pushPrice = undefined !== v.price ? v.price : _this.roundNumber(price).toFixed(2);
+      var pushComparePrice = undefined !== v.comparePrice ? v.comparePrice : _this.roundNumber(comparedAtPrice).toFixed(2); // If cents are available, change it to xxx.99
+
+      pushPrice = typeof pushPrice === 'string' && _this.config.price_cents !== null ? pushPrice.split('.')[0] + '.' + _this.config.price_cents : pushPrice;
+      pushComparePrice = typeof pushComparePrice === 'string' && _this.config.price_compare_cents !== null ? pushComparePrice.split('.')[0] + '.' + _this.config.price_compare_cents : pushComparePrice;
+
       _this.$variants.push({
         id: i,
         variantImages: v.variantImages,
@@ -131,8 +137,8 @@ function () {
         __cost__: cost,
         __randomNumber__: randomDigits,
         __shipping__: _this.config.shipping.price !== undefined ? _this.config.shipping.price : 0,
-        price: undefined !== v.price ? v.price : _this.roundNumber(price).toFixed(2),
-        comparePrice: undefined !== v.comparePrice ? v.comparePrice : _this.roundNumber(comparedAtPrice).toFixed(2),
+        price: pushPrice,
+        comparePrice: pushComparePrice,
         shopSKU: undefined !== v.shopSKU ? v.shopSKU : _this.getShopSku(randomDigits, v.variantName)
       });
     });

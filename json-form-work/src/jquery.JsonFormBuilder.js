@@ -85,6 +85,12 @@ class JsonFormBuilder {
       let comparedAtPrice = "multiply" === this.config.compare_multiplier_mode ? (costFloat * this.config.compare_multiplier) : (costFloat + this.config.compare_multiplier);
 
       // console.log(cost, this.config.price_multiplier, this.config.compare_multiplier, price, comparedAtPrice);
+      let pushPrice = undefined !== v.price ? v.price : this.roundNumber(price).toFixed(2);
+      let pushComparePrice = undefined !== v.comparePrice ? v.comparePrice :  this.roundNumber(comparedAtPrice).toFixed(2);
+      
+      // If cents are available, change it to xxx.99
+      pushPrice = typeof pushPrice === 'string' && this.config.price_cents !== null ? pushPrice.split('.')[0] + '.' + this.config.price_cents : pushPrice ;
+      pushComparePrice = typeof pushComparePrice === 'string' && this.config.price_compare_cents !== null ? pushComparePrice.split('.')[0] + '.' + this.config.price_compare_cents : pushComparePrice ;
 
       this.$variants.push({
         id: i,
@@ -103,8 +109,8 @@ class JsonFormBuilder {
         __randomNumber__: randomDigits,
         __shipping__: this.config.shipping.price !== undefined ? this.config.shipping.price : 0,
 
-        price: undefined !== v.price ? v.price : this.roundNumber(price).toFixed(2),
-        comparePrice: undefined !== v.comparePrice ? v.comparePrice :  this.roundNumber(comparedAtPrice).toFixed(2),
+        price: pushPrice,
+        comparePrice: pushComparePrice,
         shopSKU: undefined !== v.shopSKU ? v.shopSKU : this.getShopSku(randomDigits, v.variantName)
 
       });

@@ -2,6 +2,7 @@
 .jfb-selector-nav {
   &> div {
     display:flex;
+    flex-wrap:wrap;
   }
   
   a {
