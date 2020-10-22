@@ -42,6 +42,34 @@ $(document).ready(function(){
 		$('#attached_images').val('') // Clear file input
 		$('#post_content').show();
 	}
+
+	// Set the tag form
+	function SetTag(tag){
+		if (tag !== undefined && tag !== null && tag !== ''){
+			var div_tag = $('#title').parent().find('.tag');
+			div_tag.css('display','flex');
+			div_tag.find('div.text').text(tag);
+
+			$('#channel').val(tag);
+
+			// Remove tag from title
+			var title_text = $('#title').val();
+			var title_text_arr = title_text.split(' ');
+			var tag_location = title_text_arr.indexOf('['+tag.split(' ')[0]);
+			if (tag_location >= 0){
+				title_text_arr.splice(tag_location, tag.split(' ').length);
+				var new_title_text = title_text_arr.join(' ');
+				$('#title').val(new_title_text);
+			}
+		}
+	}
+
+	function RemoveTag(){
+		var div_tag = $('#title').parent().find('.tag');
+		div_tag.css('display','none');
+		div_tag.find('span.text').text('');
+		$('#channel').val('');
+	}
   
   // Display the image on selecting from filesystem
 	$('#attached_images').change(function(){
@@ -69,11 +97,22 @@ $(document).ready(function(){
 		{ value: 'Moon'},
 	];
 
+	$('#title').focus(function(){
+		$(this).parent().addClass('focused');
+	})
+	$('#title').blur(function(){
+		$(this).parent().removeClass('focused');
+	})
+
 	$('#title').autocomplete({
 			lookup: channels,
 			delimiter: "[",
 			onSelect: function (suggestion) {
-					console.log("selected:", suggestion);
+					SetTag(suggestion.value);
 			}
+	});
+
+	$('.post-title .fa-times-circle').click(function(e){
+		RemoveTag();
 	});
 });

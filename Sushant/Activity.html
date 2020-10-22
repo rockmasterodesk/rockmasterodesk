@@ -649,5 +649,34 @@
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/notifications.js"></script>
     <script src="js/activity.js"></script>
+    <script>
+      $(function(){
+        $(window).on("scroll", function() {
+          var scrollHeight = $(document).height();
+          var scrollPosition = $(window).height() + $(window).scrollTop();
+          if ((scrollHeight - scrollPosition) / scrollHeight <= 0.001) {
+            
+            // Get the activity name [posts/comments/upvotes/chats]
+            var queryString = document.location.href.split('?')[1];
+            var activity = 'posts'; // Default is 'page'
+            if (undefined !== queryString && queryString.split('=')[0] === 'page'){
+              activity = queryString.split('=')[1];
+            }
+
+
+
+            // WRITE YOUR CODE HERE
+
+            console.log('Scrolled to bottom of ' + activity + ' page');
+            $('body').append('<center>Scrolled to bottom of ' + activity + ' page</center><br />');
+            // You may append new post like the following
+            // $('.the-posts').append('New Post...');
+            // Or via an AJAX call
+
+            // YOUR CODE ENDS HERE
+          }
+        });
+      });
+    </script>
   </body>
 </html>

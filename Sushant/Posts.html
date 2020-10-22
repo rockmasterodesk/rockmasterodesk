@@ -569,7 +569,24 @@
           post_is_upvoted: true,
           post_is_downvoted: false
         }
-      ]
+      ];
+
+
+      $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight <= 0.001) {
+
+          // WRITE YOUR CODE HERE
+
+          console.log('Scrolled to bottom of page');
+          // You may append new post like the following
+          $('.the-posts').append('<center>New Post...</center><br />');
+          // Or via an AJAX call
+
+          // YOUR CODE ENDS HERE
+        }
+      });
     </script>
   </body>
 </html>
