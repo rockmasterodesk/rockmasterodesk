@@ -137,11 +137,11 @@
                 <!-- </div> -->
                 <div class="post-body">
                   <div class="title-container p-2">
-                    <div type="text" class="form-control post-title d-flex">
+                    <div class="form-control post-title d-flex" id="TitleInput" max-channels="5">
                       <input type="text" class="post-title-input" name="title" id="title" placeholder="Post Title">
-                      <div class="tag" data-selected='true'><div class="text">tag</div><i class="fas fa-times-circle ml-1"></i></div>
+                      <div class="tags"></div>
                     </div>
-                    <input type="hidden" name="channel" id="channel">
+                    <div class="hidden-tags-inputs d-none"></div>
                     <div class="d-flex align-items-center posting-in">Posting in <div class="location">Location Name</div></div>
                     <small id="" class="form-text text-muted">Please add any channel names to the title by putting them in [], such as [LostAndFound]</small>
                   </div>

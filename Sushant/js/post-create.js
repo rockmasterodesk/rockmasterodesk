@@ -43,32 +43,59 @@ $(document).ready(function(){
 		$('#post_content').show();
 	}
 
-	// Set the tag form
-	function SetTag(tag){
+	// Add the tag form
+	function AddTag(tag){
 		if (tag !== undefined && tag !== null && tag !== ''){
-			var div_tag = $('#title').parent().find('.tag');
-			div_tag.css('display','flex');
-			div_tag.find('div.text').text(tag);
+			var MaxChannels = parseInt($('#TitleInput').attr('max-channels'));
+			if ($(document).find('.tags').children().length >= MaxChannels){
+				return;
+			}
 
-			$('#channel').val(tag);
+
+			// Check if the tag already exists
+			var found = $('.hidden-tags-inputs > input[value="'+tag+'"]');
+			if (0 !== found.length){
+				// Don't have to add it again
+			} else {
+				// Add this visible tags list
+				var div_tag = $('#title').parent().find('.tags');
+				div_tag.css('display','flex !important');
+				div_tag.append('<div class="tag" value="'+tag+'"><div class="text">'+tag+'</div><i class="fas fa-times-circle ml-1"></i></div>')
+
+				// Add this to hidden input list
+				$('.hidden-tags-inputs').append('<input type="hidden" name="channels[]" value="'+tag+'" />');
+			}
 
 			// Remove tag from title
 			var title_text = $('#title').val();
 			var title_text_arr = title_text.split(' ');
-			var tag_location = title_text_arr.indexOf('['+tag.split(' ')[0]);
-			if (tag_location >= 0){
-				title_text_arr.splice(tag_location, tag.split(' ').length);
+			var tag_location_with_bracket = title_text_arr.indexOf('['+tag.split(' ')[0]);
+			var tag_location_without_bracket = title_text_arr.indexOf(tag.split(' ')[0]);
+			if (tag_location_with_bracket >= 0){
+				title_text_arr.splice(tag_location_with_bracket, tag.split(' ').length);
 				var new_title_text = title_text_arr.join(' ');
-				$('#title').val(new_title_text);
+				$(document).find('#title').val(new_title_text+' ');
 			}
+			else if (tag_location_without_bracket >= 0){
+				title_text_arr.splice(tag_location_without_bracket, tag.split(' ').length);
+				var new_title_text = title_text_arr.join(' ');
+				$(document).find('#title').val(new_title_text+' ');
+			}
+
+			if ($(document).find('#title').val() === ' '){
+				$(document).find('#title').val('');
+			}
+
 		}
 	}
 
-	function RemoveTag(){
-		var div_tag = $('#title').parent().find('.tag');
-		div_tag.css('display','none');
-		div_tag.find('span.text').text('');
-		$('#channel').val('');
+	function RemoveTag(button){
+		// console.log($(button));
+		var div_tag = $(button).parent();
+		// console.log('close');
+		// console.log($('.hidden-tags-inputs > input[value='+div_tag.attr("value")+']'));
+		$('.hidden-tags-inputs > input[value="'+div_tag.attr("value")+'"]').remove();
+		div_tag.remove();
 	}
   
   // Display the image on selecting from filesystem
@@ -107,12 +134,13 @@ $(document).ready(function(){
 	$('#title').autocomplete({
 			lookup: channels,
 			delimiter: "[",
+			triggerSelectOnValidInput: false,
 			onSelect: function (suggestion) {
-					SetTag(suggestion.value);
+					AddTag(suggestion.value);
 			}
 	});
 
-	$('.post-title .fa-times-circle').click(function(e){
-		RemoveTag();
+	$(document).on('click', '.post-title .fa-times-circle', function(e){
+		RemoveTag(this);
 	});
 });
