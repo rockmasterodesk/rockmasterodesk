@@ -23,7 +23,7 @@ $(document).ready(function(){
 				$('.single-image .the-image').css({
           'background-image' : `url(${e.target.result})`
 				});
-				$('#post_content').hide();
+				// $('#post_content').hide();
 			}
 
       reader.readAsDataURL(input.files[0]);
@@ -40,7 +40,7 @@ $(document).ready(function(){
       'background-image' : `none`
     });
 		$('#attached_images').val('') // Clear file input
-		$('#post_content').show();
+		// $('#post_content').show();
 	}
 
 	// Add the tag form
