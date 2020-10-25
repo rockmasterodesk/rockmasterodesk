@@ -79,6 +79,7 @@
                             <li><a href="#line8">New methods in Tabs Section</a></li>
                             <li><a href="#line9">Updates on ProfileDetails and Messenger Page</a></li>
                             <li><a href="#line10">Badges, Reply, Reply Text Update Notes</a></li>
+                            <li><a href="#line11">Channel Tag on Post Title</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -1167,6 +1168,45 @@
                           .....
                         </div>
                       </pre>
+
+
+                  </section>
+                    <section id="line11" class="section">
+
+                      <div class="row">
+                          <div class="col-md-12 left-align">
+                              <h2 class="dark-text">Channel Tag on Post Title <a href="#top">#back to top</a><hr></h2>
+                          </div>
+                          <!-- end col -->
+                      </div>
+                      <!-- end row -->
+
+                      <h3>Specify max number of Channels</h3>
+                      <p>The Title box is not actually an "input" anymore, rather, it's a "div" that contains an "input" and behaves like an "input". But there will be no changes in behavior for server. If you use "form.serialize()", you'll always get the actual title input value. To specify max number of channels a user can attach, use the following code:-</p>
+                      <pre class="brush: html">
+                        <div class="form-control post-title d-flex" id="TitleInput" max-channels="5">
+                          <input type="text" class="post-title-input" name="title" id="title" placeholder="Post Title" autocomplete="off">
+                          <div class="tags">
+                            <div class="tag" value="New Jersey">
+                              <div class="text">New Jersey</div><i class="fas fa-times-circle ml-1"></i>
+                            </div>  
+                          </div>
+                        </div>
+                      </pre>
+                      <p>Here, <b>max-channels="5"</b> specify the number of channels. The code is used on <b>Line: 140</b> of <b>"PostCreate.html"</b></p>
+
+
+                      <h3>How to get the attached tags on JavaScript or Server?</h3>
+                      <p>It's pretty straightforward. Instead of just showing the channels visually inside the title, I create hidden input fields for them as well that are passed automatically with the form submission. Whenever a channel is added/removed, the following code is automatically updated:- (line 144 of PostCreate.html)</p>
+
+                      <pre class="brush: html">
+                        <div class="hidden-tags-inputs d-none">
+                          <input type="hidden" name="channels[]" value="New Jersey">
+                        </div>
+                      </pre>
+
+                      <p>Which means, the server will get the channels[] array automatically if the form is submitted with default HTML form action.</p>
+                      <p>If you want to submit it via AJAX, the <b>"form.serialize()"</b> JavaScript method will also contain the channels[] array automatically. Otherwise, you can read that from the inputs from <b>.hidden-tags-inputs</b>.</p>
 
 
                   </section>
