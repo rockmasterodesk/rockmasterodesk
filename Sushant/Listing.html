@@ -151,54 +151,94 @@
             <div class="input-group-prepend">
               <i class="fa fa-search-location"></i>
             </div>
-            <input autocomplete="off" id="searchInput" type="text" class="form-control" placeholder="Search Zip Codes" aria-label="Search Zip Codes" aria-describedby="basic-addon2">
+            <input autocomplete="off" id="searchInput" type="text" class="form-control" placeholder="Search posts or Locations" aria-label="Search posts or Locations" aria-describedby="basic-addon2">
             <div class="input-group-append">
               <button class="btn" type="button" id="searchButton">Find</button>
             </div>
           </div>
           <div class="search-results">
-            <a href="#">
-              <div class="btn-icon-shower" click-profileInfo="">
-                <div class="single flex-custom">
-                  <div class="sidebar nopic">
-                    <p style="background-color:#00BCD4">S</p>
-                  </div>
-                  <div class="content">
-                    <span class="location">94041 - Mountain View</span>
-                    <span class="users">(53 online)</span>
-                  </div>
+            <!-- <a href="#"> -->
+                <div class="single pl-3 flex-custom">
+                  Search Suggestion
                 </div>
-              </div>
-            </a>
+            <!-- </a> -->
           </div>
         </div>
       </section>
 
       <section class="zip-listings">
         <div class="container">
-          <h5 class="section-title">Active Rooms</h5>
+          <h5 class="section-title">Trending</h5>
           <div class="row">
             <script>
-              for(var i=0; i<12*5; i++){
+              var posts = [
+                {
+                  title: "Attention! All users.",
+                  summary: "This <span class='matched'>is a</span> sticky post.",
+                  time: "2 hours ago",
+                  location: "West Palm Beach, FL",
+                  channels: ["Attention", "Notice"],
+                  votes: 125,
+                  image: "image-1.png",
+                },
+                {
+                  title: "Post Title.",
+                  summary: "This <span class='matched'>is a</span> simple post including only texts",
+                  time: "2 hours ago",
+                  location: "California",
+                  channels: ["Post", "Title", "More"],
+                  votes: 54,
+                  image: "image-2.jpg",
+                },
+                {
+                  title: "A post that contains image and comments",
+                  summary: "This post dynamically created and it has image and comments.",
+                  time: "2 hours ago",
+                  location: "Miami",
+                  channels: ["Post", "Title", "More"],
+                  votes: 54,
+                  image: "image-3.webp",
+                },
+                {
+                  title: "Post with lots of comments",
+                  summary: "This post has lots of comments",
+                  time: "2 hours ago",
+                  location: "Kolkata",
+                  channels: ["Post", "Title", "More"],
+                  votes: 54
+                },
+                {
+                  title: "Post with lots of comments",
+                  summary: "This post has lots of comments",
+                  time: "2 hours ago",
+                  location: "New Delhi",
+                  channels: ["Post", "Title", "More"],
+                  votes: 54
+                },
+              ];
+              for(post of posts){
+                var has_image = (Math.round(Math.random() * 10) % 2) === 0;
+                var channelsHTML = post.channels.map((c)=>{return "<a href=\"#\" class=\"single-channel\">"+c+"</a>"}).join("\n");
+                // console.log(channelsHTML);
                 document.write(`
-                <div class="col-md-3 col-sm-6">
-                  <a href="#">
+                <div class="col-md-4 col-sm-12">
                     <div class="single-zip-code">
-                      <div class="logo-container">
-                        <div class="logo">M</div>
-                      </div>
-                      <div class="room-details">
-                        <div class="location">
-                          <span>94041</span> 
-                          <span>-</span>
-                          <span>Mountain View</span> 
+                      <div class="post-details">
+                        <div class="title">
+                          <a href="#" title="${post.title}">${post.title.substring(0,30)} ${post.title.length > 30 ? "..." : ""}</a>
                         </div>
-                        <div class="users">
-                          <span>(200 users)</span>
+                        <div class="summary">
+                          ${post.summary.substring(0,60)} ${post.summary.length > 60 ? "..." : ""}
+                        </div>
+                        <div class="channels">
+                          ${post.channels.length > 0 ? channelsHTML : ''}
+                        </div>
+                        <div class="details">
+                          ${post.votes} votes · ${post.time}
                         </div>
                       </div>
+                      ${post.image !== undefined ? `<div class="logo-container"><a href=""><img src="images/${post.image}" class="logo"></a></div>` : ''}
                     </div>
-                  </a>
                 </div>
                 `);
               }

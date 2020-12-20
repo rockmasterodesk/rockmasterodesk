@@ -48,7 +48,7 @@ $(document).ready(function(){
 		if (tag !== undefined && tag !== null && tag !== ''){
 			var MaxChannels = parseInt($('#TitleInput').attr('max-channels'));
 			if ($(document).find('.tags').children().length >= MaxChannels){
-				return;
+				return 'reached limit';
 			}
 
 
@@ -142,5 +142,41 @@ $(document).ready(function(){
 
 	$(document).on('click', '.post-title .fa-times-circle', function(e){
 		RemoveTag(this);
+	});
+
+	$(document).on('keyup', '.post-title #title', function(e){
+		if (e.key !== ']'){
+			return;
+		}
+		var cursorPos = $(this)[0].selectionEnd;
+		var squareClose = $(this).val().substr(cursorPos-1, 1);
+		if (']' === squareClose){ // found ']'
+			// Now find the closest '[' before ']'
+			var squareOpen = -1;
+			do {
+				squareOpen = $(this).val().indexOf('[', squareOpen+1);
+			} while ($(this).val().indexOf('[', squareOpen+1) > -1);
+
+			if (squareOpen >= 0){
+				var foundChannel = $(this).val().substr(squareOpen, cursorPos-squareOpen);
+				console.log(squareOpen, cursorPos, foundChannel);
+				var channelExists = channels.findIndex(function(channel){
+					return '[' + channel.value + ']' === foundChannel
+				});
+
+				console.log(channelExists);
+
+				if (channelExists > -1){
+					var val = $(this).val();
+					var result = AddTag(foundChannel.substr(1,foundChannel.length-2));
+					if (result === 'reached limit'){
+						// do nothing
+					} else {
+						$(this).val(val.replace(foundChannel,''));
+					}
+				}
+			}
+		}
+		console.log($(this).val().length, cursorPos, squareClose);
 	});
 });

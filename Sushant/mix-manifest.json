@@ -1,14 +1,4 @@
 {
-    "/js/posts.js": "/js/posts.js",
-    "/js/posts.js.map": "/js/posts.js.map",
-    "/js/script.js": "/js/script.js",
-    "/js/script.js.map": "/js/script.js.map",
-    "/js/tabs.js": "/js/tabs.js",
     "/css/style.css": "/css/style.css",
-    "/js/tabs.js.map": "/js/tabs.js.map",
-    "/js/activity.js": "/js/activity.js",
-    "/js/post-create.js": "/js/post-create.js",
-    "/js/login-script.js": "/js/login-script.js",
-    "/js/listing.js": "/js/listing.js",
-    "/js/profile-details.js": "/js/profile-details.js"
+    "/mix.js.map": "/mix.js.map"
 }
