@@ -1,4 +1,5 @@
 {
     "/css/style.css": "/css/style.css",
-    "/mix.js.map": "/mix.js.map"
+    "/mix.js.map": "/mix.js.map",
+    "/js/listing.js": "/js/listing.js"
 }

@@ -169,7 +169,7 @@
       <section class="zip-listings">
         <div class="container">
           <h5 class="section-title">Trending</h5>
-          <div class="row">
+          <div class="row" id="PostsContainer">
             <script>
               var posts = [
                 {
@@ -221,14 +221,18 @@
                 var channelsHTML = post.channels.map((c)=>{return "<a href=\"#\" class=\"single-channel\">"+c+"</a>"}).join("\n");
                 // console.log(channelsHTML);
                 document.write(`
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <div class="single-zip-code">
                       <div class="post-details">
                         <div class="title">
                           <a href="#" title="${post.title}">${post.title.substring(0,30)} ${post.title.length > 30 ? "..." : ""}</a>
                         </div>
                         <div class="summary">
-                          ${post.summary.substring(0,60)} ${post.summary.length > 60 ? "..." : ""}
+                          <span class="d-none d-md-block" comment="Large screens">${post.summary.substring(0,150)} ${post.summary.length > 150 ? "..." : ""}</span>
+                          <span class="d-block d-sm-none" comment="Small screens">${post.summary.substring(0,60)} ${post.summary.length > 60 ? "..." : ""}</span>
+                        </div>
+                        <div class="posted_in">
+                          Posted In <a href="#">Location Name</a>
                         </div>
                         <div class="channels">
                           ${post.channels.length > 0 ? channelsHTML : ''}
@@ -255,5 +259,27 @@
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/listing.js"></script>
     <script src="js/notifications.js"></script>
+    <script>
+      $(function(){
+        $(window).on("scroll", function() {
+          var scrollHeight = $(document).height();
+          var scrollPosition = $(window).height() + $(window).scrollTop();
+          if ((scrollHeight - scrollPosition) / scrollHeight <= 0.001) {
+
+
+
+            // WRITE YOUR CODE HERE
+
+            console.log('Scrolled to bottom of body');
+            $('body').append('<center>Scrolled to bottom of body</center><br />');
+            // You may append new post like the following
+            // $('#PostsContainer').append('New Post HTML...');
+            // Or via an AJAX call
+
+            // YOUR CODE ENDS HERE
+          }
+        });
+      });
+    </script>
   </body>
 </html>
