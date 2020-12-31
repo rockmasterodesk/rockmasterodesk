@@ -190,6 +190,14 @@
                   </div>
                 </div>
               </div>
+              <div class="comment-box">
+                <div class="user-display-image">
+                  <img src="images/man_avatar1.jpg" alt="User Display Picture">
+                </div>
+                <div class="comment-input">
+                  <textarea class="form-control" name="comment_input" id="comment_input" cols="1" rows="1" placeholder="Write a comment"></textarea>
+                </div>
+              </div>
               <ul class="all-comments bordered-bottom mb-0">
                 <li class="more-comments previous-comments">
                   <div><a href="#">Previous Comments</a></div>
@@ -199,7 +207,9 @@
                     <a href="#" class="comment-user-image">
                       <img src="images/man_avatar1.jpg" alt="User Image">
                     </a>
-                    <a href="#" class="comment-user-name">Mohit Chauhan</a> 
+                    <a href="#" class="comment-user-name">Mohit Chauhan</a>
+                    <span class="badge badge-primary bg-greenish">text</span>
+                    <span class="badge color-yellowish" title="A medal text"><i class="fas fa-medal"></i></span> 
                     <span class="points-count">
                       <span class="number">0</span> <span class="text">points</span>
                     </span>
@@ -215,6 +225,9 @@
                     </div>
                     <a href="#" class="reply-button"> 
                       <span>Reply</span>
+                    </a>
+                    <a href="#" class="delete-button">
+                      <span>Delete</span>
                     </a>
                     <div class="downvote-box">
                       <i class="far fa-arrow-alt-circle-down"></i>
@@ -234,6 +247,7 @@
                             <img src="images/man_avatar1.jpg" alt="User Image">
                           </a>
                           <a href="#" class="comment-user-name">Mohit Chauhan</a>
+                          <span class="badge badge-primary bg-bluish">Admin</span>
                           <span class="points-count">
                             <span class="number">0</span> <span class="text">points</span>
                           </span>
@@ -250,6 +264,9 @@
                           <a href="#" class="reply-button"> 
                             <span>Reply</span>
                           </a>
+                          <a href="#" class="delete-button">
+                            <span>Delete</span>
+                          </a>
                           <div class="downvote-box">
                             <i class="far fa-arrow-alt-circle-down"></i>
                           </div>
@@ -261,6 +278,7 @@
                             <img src="images/man_avatar1.jpg" alt="User Image">
                           </a>
                           <a href="#" class="comment-user-name">Mohit Chauhan</a>
+                          <span class="badge badge-primary bg-greenish">Moderator</span>
                           <span class="points-count">
                             <span class="number">0</span> <span class="text">points</span>
                           </span>
@@ -277,6 +295,9 @@
                           <a href="#" class="reply-button"> 
                             <span>Reply</span>
                           </a>
+                          <a href="#" class="delete-button">
+                            <span>Delete</span>
+                          </a>
                           <div class="downvote-box">
                             <i class="far fa-arrow-alt-circle-down"></i>
                           </div>
@@ -292,6 +313,7 @@
                       <img src="images/man_avatar1.jpg" alt="User Image">
                     </a>
                     <a href="#" class="comment-user-name">Andrew Ishtvan</a>
+                    <span class="badge badge-primary bg-greenish">Badge</span>
                     <span class="points-count">
                       <span class="number">0</span> <span class="text">points</span>
                     </span>
@@ -308,6 +330,9 @@
                     <a href="#" class="reply-button"> 
                       <span>Reply</span>
                     </a>
+                    <a href="#" class="delete-button">
+                      <span>Delete</span>
+                    </a>
                     <div class="downvote-box">
                       <i class="far fa-arrow-alt-circle-down"></i>
                     </div>
@@ -317,98 +342,107 @@
                   <div><a href="#">Next Comments</a></div>
                 </li>
               </ul>
-              <div class="comment-box">
-                <div class="user-display-image">
-                  <img src="images/man_avatar1.jpg" alt="User Display Picture">
-                </div>
-                <div class="comment-input">
-                  <textarea class="form-control" name="comment_input" id="comment_input" cols="1" rows="1" placeholder="Write a comment"></textarea>
-                </div>
-              </div>
             </div>
           </div>
         </div>
         <div class="side-bar">
           <div class="sidebar-box">
             <div class="box-header">
-              Suggested Locations
+              Suggested Posts
             </div>
             <div class="box-body">
-              <div class="single-location">
-                <a href="#">
-                  <div class="single-zip-code">
-                    <div class="logo-container">
-                      <div class="logo">M</div>
-                    </div>
-                    <div class="room-details">
-                      <div class="location">
-                        <span>94041</span> 
-                        <span>-</span>
-                        <span>Mountain View</span> 
-                      </div>
-                      <div class="users">
-                        <span>(200 users)</span>
-                      </div>
-                    </div>
+              <div class="single-post bg-white">
+                <div class="title">
+                  <h3><a href="#">This is a post title</a></h3>
+                </div>
+                <div class="author">
+                  <div class="img-and-name">
+                    <a href="#" class="s-post-user-image">
+                      <img src="images/man_avatar1.jpg" alt="User Image">
+                    </a>
+                    <a href="#" class="s-post-user-name">Mohit Chauhan</a>
+                     - 
+                    <small class="s-post-time">2 hours ago</small>
                   </div>
-                </a>
+                </div>
+                <div class="summary">
+                  <p><a href="#">This is the Summary Text</a></p>
+                </div>
+                <div class="meta">
+                  <div class="location">
+                    <span>Posted in: </span><a href="#">Location</a>
+                  </div>
+                  <div class="channels">
+                    <a href="#" class="btn btn-default channel">
+                      Channel 1
+                    </a>
+                    <a href="#" class="btn btn-default channel">
+                      Channel 2
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div class="single-location">
-                <a href="#">
-                  <div class="single-zip-code">
-                    <div class="logo-container">
-                      <div class="logo">M</div>
-                    </div>
-                    <div class="room-details">
-                      <div class="location">
-                        <span>94041</span> 
-                        <span>-</span>
-                        <span>Mountain View</span> 
-                      </div>
-                      <div class="users">
-                        <span>(200 users)</span>
-                      </div>
-                    </div>
+              <div class="single-post bg-white">
+                <div class="title">
+                  <h3><a href="#">This is another post title</a></h3>
+                </div>
+                <div class="author">
+                  <div class="img-and-name">
+                    <a href="#" class="s-post-user-image">
+                      <img src="images/man_avatar1.jpg" alt="User Image">
+                    </a>
+                    <a href="#" class="s-post-user-name">Mohit Chauhan</a>
+                     - 
+                    <small class="s-post-time">2 hours ago</small>
                   </div>
-                </a>
+                </div>
+                <div class="summary">
+                  <p><a href="#">This is the Summary Text</a></p>
+                </div>
+                <div class="meta">
+                  <div class="location">
+                    <span>Posted in: </span><a href="#">Location</a>
+                  </div>
+                  <div class="channels">
+                    <a href="#" class="btn btn-default channel">
+                      Channel 1
+                    </a>
+                    <a href="#" class="btn btn-default channel">
+                      Channel 2
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div class="single-location">
-                <a href="#">
-                  <div class="single-zip-code">
-                    <div class="logo-container">
-                      <div class="logo">M</div>
-                    </div>
-                    <div class="room-details">
-                      <div class="location">
-                        <span>94041</span> 
-                        <span>-</span>
-                        <span>Mountain View</span> 
-                      </div>
-                      <div class="users">
-                        <span>(200 users)</span>
-                      </div>
-                    </div>
+              <div class="single-post bg-white">
+                <div class="title">
+                  <h3><a href="#">This is yet another post title</a></h3>
+                </div>
+                <div class="author">
+                  <div class="img-and-name">
+                    <a href="#" class="s-post-user-image">
+                      <img src="images/man_avatar1.jpg" alt="User Image">
+                    </a>
+                    <a href="#" class="s-post-user-name">Mohit Chauhan</a>
+                     - 
+                    <small class="s-post-time">2 hours ago</small>
                   </div>
-                </a>
-              </div>
-              <div class="single-location">
-                <a href="#">
-                  <div class="single-zip-code">
-                    <div class="logo-container">
-                      <div class="logo">M</div>
-                    </div>
-                    <div class="room-details">
-                      <div class="location">
-                        <span>94041</span> 
-                        <span>-</span>
-                        <span>Mountain View</span> 
-                      </div>
-                      <div class="users">
-                        <span>(200 users)</span>
-                      </div>
-                    </div>
+                </div>
+                <div class="summary">
+                  <p><a href="#">This is the Summary Text</a></p>
+                </div>
+                <div class="meta">
+                  <div class="location">
+                    <span>Posted in: </span><a href="#">Location</a>
                   </div>
-                </a>
+                  <div class="channels">
+                    <a href="#" class="btn btn-default channel">
+                      Channel 1
+                    </a>
+                    <a href="#" class="btn btn-default channel">
+                      Channel 2
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
