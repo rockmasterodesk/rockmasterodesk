@@ -92,13 +92,14 @@ class JsonFormBuilder {
       pushPrice = typeof pushPrice === 'string' && this.config.price_cents !== null ? pushPrice.split('.')[0] + '.' + this.config.price_cents : pushPrice ;
       pushComparePrice = typeof pushComparePrice === 'string' && this.config.price_compare_cents !== null ? pushComparePrice.split('.')[0] + '.' + this.config.price_compare_cents : pushComparePrice ;
 
+      var $fulFillName = this.getOrGenerateFulFillName(v.fulfillName, v.variantName);
       this.$variants.push({
         id: i,
         variantImages: v.variantImages,
         SKUId: v.SKUId,
         typeID: v.typeID,
         variantName: v.variantName,
-        fulfillName: JSON.parse(v.fulfillName), // Parse the JSON
+        fulfillName: $fulFillName, // Parse the JSON
         skuPrice: v.skuPrice,
         skuSalePrice: v.skuSalePrice,
         inventory: v.inventory,
@@ -131,6 +132,26 @@ class JsonFormBuilder {
     this.addEventListeners();
 
     return this;
+  }
+
+  getOrGenerateFulFillName(fulfillName, variantName){
+    fulfillName = (undefined === fulfillName || "{}" === fulfillName || null === fulfillName) ? "{}" : fulfillName;
+    var $fulFillName = JSON.parse(fulfillName);
+    var $variantNames = variantName.split(',');
+
+    if ($variantNames.length >=0 && $variantNames[0] !== ""){ // this means we have variants, not an empty string
+      if (Object.keys($fulFillName).length !== $variantNames.length){ // fulfillName doesn't match with variantName, let's change it
+        $variantNames.forEach((name, index)=>{
+          // console.log(index, name);
+          var $optionName = Object.keys(this.$options)[index];
+          $fulFillName[$optionName] = (this.$options[$optionName].indexOf(name) + 1).toString();
+          if ($fulFillName[$optionName] === 0){
+            console.error(`Couldn't find "${name}" on "options[${$optionName}]"`);
+          }
+        });
+      }
+    }
+    return $fulFillName;
   }
 
   getShopSku(randomDigits, variantName){
@@ -292,7 +313,7 @@ class JsonFormBuilder {
             });
             // Check All with that option
             thisClass.$variants.forEach((v)=>{
-              // console.log("Finding to check : " + (s_index+1));
+              console.log("Finding to check : " + (s_index+1));
               if (v.fulfillName[option] === (s_index + 1) + ""){
                 $("#variant_"+v.id).find(".main-checkbox").prop('checked', true);
               }

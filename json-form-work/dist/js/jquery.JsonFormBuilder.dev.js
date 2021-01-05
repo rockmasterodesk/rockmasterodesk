@@ -121,13 +121,15 @@ function () {
       pushPrice = typeof pushPrice === 'string' && _this.config.price_cents !== null ? pushPrice.split('.')[0] + '.' + _this.config.price_cents : pushPrice;
       pushComparePrice = typeof pushComparePrice === 'string' && _this.config.price_compare_cents !== null ? pushComparePrice.split('.')[0] + '.' + _this.config.price_compare_cents : pushComparePrice;
 
+      var $fulFillName = _this.getOrGenerateFulFillName(v.fulfillName, v.variantName);
+
       _this.$variants.push({
         id: i,
         variantImages: v.variantImages,
         SKUId: v.SKUId,
         typeID: v.typeID,
         variantName: v.variantName,
-        fulfillName: JSON.parse(v.fulfillName),
+        fulfillName: $fulFillName,
         // Parse the JSON
         skuPrice: v.skuPrice,
         skuSalePrice: v.skuSalePrice,
@@ -154,6 +156,33 @@ function () {
   }
 
   _createClass(JsonFormBuilder, [{
+    key: "getOrGenerateFulFillName",
+    value: function getOrGenerateFulFillName(fulfillName, variantName) {
+      var _this2 = this;
+
+      fulfillName = undefined === fulfillName || "{}" === fulfillName || null === fulfillName ? "{}" : fulfillName;
+      var $fulFillName = JSON.parse(fulfillName);
+      var $variantNames = variantName.split(',');
+
+      if ($variantNames.length >= 0 && $variantNames[0] !== "") {
+        // this means we have variants, not an empty string
+        if (Object.keys($fulFillName).length !== $variantNames.length) {
+          // fulfillName doesn't match with variantName, let's change it
+          $variantNames.forEach(function (name, index) {
+            // console.log(index, name);
+            var $optionName = Object.keys(_this2.$options)[index];
+            $fulFillName[$optionName] = (_this2.$options[$optionName].indexOf(name) + 1).toString();
+
+            if ($fulFillName[$optionName] === 0) {
+              console.error("Couldn't find \"".concat(name, "\" on \"options[").concat($optionName, "]\""));
+            }
+          });
+        }
+      }
+
+      return $fulFillName;
+    }
+  }, {
     key: "getShopSku",
     value: function getShopSku(randomDigits, variantName) {
       return randomDigits + "-" + variantName.replace(/[^A-Za-z0-9.]+/g, "-");
@@ -178,13 +207,13 @@ function () {
   }, {
     key: "generateOptionsUseCount",
     value: function generateOptionsUseCount() {
-      var _this2 = this;
+      var _this3 = this;
 
       var options_use_count = {};
       Object.keys(this.$options).forEach(function (option) {
         options_use_count[option] = [];
 
-        _this2.$options[option].forEach(function (value, index) {
+        _this3.$options[option].forEach(function (value, index) {
           options_use_count[option].push(0);
         });
       });
@@ -193,35 +222,35 @@ function () {
   }, {
     key: "updateOptionsUseCount",
     value: function updateOptionsUseCount() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.generateOptionsUseCount();
       this.$variants.forEach(function (variant) {
         Object.keys(variant.fulfillName).forEach(function (key) {
-          _this3.$options_use_count[key][variant.fulfillName[key] - 1]++;
+          _this4.$options_use_count[key][variant.fulfillName[key] - 1]++;
         });
       });
     }
   }, {
     key: "removeUnusedOptions",
     value: function removeUnusedOptions() {
-      var _this4 = this;
+      var _this5 = this;
 
       // For each option
       Object.keys(this.$options).forEach(function (option) {
         var deleteLater = []; // For each value of option
 
-        _this4.$options[option].forEach(function (value, index) {
-          if (_this4.$options_use_count[option][index] === 0) {
+        _this5.$options[option].forEach(function (value, index) {
+          if (_this5.$options_use_count[option][index] === 0) {
             var _loop = function _loop(i) {
-              var nextOption = _this4.$options[option][i]; // console.log(nextOption, i);
+              var nextOption = _this5.$options[option][i]; // console.log(nextOption, i);
               // update top DOM list
 
-              _this4.config.jQuery(_this4.config.selectors + " a.nav-link[data-option='" + option + "'][data-s_index='" + i + "']").attr('data-s_index', i - 1); // update $variants.fulfillName[option] by -1 for 
+              _this5.config.jQuery(_this5.config.selectors + " a.nav-link[data-option='" + option + "'][data-s_index='" + i + "']").attr('data-s_index', i - 1); // update $variants.fulfillName[option] by -1 for 
               // update tr#variant_# [data-option="OPTION"] data-s_index by -1
 
 
-              _this4.$variants.filter(function (v) {
+              _this5.$variants.filter(function (v) {
                 // console.log("Finding " + (i+1) + " index for " + nextOption);
                 return v.fulfillName[option] === i + 1 + "";
               }).forEach(function (variant) {
@@ -230,13 +259,13 @@ function () {
                 variant.fulfillName[option] = i + ""; // console.log("After update",variant.variantName, " = ", variant.fulfillName[option]);
                 // console.log(variant);
 
-                _this4.config.jQuery(_this4.config.table + " tr#variant_" + variant.id + " td[data-option='" + option + "']").attr('data-s_index', i - 1 + "");
+                _this5.config.jQuery(_this5.config.table + " tr#variant_" + variant.id + " td[data-option='" + option + "']").attr('data-s_index', i - 1 + "");
               });
             };
 
             // console.log("Found zero length for : " + this.$options[option][index]);
             // update next options in $variants and DOM by -1
-            for (var i = index + 1; i < _this4.$options[option].length; i++) {
+            for (var i = index + 1; i < _this5.$options[option].length; i++) {
               _loop(i);
             } // remove this option from $options and $options_use_count and DOM top list
 
@@ -251,17 +280,17 @@ function () {
 
         deleteLater.forEach(function (d) {
           // Update Index
-          d.index = _this4.$options[d.option].findIndex(function (o) {
+          d.index = _this5.$options[d.option].findIndex(function (o) {
             return o === d.value;
           }); // console.log(this.$options[d.option]);
           // console.log("Deleting " + d.index + "-" + d.value);
 
-          _this4.$options[option].splice(d.index, 1);
+          _this5.$options[option].splice(d.index, 1);
 
-          _this4.$options_use_count[option].splice(d.index, 1); // console.log(this.$options[d.option]);
+          _this5.$options_use_count[option].splice(d.index, 1); // console.log(this.$options[d.option]);
 
 
-          _this4.config.jQuery(_this4.config.selectors + " a.nav-link[data-option='" + d.option + "'][data-selector='" + d.value + "']").remove();
+          _this5.config.jQuery(_this5.config.selectors + " a.nav-link[data-option='" + d.option + "'][data-selector='" + d.value + "']").remove();
         });
       });
     }
@@ -332,7 +361,8 @@ function () {
             }); // Check All with that option
 
             thisClass.$variants.forEach(function (v) {
-              // console.log("Finding to check : " + (s_index+1));
+              console.log("Finding to check : " + (s_index + 1));
+
               if (v.fulfillName[option] === s_index + 1 + "") {
                 $("#variant_" + v.id).find(".main-checkbox").prop('checked', true);
               }
@@ -347,7 +377,7 @@ function () {
         }); // Delete Button Action
 
         $(document).off('click', thisClass.config.table + " .jfb-delete-button").on('click', thisClass.config.table + " .jfb-delete-button", function (e) {
-          var _this6 = this;
+          var _this7 = this;
 
           // console.log('delete action called');return;
           var sure = false;
@@ -361,7 +391,7 @@ function () {
                 cancel: 'Cancel'
               },
               callback: function callback(e) {
-                var _this5 = this;
+                var _this6 = this;
 
                 if (e == 'Ok') {
                   $("#RushModal").modal("hide");
@@ -379,7 +409,7 @@ function () {
                       thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
 
                       $(thisClass.config.table + " tr#variant_" + id).remove();
-                      $(_this5).attr('disabled', true); // Update Delete Fields
+                      $(_this6).attr('disabled', true); // Update Delete Fields
 
                       thisClass.updateOptionsUseCount();
                       thisClass.removeUnusedOptions();
@@ -405,7 +435,7 @@ function () {
                 thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
 
                 $(thisClass.config.table + " tr#variant_" + id).remove();
-                $(_this6).attr('disabled', true); // Update Delete Fields
+                $(_this7).attr('disabled', true); // Update Delete Fields
 
                 thisClass.updateOptionsUseCount();
                 thisClass.removeUnusedOptions();
@@ -672,11 +702,11 @@ function () {
   }, {
     key: "generateVariantName",
     value: function generateVariantName(fulfillName) {
-      var _this7 = this;
+      var _this8 = this;
 
       var v_name = [];
       Object.keys(this.$options).forEach(function (v) {
-        v_name.push(_this7.$options[v][fulfillName[v] - 1]);
+        v_name.push(_this8.$options[v][fulfillName[v] - 1]);
       });
       return v_name.join(',');
     }
@@ -707,7 +737,7 @@ function () {
   }, {
     key: "generateSelectors",
     value: function generateSelectors() {
-      var _this8 = this;
+      var _this9 = this;
 
       var selectors = [{
         option: "All",
@@ -721,9 +751,9 @@ function () {
 
       if (Object.keys(this.$options).length > 0) {
         Object.keys(this.$options).forEach(function (v) {
-          _this8.config.initialCounts[v] = _this8.$options[v].length;
+          _this9.config.initialCounts[v] = _this9.$options[v].length;
 
-          _this8.$options[v].forEach(function (element, index) {
+          _this9.$options[v].forEach(function (element, index) {
             selectors.push({
               option: v,
               selector: element,
@@ -754,7 +784,7 @@ function () {
   }, {
     key: "generateContent",
     value: function generateContent() {
-      var _this9 = this;
+      var _this10 = this;
 
       var content = ''; // Original Checkbox Was: <input class="main-checkbox" type="checkbox" name="checkbox[]" checked />
       // Updated to Bootstrap-4 Custom Checkbox
@@ -762,13 +792,13 @@ function () {
       this.$variants.forEach(function (variant, index) {
         content += "\n      <tr id=\"variant_".concat(variant.id, "\">\n        <th scope=\"row\">\n          <div class=\"custom-control custom-checkbox\">\n            <input type=\"checkbox\" class=\"custom-control-input main-checkbox\" id=\"customCheck_").concat(variant.id, "\" name=\"checkbox[]\" checked>\n            <label class=\"custom-control-label\" for=\"customCheck_").concat(variant.id, "\"></label>\n          </div>\n        </th>\n        <td class=\"jfb-img-td\"><img src=\"").concat(variant.variantImages, "\" alt=\"\"></td>\n        <td><input class=\"form-control shop-sku-field\" type=\"text\" name=\"shop_sku_").concat(variant.id, "\" value=\"").concat(variant.shopSKU, "\" /></td>");
 
-        if (Object.keys(_this9.$options).length > 0) {
-          Object.keys(_this9.$options).forEach(function (v, i) {
-            content += "\n            <td data-option=\"".concat(v, "\" data-s_index=\"").concat(variant.fulfillName[v] - 1, "\"><input class=\"form-control jfb_option_input\" type=\"text\" name=\"color_of_").concat(variant.id, "\" value=\"").concat(_this9.$options[v][variant.fulfillName[v] - 1], "\" /></td>\n          ");
+        if (Object.keys(_this10.$options).length > 0) {
+          Object.keys(_this10.$options).forEach(function (v, i) {
+            content += "\n            <td data-option=\"".concat(v, "\" data-s_index=\"").concat(variant.fulfillName[v] - 1, "\"><input class=\"form-control jfb_option_input\" type=\"text\" name=\"color_of_").concat(variant.id, "\" value=\"").concat(_this10.$options[v][variant.fulfillName[v] - 1], "\" /></td>\n          ");
           });
         }
 
-        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">").concat(_this9.config.shipping.price !== undefined ? "US$ " + _this9.roundNumber(_this9.config.shipping.price).toFixed(2) : "--", "</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this9.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this9.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this9.roundNumber(_this9.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this9.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
+        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">").concat(_this10.config.shipping.price !== undefined ? "US$ " + _this10.roundNumber(_this10.config.shipping.price).toFixed(2) : "--", "</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this10.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this10.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this10.roundNumber(_this10.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this10.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
       });
       return content;
     }

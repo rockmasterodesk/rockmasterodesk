@@ -1529,3 +1529,85 @@ var products_5 = {
     "shipsFrom": "Aliexpress"
   }]
 };
+var products_6 = {
+  "supplier_type": "cjd",
+  "storeName": "CJDropshipping",
+  "storeURL": "https://www.cjdropshipping.com",
+  "storeNumber": "CJD1",
+  "uid": "CJZBLXSL01006",
+  "productName": "Rinhoo Charm Solid Silver Color Crystal Rhinestone Bangle Bracelets Jewelry For Women Lady Wedding Bride Party Gift",
+  "has_us_shipping": 1,
+  "product_status": "onSelling",
+  "listed_date": "2004-06-28 14:26:40",
+  "priceHigh": "1.31",
+  "priceLow": "1.31",
+  "discount": 0,
+  "productID": "7C9FB943-7813-4475-94CE-B59054C1B408",
+  "url": "https://app.cjdropshipping.com/product-detail.html?id=7C9FB943-7813-4475-94CE-B59054C1B408",
+  "ratings": 0,
+  "rating": 0,
+  "SellerAdminSeq": 0,
+  "orders": "52",
+  "storeRatingArray": {},
+  "storeRatingTotal": 0,
+  "productimages": ["https://cc-west-usa.oss-us-west-1.aliyuncs.com/15520608/1457376951888.jpg", "https://cc-west-usa.oss-us-west-1.aliyuncs.com/20190309/1671429667691.png", "https://cc-west-usa.oss-us-west-1.aliyuncs.com/20190309/637530319089.png"],
+  "has_video": 0,
+  "video_id": "0",
+  "video_poster": "",
+  "variants": [{
+    "variantImages": "https://cc-west-usa.oss-us-west-1.aliyuncs.com/15520608/1457376951888.jpg",
+    "fulfillName": "{}",
+    "ID": "8034B19B-E6B7-46A4-8D99-BC3BEBC7D0CF",
+    "SKUId": "CJZBLXSL01006-Silver|*|China",
+    "inventory": 10009,
+    "WEIGHT": 6,
+    "variantName": "Silver,China",
+    "CJvariantName": "Silver",
+    "skuPrice": "1.31",
+    "skuSalePrice": "1.31",
+    "shipsFrom": "China"
+  }, {
+    "variantImages": "https://cc-west-usa.oss-us-west-1.aliyuncs.com/20190309/2267807918070.png",
+    "fulfillName": "{}",
+    "ID": "9BA2C489-6690-4A42-A82D-C8594CA5D48C",
+    "SKUId": "CJZBLXSL01006-Rose gold|*|US",
+    "inventory": 2,
+    "WEIGHT": 5,
+    "variantName": "Rose gold,US",
+    "CJvariantName": "Rose gold",
+    "skuPrice": "1.31",
+    "skuSalePrice": "1.31",
+    "shipsFrom": "US"
+  }, {
+    "variantImages": "https://cc-west-usa.oss-us-west-1.aliyuncs.com/20190309/2267807918070.png",
+    "fulfillName": "{}",
+    "ID": "9BA2C489-6690-4A42-A82D-C8594CA5D48C",
+    "SKUId": "CJZBLXSL01006-Rose gold|*|China",
+    "inventory": 10004,
+    "WEIGHT": 5,
+    "variantName": "Rose gold,China",
+    "CJvariantName": "Rose gold",
+    "skuPrice": "1.31",
+    "skuSalePrice": "1.31",
+    "shipsFrom": "China"
+  }, {
+    "variantImages": "https://cc-west-usa.oss-us-west-1.aliyuncs.com/20190309/3299091535610.png",
+    "fulfillName": "{}",
+    "ID": "D33B71C2-0F29-4774-8C0D-9448D1D2F70C",
+    "SKUId": "CJZBLXSL01006-Gold|*|China",
+    "inventory": 10011,
+    "WEIGHT": 5,
+    "variantName": "Gold,China",
+    "CJvariantName": "Gold",
+    "skuPrice": "1.31",
+    "skuSalePrice": "1.31",
+    "shipsFrom": "China"
+  }],
+  "inventory": 30026,
+  "options": {
+    "Color": ["Gold", "Silver", "Rose gold"],
+    "Ships From": ["China", "US", "China", "China"]
+  },
+  "productdescription": "<p>Product Name: Zircon bracelet<br>Product number: BR17Y032M<br>Product style: Korean fashion<br>Product material: copper + zircon<br>Available colors: white k/gold/rose gold<br>Product packaging: simple OPP bag packaging<br>Product size: 10+28cm</p>",
+  "productdescriptiontext": "<p>Product Name: Zircon bracelet<br>Product number: BR17Y032M<br>Product style: Korean fashion<br>Product material: copper + zircon<br>Available colors: white k/gold/rose gold<br>Product packaging: simple OPP bag packaging<br>Product size: 10+28cm</p>"
+};
