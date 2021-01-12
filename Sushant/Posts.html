@@ -534,6 +534,13 @@
       <i class="fas fa-arrow-up    "></i>
     </a>
 
+    <div class="messenger-overlay-loading">
+      <div class="spinner-border text-danger" role="status">
+        <span class="sr-only">Loading...</span>
+      </div><br>
+      <h4>Loading...</h4>
+    </div>
+
 
 
     <script src="jquery/jquery.min.js"></script>
@@ -542,6 +549,16 @@
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/notifications.js"></script>
     <script src="js/posts.js"></script>
+    <script>
+      // Hide overlay on page load, by default it's visible
+      $(function(){
+        $('.messenger-overlay-loading').hide();
+      });
+
+      // Show overlay programmatically
+      // $('.messenger-overlay-loading').css('display','flex');
+      
+    </script>
 
     <script>
       window.posts = [
