@@ -630,19 +630,20 @@
     </script>
 
 
-    <div class="speech-bubble enlargedd">
+    <div class="speech-bubble">
       <div class="small-bubble">
-        <i class="far fa-2x fa-question-circle"></i>
+        <i class="far fa-2x fa-star"></i>
       </div>
       <div class="large-bubble">
+        <div class="close-large-button bg-danger"><i class="fas fa-times    "></i></div>
         Hi, this is help about this page. Lorem ipsum dolor sit amet.  Hi, this is help about this page. Lorem ipsum dolor sit amet. Hi, this is help about this page. Lorem ipsum dolor sit amet. Hi, this is help about this page. Lorem ipsum dolor sit amet. Hi, this is help about this page. Lorem ipsum dolor sit amet. 
       </div>
     </div>
     <style>
       .speech-bubble {
         position:fixed;
-        bottom:10px;
-        right:100px;
+        bottom:20px;
+        left:20px;
         z-index:100;
         border-radius:5px;
         padding: 0px;
@@ -650,22 +651,43 @@
         background:transparent;
         cursor:pointer;
         transition:all 0.3s ease-in-out;
-        overflow:hidden;
+        /* overflow:hidden; */
         max-width:300px;
       }
       .speech-bubble.enlarged {
         background:white;
         padding:5px;
         overflow:hidden;
+        box-shadow: 0 0 5px #aaa;
         /* max-width:300px; */
       }
       .speech-bubble > .small-bubble {
         align-self: center;
+        background: white;
+        border-radius: 50%;
+        padding: 10px;
+        box-shadow: 0 0 5px #aaa;
+      }
+      .speech-bubble.enlarged > .small-bubble {
+        box-shadow:none;
+      }
+      .speech-bubble i.far {
+        font-size: 25px;
       }
       .speech-bubble > .large-bubble {
         font-size:12px;
         padding:5px;
         display:none;
+        position:relative;
+        padding-right: 15px;
+      }
+      .speech-bubble > .large-bubble > .close-large-button {
+        position:absolute;
+        right:5px;
+        top:5px;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 50%;
       }
     </style>
     <script>
@@ -695,20 +717,20 @@
         });
 
         // On Scroll, it will be hidden
-        $(window).on('scroll', function(){
-          if ($('.speech-bubble').hasClass('enlarged')){
-            $('.speech-bubble').removeClass('enlarged');
-            $('.speech-bubble').find('.large-bubble').slideToggle('slow');
-          }
-          $('.speech-bubble').hide();
-        });
+        // $(window).on('scroll', function(){
+        //   if ($('.speech-bubble').hasClass('enlarged')){
+        //     $('.speech-bubble').removeClass('enlarged');
+        //     $('.speech-bubble').find('.large-bubble').slideToggle('slow');
+        //   }
+        //   $('.speech-bubble').hide();
+        // });
 
         // On Scroll, it will be hidden
-        scrollStop(function(){
-          setTimeout(function(){
-            $('.speech-bubble').css('display','flex');
-          }, 1000);
-        });
+        // scrollStop(function(){
+        //   setTimeout(function(){
+        //     $('.speech-bubble').css('display','flex');
+        //   }, 1000);
+        // });
       });
     </script>
   </body>
