@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <title>SpeakSpike</title>
+  </head>
+  <body>
+    <div class="listing-page">
+      <section class="site-header">
+        <div class="container-fluid">
+          <div class="flex-div">
+            <div class="flex-grow-1">
+              <div class="logo">SpeakSpike</div>
+            </div>
+            <div class="right-contents flex-div">
+              <div class="notifications-container">
+                <button class="btn icon-btn" id="notificationsOpener">
+                  <i class="fa fa-sm fa-bell"></i>
+                </button>
+                <div class="counter">
+                  2
+                </div>
+                <div class="notifications">
+                  <div class="titles">
+                      <h6>Notifications</h6>
+                  </div>
+                  <div class="list">
+                    <a href="#">
+                      <div class="single-notification unread">
+                        <div class="sidebar nopic">
+                          <p style='background-color:#ccc'>A</p>
+                        </div>
+                        <div class="content">
+                          <div class="body">
+                            <strong>Andrew Gustavo</strong> has sent you a new message.
+                          </div>
+                          <div class="time">
+                            10 minutes ago
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#">
+                      <div class="single-notification unread">
+                        <div class="sidebar propic">
+                          <img src="images/man_avatar1.jpg" alt="Profile Picture">
+                        </div>
+                        <div class="content">
+                          <div class="body">
+                            <strong>Andrew Gustavo</strong> added you as contacts.
+                          </div>
+                          <div class="actions">
+                            <button class="btn btn-contacts green"><i class="fa fa-check"></i></button>
+                            <button class="btn btn-contacts red"><i class="fa fa-times"></i></button>
+                          </div>
+                          <div class="time">
+                            10 minutes ago
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#">
+                      <div class="single-notification">
+                        <div class="sidebar nopic">
+                          <p style='background-color:#ccc'>N</p>
+                        </div>
+                        <div class="content">
+                          <div class="body">
+                            You might be interested in chatroom <strong>"NY - 15425"</strong>
+                          </div>
+                          <div class="time">
+                            3 hours ago
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown main-dropdown">
+                <div class="dropdown-toggle user-dropdown" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <div class="user-info ml-2 flex-div">
+                    <div class="user-propic-mobile">
+                      <!-- Either use "img" or "div.nopic" as profile picture -->
+                      <!-- <img src="images/man_avatar1.jpg" /> -->
+                      <div class="nopic">
+                        A
+                      </div>
+                    </div>
+                    <div class="name-and-points">
+                      <p class="name">Asaduzzaman</p>
+                      <p class="ken-points">12 Ken Points</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                  <h6 class="dropdown-header">My Stuff</h6>
+                  <a class="dropdown-item" href="ProfileDetails.html"><i class="fas fa-user-alt    "></i> My profile</a>
+                  <a class="dropdown-item" href="Messenger.html"><i class="fas fa-envelope    "></i> Messages</a>
+                  <h6 class="dropdown-header">Account</h6>
+                  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt    "></i> Logout</a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="leaderboard-page mt-5">
+        <div class="container">
+
+          <div class="bg-white">
+            <div class="d-flex p-2">
+              <h3 class="mb-0">Post of the year</h3>
+            </div>
+          </div>
+
+          <div class="leaderboard-container bg-white mt-3">
+            <table class="table table-stripedd">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Username</th>
+                  <th>Post</th>
+                  <th>Upvotes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">1</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Ygritte</a>
+                      <span class="badge badge-primary bg-greenish">TOP</span>
+                      <span class="badge color-yellowish" title="A medal text"><i class="fas fa-medal"></i></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>You don't know nothing, Jon Snow!</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Rajshahi</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>21</td>
+                </tr>
+                <tr>
+                  <td scope="row">2</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Heisenberg</a>
+                      <span class="badge badge-primary bg-bluish">NINJA</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>I am the one who knocks!</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Albequerqe, New Mexico</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>19</td>
+                </tr>
+                <tr>
+                  <td scope="row">3</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/man_avatar1.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">ASM Asaduzzaman</a>
+                      <span class="badge color-yellowish" title="A medal text"><i class="fas fa-medal"></i></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Jack Snider's Justice League is released</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">New York</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td scope="row">4</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Sushant Tripathy</a>
+                      <span class="badge badge-primary bg-yellowish">GAMES</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Game of the year award goes to Red Dead Redemption 2</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Rajshahi</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td scope="row">5</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">James Cameron</a>
+                      <span class="badge color-bluish" title="A medal text"><i class="fas fa-medal"></i></span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Avatar 2 is on it's way</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Rajshahi</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td scope="row">6</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Martin Luther King</a>
+                      <span class="badge badge-primary bg-greenish">READER</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Chetan Bhagat's new novel One Arranged Murder</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Rajshahi</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td scope="row">7</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Sheikh Hasina</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Welcome, PM Narendra Modi to Bangladesh</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Dhaka</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td scope="row">8</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Donald Trump</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Believe it or not, I am the President!</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Washington D.C.</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td scope="row">9</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Obama</a>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Voters have made their choice.</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Washington D.C.</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td scope="row">10</td>
+                  <td>
+                    <div class="username d-flex">
+                      <a href="#"><img src="images/nick.jpg" alt="User Name"></a>
+                      <a href="#" class="mr-2">Andrew Gustavo</a>
+                      <span class="badge badge-primary bg-greenish">LOS</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="post">
+                      <div class="post-information flex-grow-1">
+                        <div class="post-title">
+                          <a href="PostSingle.html"><h4>Los Pollos Hermanios! Chicken Fry.</h4></a>
+                        </div>
+                        <div class="post-location">
+                          <span>Posted in</span>
+                          <a href="#" class="mr-1">
+                            <span class="post-location">Rajshahi</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+
+    <div class="speech-bubble">
+      <div class="small-bubble">
+        <i class="fas fa-2x fa-info"></i>
+      </div>
+      <div class="large-bubble">
+        <div class="close-large-button"><i class="fas fa-times    "></i></div>
+        Hi, this is help about this page. Lorem ipsum dolor sit amet.  Hi, this is help about this page. Lorem ipsum dolor sit amet. Hi, this is help about this page. Lorem ipsum dolor sit amet. Hi, this is help about this page. Lorem ipsum dolor sit amet. Hi, this is help about this page. Lorem ipsum dolor sit amet. 
+      </div>
+    </div>
+
+    <!-- IN CASE Post Include Image/Body -->
+    <!-- <span class="time">
+      <a href="#">2 hours ago</a>
+    </span>
+    <div class="post-body">
+      This is a simple post including only texts
+    </div>
+    <div class="post-images">
+      <div class="single-image">
+        <img src="images/image-1.png" alt="Post Image">
+        <div class="overlay"></div>
+      </div>
+    </div> -->
+
+    <script src="jquery/jquery.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/global.js"></script>
+  </body>
+</html>
