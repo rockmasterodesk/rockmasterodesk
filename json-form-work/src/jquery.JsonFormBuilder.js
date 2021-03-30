@@ -105,6 +105,11 @@ class JsonFormBuilder {
         inventory: v.inventory,
         shipsFrom: v.shipsFrom,
 
+        // Vendor specific properties
+        CJvariantName: undefined !== v.CJvariantName ? v.CJvariantName : undefined,
+        CJ_ID: undefined !== v.ID ? v.ID : undefined,
+        variant_id: v.variant_id,
+
         // New elements (__attr__ means hidden elements)
         __cost__: cost,
         __randomNumber__: randomDigits,
@@ -802,6 +807,9 @@ class JsonFormBuilder {
         <td class="jfb-img-td"><img src="${variant.variantImages}" alt=""></td>
         <td><input class="form-control shop-sku-field" type="text" name="shop_sku_${variant.id}" value="${variant.shopSKU}" /></td>`;
 
+      console.log(this.$options);
+      console.log(variant.fulfillName);
+        
       if (Object.keys(this.$options).length > 0){
         Object.keys(this.$options).forEach((v,i) => {
           content+= `
@@ -869,7 +877,7 @@ class JsonFormBuilder {
 
     exportData.options = this.$options;
     exportData.variants = this.$variants.map(v=>{
-      return {
+      let variant = {
         variantImages: v.variantImages,
         SKUId: v.SKUId,
         typeID: v.typeID,
@@ -885,6 +893,16 @@ class JsonFormBuilder {
         comparePrice: v.comparePrice,
         shopSKU: v.shopSKU
       }
+
+      if ( undefined !== v.CJvariantName ){
+        variant.CJvariantName = v.CJvariantName;
+      }
+      if ( undefined !== v.CJ_ID ){
+        variant.ID = v.CJ_ID;
+      }
+      variant.variant_id = v.variant_id;
+
+      return variant;
     });
 
     return JSON.stringify(exportData);

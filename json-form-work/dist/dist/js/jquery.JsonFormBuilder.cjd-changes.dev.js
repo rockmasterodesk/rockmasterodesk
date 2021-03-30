@@ -1,31 +1,119 @@
 "use strict";
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+}
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+}
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _iterableToArray(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+    return arr2;
+  }
+}
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  return keys;
+}
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
 
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _typeof(obj) {
+  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
+    _typeof = function _typeof(obj) {
+      return _typeof2(obj);
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 /*
 JSON Form Builder
 Author: A.S.M. Asaduzzaman (https://www.upwork.com/freelancers/~0183d400d9b82308ef)
 */
+
+
 var JsonFormBuilder =
 /*#__PURE__*/
 function () {
@@ -162,7 +250,7 @@ function () {
   _createClass(JsonFormBuilder, [{
     key: "getOrGenerateFulFillName",
     value: function getOrGenerateFulFillName(fulfillName, variantName) {
-      var _this2 = this;
+      var _this2_1 = this;
 
       fulfillName = undefined === fulfillName || "{}" === fulfillName || null === fulfillName ? "{}" : fulfillName;
       var $fulFillName = JSON.parse(fulfillName);
@@ -174,8 +262,8 @@ function () {
           // fulfillName doesn't match with variantName, let's change it
           $variantNames.forEach(function (name, index) {
             // console.log(index, name);
-            var $optionName = Object.keys(_this2.$options)[index];
-            $fulFillName[$optionName] = (_this2.$options[$optionName].indexOf(name) + 1).toString();
+            var $optionName = Object.keys(_this2_1.$options)[index];
+            $fulFillName[$optionName] = (_this2_1.$options[$optionName].indexOf(name) + 1).toString();
 
             if ($fulFillName[$optionName] === 0) {
               console.error("Couldn't find \"".concat(name, "\" on \"options[").concat($optionName, "]\""));
@@ -211,13 +299,13 @@ function () {
   }, {
     key: "generateOptionsUseCount",
     value: function generateOptionsUseCount() {
-      var _this3 = this;
+      var _this2 = this;
 
       var options_use_count = {};
       Object.keys(this.$options).forEach(function (option) {
         options_use_count[option] = [];
 
-        _this3.$options[option].forEach(function (value, index) {
+        _this2.$options[option].forEach(function (value, index) {
           options_use_count[option].push(0);
         });
       });
@@ -226,35 +314,35 @@ function () {
   }, {
     key: "updateOptionsUseCount",
     value: function updateOptionsUseCount() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.generateOptionsUseCount();
       this.$variants.forEach(function (variant) {
         Object.keys(variant.fulfillName).forEach(function (key) {
-          _this4.$options_use_count[key][variant.fulfillName[key] - 1]++;
+          _this3.$options_use_count[key][variant.fulfillName[key] - 1]++;
         });
       });
     }
   }, {
     key: "removeUnusedOptions",
     value: function removeUnusedOptions() {
-      var _this5 = this;
+      var _this4 = this; // For each option
 
-      // For each option
+
       Object.keys(this.$options).forEach(function (option) {
         var deleteLater = []; // For each value of option
 
-        _this5.$options[option].forEach(function (value, index) {
-          if (_this5.$options_use_count[option][index] === 0) {
+        _this4.$options[option].forEach(function (value, index) {
+          if (_this4.$options_use_count[option][index] === 0) {
             var _loop = function _loop(i) {
-              var nextOption = _this5.$options[option][i]; // console.log(nextOption, i);
+              var nextOption = _this4.$options[option][i]; // console.log(nextOption, i);
               // update top DOM list
 
-              _this5.config.jQuery(_this5.config.selectors + " a.nav-link[data-option='" + option + "'][data-s_index='" + i + "']").attr('data-s_index', i - 1); // update $variants.fulfillName[option] by -1 for 
+              _this4.config.jQuery(_this4.config.selectors + " a.nav-link[data-option='" + option + "'][data-s_index='" + i + "']").attr('data-s_index', i - 1); // update $variants.fulfillName[option] by -1 for 
               // update tr#variant_# [data-option="OPTION"] data-s_index by -1
 
 
-              _this5.$variants.filter(function (v) {
+              _this4.$variants.filter(function (v) {
                 // console.log("Finding " + (i+1) + " index for " + nextOption);
                 return v.fulfillName[option] === i + 1 + "";
               }).forEach(function (variant) {
@@ -263,13 +351,13 @@ function () {
                 variant.fulfillName[option] = i + ""; // console.log("After update",variant.variantName, " = ", variant.fulfillName[option]);
                 // console.log(variant);
 
-                _this5.config.jQuery(_this5.config.table + " tr#variant_" + variant.id + " td[data-option='" + option + "']").attr('data-s_index', i - 1 + "");
+                _this4.config.jQuery(_this4.config.table + " tr#variant_" + variant.id + " td[data-option='" + option + "']").attr('data-s_index', i - 1 + "");
               });
-            };
-
-            // console.log("Found zero length for : " + this.$options[option][index]);
+            }; // console.log("Found zero length for : " + this.$options[option][index]);
             // update next options in $variants and DOM by -1
-            for (var i = index + 1; i < _this5.$options[option].length; i++) {
+
+
+            for (var i = index + 1; i < _this4.$options[option].length; i++) {
               _loop(i);
             } // remove this option from $options and $options_use_count and DOM top list
 
@@ -284,17 +372,17 @@ function () {
 
         deleteLater.forEach(function (d) {
           // Update Index
-          d.index = _this5.$options[d.option].findIndex(function (o) {
+          d.index = _this4.$options[d.option].findIndex(function (o) {
             return o === d.value;
           }); // console.log(this.$options[d.option]);
           // console.log("Deleting " + d.index + "-" + d.value);
 
-          _this5.$options[option].splice(d.index, 1);
+          _this4.$options[option].splice(d.index, 1);
 
-          _this5.$options_use_count[option].splice(d.index, 1); // console.log(this.$options[d.option]);
+          _this4.$options_use_count[option].splice(d.index, 1); // console.log(this.$options[d.option]);
 
 
-          _this5.config.jQuery(_this5.config.selectors + " a.nav-link[data-option='" + d.option + "'][data-selector='" + d.value + "']").remove();
+          _this4.config.jQuery(_this4.config.selectors + " a.nav-link[data-option='" + d.option + "'][data-selector='" + d.value + "']").remove();
         });
       });
     }
@@ -365,8 +453,7 @@ function () {
             }); // Check All with that option
 
             thisClass.$variants.forEach(function (v) {
-              console.log("Finding to check : " + (s_index + 1));
-
+              // console.log("Finding to check : " + (s_index+1));
               if (v.fulfillName[option] === s_index + 1 + "") {
                 $("#variant_" + v.id).find(".main-checkbox").prop('checked', true);
               }
@@ -381,24 +468,25 @@ function () {
         }); // Delete Button Action
 
         $(document).off('click', thisClass.config.table + " .jfb-delete-button").on('click', thisClass.config.table + " .jfb-delete-button", function (e) {
-          var _this7 = this;
+          var _this6 = this; // console.log('delete action called');return;
 
-          // console.log('delete action called');return;
+
           var sure = false;
 
           if (typeof window.rushModalConfirm === 'function') {
             rushModalConfirm({
               title: 'Confirm',
               content: 'Are you sure you want to delete these variants?',
+              id: "confirmDelVariants",
               buttons: {
                 ok: 'Yes Delete',
                 cancel: 'Cancel'
               },
               callback: function callback(e) {
-                var _this6 = this;
+                var _this5 = this;
 
                 if (e == 'Ok') {
-                  $("#RushModal").modal("hide");
+                  $("#confirmDelVariants").modal("hide");
                   sure = true;
                   var selectedVariants = thisClass.getSelectedVariants();
 
@@ -413,7 +501,7 @@ function () {
                       thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
 
                       $(thisClass.config.table + " tr#variant_" + id).remove();
-                      $(_this6).attr('disabled', true); // Update Delete Fields
+                      $(_this5).attr('disabled', true); // Update Delete Fields
 
                       thisClass.updateOptionsUseCount();
                       thisClass.removeUnusedOptions();
@@ -439,7 +527,7 @@ function () {
                 thisClass.$variants.splice(thisClass.getVariantIndexByID(id), 1); // Remove variant from DOM
 
                 $(thisClass.config.table + " tr#variant_" + id).remove();
-                $(_this7).attr('disabled', true); // Update Delete Fields
+                $(_this6).attr('disabled', true); // Update Delete Fields
 
                 thisClass.updateOptionsUseCount();
                 thisClass.removeUnusedOptions();
@@ -706,11 +794,11 @@ function () {
   }, {
     key: "generateVariantName",
     value: function generateVariantName(fulfillName) {
-      var _this8 = this;
+      var _this7 = this;
 
       var v_name = [];
       Object.keys(this.$options).forEach(function (v) {
-        v_name.push(_this8.$options[v][fulfillName[v] - 1]);
+        v_name.push(_this7.$options[v][fulfillName[v] - 1]);
       });
       return v_name.join(',');
     }
@@ -734,14 +822,14 @@ function () {
         titles += "<th scope=\"col\" class=\"\">".concat(v, "</th>");
       }); // Generate Buttons
 
-      buttons += "\n        <th colspan=\"1\"><button class=\"btn btn-danger jfb-delete-button btn-sm\" disabled>Delete</button></th>\n        <th colspan=\"".concat(blankColumns, "\"></th>\n        <th colspan=\"1\" id=\"changeShipping\">\n          <button class=\"btn btn-primary btn-sm\">\n            <span class=\"country\">").concat(this.trancatedValue(this.config.shipping.country, 13), "</span> - \n            <span class=\"option\">").concat(this.trancatedValue(this.config.shipping.option, 13), "</span>\n          </button>\n        </th>\n        <th colspan=\"1\">\n          <div class=\"dropdown price-change-all\">\n            <button class=\"btn btn-primary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-primary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n        <th colspan=\"1\"></th>\n        <th colspan=\"1\">\n          <div class=\"dropdown compare-price-change-all\">\n            <button class=\"btn btn-primary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-primary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n    ");
+      buttons += "\n        <th colspan=\"1\"><button class=\"btn btn-secondary jfb-delete-button btn-sm\" disabled>Delete</button></th>\n        <th colspan=\"".concat(blankColumns, "\"></th>\n        <th colspan=\"1\" id=\"changeShipping\">\n          <button class=\"btn btn-secondary btn-sm\">\n            <span class=\"country\">").concat(this.trancatedValue(this.config.shipping.country, 13), "Country</span> <br> \n            <span class=\"option\">").concat(this.trancatedValue(this.config.shipping.option, 13), "</span>\n          </button>\n        </th>\n        <th colspan=\"1\">\n          <div class=\"dropdown price-change-all\">\n            <button class=\"btn btn-secondary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-secondary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n        <th colspan=\"1\"></th>\n        <th colspan=\"1\">\n          <div class=\"dropdown compare-price-change-all\">\n            <button class=\"btn btn-secondary btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n              Change All\n            </button>\n            <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n              <a class=\"dropdown-item\" data-mode=\"new\" href=\"#\">Set New Value</a>\n              <a class=\"dropdown-item\" data-mode=\"multiply\" href=\"#\">Multiply By</a>\n            </div>\n            <div class=\"change-input\" data-mode=\"new\">\n              <div class=\"input\">\n                <input type=\"text\" placeholder=\"Enter Value\" class=\"form-control\" />\n              </div>\n              <div class=\"buttons\">\n                <button type=\"submit\" class=\"btn btn-secondary apply-button\">Apply</button>\n                <button type=\"close\" class=\"btn btn-danger close-button\">X</button>\n              </div>\n            </div>\n          </div>\n        </th>\n    ");
       this.config.jQuery(this.config.table).find('thead>tr.titles').html(titles);
       this.config.jQuery(this.config.table).find('thead>tr.buttons').html(buttons);
     }
   }, {
     key: "generateSelectors",
     value: function generateSelectors() {
-      var _this9 = this;
+      var _this8 = this;
 
       var selectors = [{
         option: "All",
@@ -755,9 +843,9 @@ function () {
 
       if (Object.keys(this.$options).length > 0) {
         Object.keys(this.$options).forEach(function (v) {
-          _this9.config.initialCounts[v] = _this9.$options[v].length;
+          _this8.config.initialCounts[v] = _this8.$options[v].length;
 
-          _this9.$options[v].forEach(function (element, index) {
+          _this8.$options[v].forEach(function (element, index) {
             selectors.push({
               option: v,
               selector: element,
@@ -788,23 +876,21 @@ function () {
   }, {
     key: "generateContent",
     value: function generateContent() {
-      var _this10 = this;
+      var _this9 = this;
 
       var content = ''; // Original Checkbox Was: <input class="main-checkbox" type="checkbox" name="checkbox[]" checked />
       // Updated to Bootstrap-4 Custom Checkbox
 
       this.$variants.forEach(function (variant, index) {
         content += "\n      <tr id=\"variant_".concat(variant.id, "\">\n        <th scope=\"row\">\n          <div class=\"custom-control custom-checkbox\">\n            <input type=\"checkbox\" class=\"custom-control-input main-checkbox\" id=\"customCheck_").concat(variant.id, "\" name=\"checkbox[]\" checked>\n            <label class=\"custom-control-label\" for=\"customCheck_").concat(variant.id, "\"></label>\n          </div>\n        </th>\n        <td class=\"jfb-img-td\"><img src=\"").concat(variant.variantImages, "\" alt=\"\"></td>\n        <td><input class=\"form-control shop-sku-field\" type=\"text\" name=\"shop_sku_").concat(variant.id, "\" value=\"").concat(variant.shopSKU, "\" /></td>");
-        console.log(_this10.$options);
-        console.log(variant.fulfillName);
 
-        if (Object.keys(_this10.$options).length > 0) {
-          Object.keys(_this10.$options).forEach(function (v, i) {
-            content += "\n            <td data-option=\"".concat(v, "\" data-s_index=\"").concat(variant.fulfillName[v] - 1, "\"><input class=\"form-control jfb_option_input\" type=\"text\" name=\"color_of_").concat(variant.id, "\" value=\"").concat(_this10.$options[v][variant.fulfillName[v] - 1], "\" /></td>\n          ");
+        if (Object.keys(_this9.$options).length > 0) {
+          Object.keys(_this9.$options).forEach(function (v, i) {
+            content += "\n            <td data-option=\"".concat(v, "\" data-s_index=\"").concat(variant.fulfillName[v] - 1, "\"><input class=\"form-control jfb_option_input\" type=\"text\" name=\"color_of_").concat(variant.id, "\" value=\"").concat(_this9.$options[v][variant.fulfillName[v] - 1], "\" /></td>\n          ");
           });
         }
 
-        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">").concat(_this10.config.shipping.price !== undefined ? "US$ " + _this10.roundNumber(_this10.config.shipping.price).toFixed(2) : "--", "</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this10.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this10.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this10.roundNumber(_this10.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this10.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
+        content += "\n        <td class=\"jfb-nowrap\">US$ ".concat(variant.__cost__, "</td>\n        <td class=\"shipping-cost\">").concat(_this9.config.shipping.price !== undefined ? "US$ " + _this9.roundNumber(_this9.config.shipping.price).toFixed(2) : "--", "</td> <!-- Shipping -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-price-field\" type=\"text\" name=\"price_").concat(variant.id, "\" value=\"").concat(_this9.roundNumber(variant.price).toFixed(2), "\" />\n          </div>\n        </td> <!-- Price -->\n        <td class=\"jfb-nowrap ").concat(parseFloat(_this9.calculateProfit(variant)) < 0 ? 'text-danger' : 'text-success', "\">US$ <span class=\"jfb-profit-field\">").concat(_this9.roundNumber(_this9.calculateProfit(variant)).toFixed(2), "</span></td> <!-- Profit -->\n        <td>\n          <div class=\"input-group\">\n            <div class=\"input-group-prepend\">\n              <span class=\"input-group-text\" id=\"basic-addon1\">US$</span>\n            </div>\n            <input class=\"form-control jfb-compare-price-field\" type=\"text\" name=\"comparePrice_").concat(variant.id, "\" value=\"").concat(_this9.roundNumber(variant.comparePrice).toFixed(2), "\" />\n          </div>\n        </td> <!-- Compared At Price -->\n        <td>").concat(variant.inventory, "</td>\n      </tr>\n      ");
       });
       return content;
     }
